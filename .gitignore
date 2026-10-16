@@ -5,3 +5,4 @@ node_modules/
 raw/
 *.log
 .DS_Store
+docs/reference/
