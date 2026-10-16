@@ -1,0 +1,80 @@
+/* 마이포워더 도구 — design-tokens.css (디자인 시스템 tokens.json에서 생성, 2026-10-15) */
+@font-face{font-family:"Pretendard Variable";src:url("./shared/fonts/PretendardVariable.woff2") format("woff2");font-weight:100 900;font-display:swap}
+:root, [data-theme="light"] {
+  --bg: #ffffff;
+  --bg-dark: #0a0a0d;
+  --card: #fafafa;
+  --card-raised: #ffffff;
+  --line: #e5e7eb;
+  --ink: #0a0a0d;
+  --ink-2: #71727b;
+  --ink-3: #8e8f98;
+  --on-dark: #ffffff;
+  --on-dark-2: #a1a1aa;
+  --accent-sales: #a7d62e;
+  --accent-sales-ink: #1f2b05;
+  --accent-sales-soft: #f2f9df;
+  --accent-ops: #4f7bff;
+  --accent-ops-ink: #ffffff;
+  --accent-ops-soft: #e9efff;
+  --danger: #e83b3b;
+  --card-rest: 0 0.6px 0.6px -1.25px rgba(0,0,0,0.07), 0 2.3px 2.3px -2.5px rgba(0,0,0,0.06), 0 10px 10px -3.75px rgba(0,0,0,0.03);
+  --card-hover: 0 1px 1px -1px rgba(0,0,0,0.08), 0 6px 8px -4px rgba(0,0,0,0.10), 0 24px 32px -8px rgba(0,0,0,0.12);
+}
+[data-theme="dark"] {
+  --bg: #0a0a0d;
+  --bg-dark: #141418;
+  --card: #141418;
+  --card-raised: #1b1b20;
+  --line: #26262c;
+  --ink: #f4f4f5;
+  --ink-2: #a1a1aa;
+  --ink-3: #6e6e78;
+  --on-dark: #f4f4f5;
+  --on-dark-2: #a1a1aa;
+  --accent-sales: #a7d62e;
+  --accent-sales-ink: #1f2b05;
+  --accent-sales-soft: #1f2a0b;
+  --accent-ops: #4f7bff;
+  --accent-ops-ink: #ffffff;
+  --accent-ops-soft: #121a33;
+  --danger: #e83b3b;
+  --card-rest: 0 0 0 1px #26262c;
+  --card-hover: 0 0 0 1px #3a3a42;
+}
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-pill: 999px;
+  --dur-fast: 160ms;
+  --dur-base: 320ms;
+  --dur-reveal: 640ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+}
+/* 영역 액센트: <body data-area="sales|ops"> */
+[data-area="sales"]{--accent:var(--accent-sales);--accent-ink:var(--accent-sales-ink);--accent-soft:var(--accent-sales-soft)}
+[data-area="ops"]{--accent:var(--accent-ops);--accent-ink:var(--accent-ops-ink);--accent-soft:var(--accent-ops-soft)}
+/* 타이포 스타일 */
+.display-xl{font-family:var(--font-sans);font-size:80px;line-height:1.05;font-weight:500;letter-spacing:-0.03em}
+.display-l{font-family:var(--font-sans);font-size:56px;line-height:1.08;font-weight:500;letter-spacing:-0.025em}
+.heading-1{font-family:var(--font-sans);font-size:36px;line-height:1.2;font-weight:500;letter-spacing:-0.02em}
+.heading-2{font-family:var(--font-sans);font-size:24px;line-height:1.3;font-weight:500;letter-spacing:-0.01em}
+.body-l{font-family:var(--font-sans);font-size:18px;line-height:1.6;font-weight:400}
+.body{font-family:var(--font-sans);font-size:16px;line-height:1.6;font-weight:400}
+.label{font-family:var(--font-sans);font-size:14px;line-height:1.4;font-weight:500}
+.caption{font-family:var(--font-sans);font-size:13px;line-height:1.5;font-weight:400}
+.tag{font-family:var(--font-sans);font-size:12px;line-height:1;font-weight:500;letter-spacing:0.02em}
+.code{font-family:var(--font-mono);font-size:13px;line-height:1.6;font-weight:400}
+html{font-family:var(--font-sans);color:var(--ink);background:var(--bg)}
+@media (prefers-reduced-motion: reduce){*{transition-duration:0s!important;animation-duration:0s!important}}
