@@ -9,34 +9,19 @@
 // - 호출 대상: data/customs-codes.json(API019 A09) 중 010 이상(000~009 관세청 본청·부서·소속기관 제외)
 // - 원본: raw/api005/{수집일}/{세관코드}.xml (커밋 제외). 성공한 응답만 저장하므로 이어받기가 안전하다.
 // - 호출 사이 1초. 오류 응답(tCnt -1)·한도 문구·HTTP 오류가 오면 즉시 멈추고 정제하지 않는다.
+// - 구분 규칙: scripts/classify-type.mjs, 지역 매핑: scripts/region-map.mjs
 // - 명세 요약: docs/api005-notes.md, 필드 정의: prd/bonded-area-code.md 3-2
 
 import { existsSync, mkdirSync, readFileSync, renameSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { classifyType, TYPES } from './classify-type.mjs';
+import { REGIONS, regionOf } from './region-map.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const API_URL = 'https://unipass.customs.go.kr:38010/ext/rest/shedInfoQry/retrieveShedInfo';
 const CALL_INTERVAL_MS = 1000;
 const LIMIT_PATTERN = /한도|초과|제한|limit/i;
-
-// 지역 그룹(PRD 3-2 region). 공항세관 관할이면 공항, 아니면 주소 → 관할세관 순으로 정한다.
-const AIRPORT_CUSTOMS = ['040', '041', '140']; // 인천공항·김포공항·김해공항세관
-const REGION_BY_ADDRESS = [
-  ['부산', /^부산/],
-  ['인천', /^인천/],
-  ['광양', /광양시/],
-  ['평택', /평택시/],
-  ['울산', /^울산/],
-];
-const REGION_BY_CUSTOMS = {
-  '030': '부산', '035': '부산', '037': '부산', '039': '부산', // 부산·용당세관(신항 진해 쪽 주소 포함)
-  '020': '인천',
-  '062': '광양',
-  '016': '평택',
-  '110': '울산',
-};
 
 const args = process.argv.slice(2);
 const buildOnly = args.includes('--build-only');
@@ -129,13 +114,6 @@ async function collect(targets) {
   console.log(`호출 ${called}회 · 건너뜀 ${targets.length - called}곳`);
 }
 
-function regionOf(customs, address) {
-  if (AIRPORT_CUSTOMS.includes(customs)) return '공항';
-  const byAddress = REGION_BY_ADDRESS.find(([, re]) => re.test(address));
-  if (byAddress) return byAddress[0];
-  return REGION_BY_CUSTOMS[customs] || '기타';
-}
-
 function build(targets) {
   const missing = targets.filter((c) => !existsSync(join(rawDir, `${c.code}.xml`)));
   if (missing.length) fail(`원본이 없는 세관 ${missing.length}곳: ${missing.map((c) => c.code).join(', ')}`);
@@ -172,7 +150,7 @@ function build(targets) {
         name: row.name,
         customs,
         customsName: customsName[customs] || '',
-        region: regionOf(customs, row.address),
+        region: regionOf(customs),
         type: t.type,
         typeBasis: t.basis,
         address: row.address,
@@ -201,7 +179,7 @@ function build(targets) {
   console.log(`원본 행 ${total.toLocaleString()} · 중복 ${duplicates.toLocaleString()} · 정제본 ${items.length.toLocaleString()}건`);
   console.log(`이름이 다른 중복 ${nameConflicts.length}건${nameConflicts.length ? ': ' + nameConflicts.slice(0, 5).join(' | ') : ''}`);
   console.log(`파일: data/bonded-area-code.json · ${(statSync(outPath).size / 1024).toFixed(1)} KB`);
-  console.log('지역:', ['부산', '인천', '광양', '평택', '울산', '공항', '기타'].map((r) => `${r} ${countBy('region')[r] || 0}`).join(' · '));
+  console.log('지역:', REGIONS.map((r) => `${r} ${countBy('region')[r] || 0}`).join(' · '));
   console.log('구분:', TYPES.map((t) => `${t} ${types[t] || 0}(${pct(types[t] || 0)})`).join(' · '));
   console.log('구분 근거:', JSON.stringify(countBy('typeBasis')));
   for (const code of ['03077011', '03077013']) {
