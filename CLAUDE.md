@@ -17,10 +17,11 @@
 ├── data/{slug}.json        도구가 쓰는 정적 데이터 (있을 때만)
 ├── thumbs/{slug}.png       카드 썸네일 16:10
 ├── prd/{slug}.md           기획안 (PRD-template.md 양식)
+├── kits/{slug}.md          공개 만들기 키트 (AI 코딩 도구용) + kits/{slug}.prompt.txt (Claude 채팅용 시작 프롬프트)
 └── docs/                   PRD-template.md, tools-index-schema.md, 디자인 시스템 README 사본
 ```
 
-`prompts/`(프롬프트 전문)는 저장소에 넣지 않는다. 별도 비공개 폴더.
+`prompts/`(작업 프롬프트 전문)는 저장소에 넣지 않는다. 별도 비공개 폴더. `kits/`는 누구나 같은 도구를 AI로 다시 만들 수 있게 공개용으로 새로 쓴 글이며, 인증키·사내 메모·비공개 데이터를 넣지 않는다.
 
 ## 도구 1개를 만들 때 반드시
 
@@ -31,6 +32,7 @@
 5. 검증 2건을 브라우저에서 실제로 돌려 기대 출력과 비교한 뒤 완료 보고. 통과 전에는 `tools.json`의 `status`를 `live`로 바꾸지 않는다.
 6. `tools.json`에 항목을 추가/갱신한다(스키마 준수). `history`는 덧붙이기만.
 7. 완료 보고에 포함: 파일 목록, 검증 결과, 소요시간, 막힌 곳 한 줄(콘텐츠 메모용).
+8. "직접 만들어 보기" 키트를 함께 만든다: `kits/{slug}.prompt.txt`(채팅에 붙여넣으면 HTML 한 파일로 만들어지는 시작 프롬프트), `kits/{slug}.md`(데이터 얻는 법·규칙·단계별 프롬프트·완성 확인), 공개 가능한 데이터 내려받기, 응용 프롬프트 2~3개. `tools.json`의 `kit`에 연결한다.
 
 ## 디자인 규칙 (요약 — 전문은 docs/design-system-README.md)
 

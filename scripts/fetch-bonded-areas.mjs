@@ -172,13 +172,24 @@ function build(targets) {
   const outPath = join(ROOT, 'data', 'bonded-area-code.json');
   writeFileSync(outPath, `${head},\n  "items": [\n${body}\n  ]\n}\n`, 'utf8');
 
+  // 엑셀용 CSV(직접 만들어 보기 키트의 "데이터 그대로 쓰기"). BOM을 붙여 엑셀에서 한글이 깨지지 않게 한다.
+  // 부호는 ="01001001" 형태로 써서 더블클릭으로 열어도 앞자리 0이 사라지지 않게 한다(프로그램용은 JSON).
+  const csvCell = (v) => (/[",\n\r]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v);
+  const asText = (v) => `="${v}"`;
+  const csvRows = [
+    ['장치장부호', '장치장명', '관할세관부호', '관할세관명', '지역', '구분(추정)', '주소', '약칭'],
+    ...items.map((it) => [asText(it.code), it.name, asText(it.customs), it.customsName, it.region, it.type, it.address, it.aliases.join(' ')]),
+  ];
+  const csvPath = join(ROOT, 'data', 'bonded-area-code.csv');
+  writeFileSync(csvPath, '﻿' + csvRows.map((r) => r.map((v) => csvCell(String(v ?? ''))).join(',')).join('\r\n') + '\r\n', 'utf8');
+
   const countBy = (k) => items.reduce((a, it) => ((a[it[k]] = (a[it[k]] || 0) + 1), a), {});
   const pct = (n) => `${((n / items.length) * 100).toFixed(1)}%`;
   const types = countBy('type');
   console.log('\n=== 정제 결과 ===');
   console.log(`원본 행 ${total.toLocaleString()} · 중복 ${duplicates.toLocaleString()} · 정제본 ${items.length.toLocaleString()}건`);
   console.log(`이름이 다른 중복 ${nameConflicts.length}건${nameConflicts.length ? ': ' + nameConflicts.slice(0, 5).join(' | ') : ''}`);
-  console.log(`파일: data/bonded-area-code.json · ${(statSync(outPath).size / 1024).toFixed(1)} KB`);
+  console.log(`파일: data/bonded-area-code.json · ${(statSync(outPath).size / 1024).toFixed(1)} KB, data/bonded-area-code.csv · ${(statSync(csvPath).size / 1024).toFixed(1)} KB`);
   console.log('지역:', REGIONS.map((r) => `${r} ${countBy('region')[r] || 0}`).join(' · '));
   console.log('구분:', TYPES.map((t) => `${t} ${types[t] || 0}(${pct(types[t] || 0)})`).join(' · '));
   console.log('구분 근거:', JSON.stringify(countBy('typeBasis')));

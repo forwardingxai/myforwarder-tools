@@ -15,7 +15,7 @@ body {
   overflow-wrap: break-word;
 }
 
-h1, h2, h3, p { margin: 0; }
+h1, h2, h3, h4, p { margin: 0; }
 a { color: inherit; }
 img { max-width: 100%; display: block; }
 button, input, select, textarea { font: inherit; color: inherit; }

@@ -20,13 +20,26 @@
       {"date": "2026-10-17", "step": "구현", "note": "Claude Code, 단일 HTML"}
     ],
     "promptStructure": [
-      {"title": "역할 지정", "open": true},
-      {"title": "데이터 수집·정제", "open": true},
-      {"title": "검색·정렬 규칙", "open": false},
-      {"title": "초성·별칭 처리", "open": false},
-      {"title": "복사 형식 설계", "open": false},
-      {"title": "출력 형식", "open": false}
+      {"title": "역할 지정"},
+      {"title": "데이터 수집·정제"},
+      {"title": "검색·정렬 규칙"},
+      {"title": "초성·별칭 처리"},
+      {"title": "복사 형식 설계"},
+      {"title": "출력 형식"}
     ],
+    "kit": {
+      "prompt": "kits/bonded-area-code.prompt.txt",
+      "guide": "kits/bonded-area-code.md",
+      "data": [
+        {"label": "JSON", "note": "전체 필드 · 프로그램·AI용", "href": "data/bonded-area-code.json"},
+        {"label": "CSV", "note": "엑셀용 · 더블클릭해도 부호 앞자리 0 유지", "href": "data/bonded-area-code.csv"}
+      ],
+      "ideas": [
+        {"title": "구글 시트에서 부호 → 장치장명", "prompt": "구글 시트 A열에 장치장 부호(8자리)를 넣으면 B열에 장치장명, C열에 관할세관이 나오게 하는 Apps Script를 만들어 줘. 데이터는 {{DATA_URL}} 의 JSON을 하루 한 번 불러와 캐시해. 부호는 문자열로 다뤄 앞자리 0을 지켜. 설치 방법을 초보자용으로 단계별로 알려 줘."},
+        {"title": "우리 팀용 즐겨찾기·메모", "prompt": "장치장 코드 조회기에 '우리 팀 기본 목록' 기능을 추가해 줘. 자주 쓰는 장치장 부호 10개를 설정 파일에 적어 두면 첫 화면에 바로 보이고, 장치장마다 반입 마감시간·담당 창구·주의사항 메모를 함께 보여 줘. 메모는 JSON 파일로 내보내고 불러올 수 있게 해서 팀원과 나눌 수 있게 해 줘."},
+        {"title": "관세사 안내 메일 문구", "prompt": "장치장 코드 조회기에서 체크한 장치장들로 관세사에게 보낼 안내 메일 문구를 만들어 주는 버튼을 추가해 줘. 형식: 인사 한 줄 → 'B/L 번호: (빈칸)' → 장치장명과 부호 목록 → 마무리 인사. 존댓말로, 복사 버튼과 함께 보여 줘."}
+      ]
+    },
     "toolsUsed": ["Claude 채팅(기획)", "Claude Code", "UNI-PASS Open API"],
     "hours": 0,
     "status": "draft",
