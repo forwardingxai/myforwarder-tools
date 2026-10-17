@@ -267,7 +267,7 @@
       </div>`));
     }
     if (cta.title && cta.primary?.href) {
-      out.push(`<section class="cta-band" id="next-steps" data-toc-label="${esc(cta.eyebrow || '다음 걸음')}" data-reveal>
+      out.push(`<section class="cta-band" id="next-steps" data-toc-label="${esc(cta.tocLabel || '다음 걸음')}" data-reveal>
         ${cta.eyebrow ? `<span class="cta-band__eyebrow">${esc(cta.eyebrow)}</span>` : ''}
         <h2 class="display-l cta-band__title">${esc(cta.title)}</h2>
         ${cta.body ? `<p class="body-l cta-band__body">${esc(cta.body)}</p>` : ''}
