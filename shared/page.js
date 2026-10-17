@@ -266,14 +266,15 @@
         ${links ? `<div class="kit-actions">${links}</div>` : ''}
       </div>`));
     }
-    if (cta.title && cta.primary?.href) {
+    // 버튼: cta.actions 배열(첫 번째가 주 버튼). 예전 형식(primary·secondary)도 받는다
+    const actions = (cta.actions || [cta.primary, cta.secondary]).filter((a) => a?.label && a?.href);
+    if (cta.title && actions.length) {
       out.push(`<section class="cta-band" id="next-steps" data-toc-label="${esc(cta.tocLabel || '다음 걸음')}" data-reveal>
         ${cta.eyebrow ? `<span class="cta-band__eyebrow">${esc(cta.eyebrow)}</span>` : ''}
         <h2 class="display-l cta-band__title">${esc(cta.title)}</h2>
         ${cta.body ? `<p class="body-l cta-band__body">${esc(cta.body)}</p>` : ''}
         <div class="cta-band__actions">
-          <a class="btn cta-band__primary" href="${esc(cta.primary.href)}"${external(cta.primary.href)}>${esc(cta.primary.label || '자세히 보기')}</a>
-          ${cta.secondary?.href ? `<a class="btn cta-band__secondary" href="${esc(cta.secondary.href)}"${external(cta.secondary.href)}>${esc(cta.secondary.label || '더 알아보기')}</a>` : ''}
+          ${actions.map((a, i) => `<a class="btn ${i === 0 ? 'cta-band__primary' : 'cta-band__secondary'}" href="${esc(a.href)}"${external(a.href)}>${esc(a.label)}</a>`).join('')}
         </div>
       </section>`);
     }
