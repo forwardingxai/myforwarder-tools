@@ -6,8 +6,8 @@
 // 2) [data-reveal] 요소를 뷰포트에 들어올 때 한 번 드러낸다(prefers-reduced-motion이면 즉시 표시).
 //    [data-reveal-words]는 단어 단위로 나눠 40ms 간격으로 드러낸다.
 // 3) .site-nav에 스크롤하면 .is-scrolled(그림자)를 붙인다.
-// 4) 화면 내 목차(.page-toc): 오른쪽 아래 떠 있는 패널. 실행 영역(.tool-run) + 하단 섹션을 보여 주고 현재 위치를 표시한다.
-//    넓은 화면(1760px 이상)은 펼친 채, 그보다 좁으면 결과 영역을 가리지 않게 알약 하나로 접은 채 시작한다.
+// 4) 화면 내 목차(.page-toc): 오른쪽 아래 떠 있는 작은 반투명 상자. 실행 영역(.tool-run) + 하단 섹션을 보여 주고 현재 위치를 표시한다.
+//    펼친 채 시작한다. 768px 이하는 화면을 가리지 않게 알약 하나로 접은 채 시작한다. 접기·펼치기는 기억한다.
 // 5) site.json의 연락(contact.links): 첫 링크가 오류 제보 링크([data-contact-link])의 주소가 되고,
 //    [data-contact-links] 자리에 모든 채널 버튼을 그린다.
 (() => {
@@ -98,7 +98,7 @@
   document.documentElement.classList.add('reveal-ready');
 
   // 화면 내 목차
-  const TOC_KEY = 'mft:site:toc';
+  const TOC_KEY = 'mft:site:toc:v2'; // v2: 기본값을 "펼침"으로 바꾸며 예전 "접힘" 기록을 초기화
   const LIST_SVG =
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg>';
   const CHEVRON_SVG =
@@ -139,19 +139,20 @@
     const pill = toc.querySelector('.page-toc__pill');
     const current = toc.querySelector('.page-toc__current');
     const count = toc.querySelector('.page-toc__count');
-    const wide = window.matchMedia('(min-width: 1760px)').matches;
+    const mobile = window.matchMedia('(max-width: 768px)').matches;
     let saved = null;
     try { saved = localStorage.getItem(TOC_KEY); } catch { /* 저장 불가 환경 */ }
     const setOpen = (open, remember) => {
       toc.classList.toggle('is-open', open);
+      document.documentElement.classList.toggle('toc-open', open); // 본문이 목차에 가리지 않게 오른쪽 여백(layout.css)
       pill.setAttribute('aria-expanded', open);
       if (remember) { try { localStorage.setItem(TOC_KEY, open ? 'open' : 'closed'); } catch { /* 저장 불가 환경 */ } }
     };
-    setOpen(saved ? saved === 'open' : wide, false);
-    pill.addEventListener('click', () => setOpen(true, true));
-    toc.querySelector('.page-toc__close').addEventListener('click', () => setOpen(false, true));
-    // 좁은 화면에서는 항목을 고르면 패널을 접어 결과를 가리지 않는다
-    links.forEach((a) => a.addEventListener('click', () => { if (!wide) setOpen(false, false); }));
+    setOpen(mobile ? false : saved !== 'closed', false);
+    pill.addEventListener('click', () => setOpen(true, !mobile));
+    toc.querySelector('.page-toc__close').addEventListener('click', () => setOpen(false, !mobile));
+    // 모바일은 항목을 고르면 패널을 접어 결과를 가리지 않는다
+    links.forEach((a) => a.addEventListener('click', () => { if (mobile) setOpen(false, false); }));
 
     tocUpdate = () => {
       const line = window.innerHeight * 0.35;

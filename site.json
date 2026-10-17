@@ -1,9 +1,9 @@
 {
-  "_note": "사이트 공통 설정. 빈 칸은 화면에 나오지 않는다(shared/page.js). 문구 기준은 docs/voice-guide.md. 출처: ai-class-freightforwarder 강의 랜딩(2026-10). 확인 대기: 활동명 '3주 과정', 강의 링크, 경력 연수.",
+  "_note": "사이트 공통 설정. 빈 칸은 화면에 나오지 않는다(shared/page.js). 문구 기준은 docs/voice-guide.md. 출처: ai-class-freightforwarder 강의 랜딩(2026-10), 사용자 설명(협회와 공동 설계한 3주 과정 중 1주 16시간 강의). 확인 대기: 협회명, 담당 주차 단계, 공개용 강의 링크, 경력 연수, 실명 공개.",
   "creator": {
     "name": "이준헌",
-    "role": "포워딩 × AI 3주 과정 강사 · 마이포워더 도구 제작",
-    "bio": "포워딩 현장에서 16년을 일했어요. 지금은 실무자가 AI로 직접 일을 줄이는 법을 가르치고, 그 과정에서 만든 도구를 여기에 하나씩 공개해요.",
+    "role": "포워딩 × AI 3주 과정 공동 설계 · 강사 · 마이포워더 도구 제작",
+    "bio": "포워딩 현장에서 16년을 일했어요. 협회와 함께 포워딩 실무자를 위한 AI 3주 과정을 설계했고, 그중 1주(16시간)를 직접 가르쳐요. 입문 → 인사이트 → 중급 → 중고급 순서로 한 단계씩 올라가는 커리큘럼이에요. 강의에서 다루는 방법 그대로 실무 도구를 만들어, 여기에 하나씩 공개해요.",
     "links": [
       {"label": "강의 소개 보기", "href": "https://forwardingxai.vercel.app/landing"},
       {"label": "오픈톡방 참여", "href": "https://open.kakao.com/o/gtEJl7Ei"}
@@ -12,7 +12,7 @@
   "cta": {
     "eyebrow": "다음 걸음",
     "title": "포워딩 실무에 AI를 붙이는 법, 처음부터 같이 해 봐요",
-    "body": "이런 도구를 처음부터 끝까지 AI로 만드는 과정을 3주 동안 한 단계씩 보여 드려요. 코딩을 몰라도 괜찮아요.",
+    "body": "협회와 함께 짠 3주 커리큘럼으로, 입문부터 중고급까지 한 단계씩 올라가요. 이런 도구를 AI로 만드는 방법도 그 안에 있어요. 코딩을 몰라도 괜찮아요.",
     "primary": {"label": "포워딩 × AI 3주 과정 보기", "href": "https://forwardingxai.vercel.app/landing"},
     "secondary": {"label": "오픈톡방에서 물어보기", "href": "https://open.kakao.com/o/gtEJl7Ei"}
   },

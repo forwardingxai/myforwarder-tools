@@ -21,6 +21,12 @@ h1, h2, h3, h4, p { margin: 0; }
 /* 목차 링크로 이동할 때: 사용자가 누른 이동만 부드럽게(자동 재생 아님), 상단 바 높이만큼 여유 */
 @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
 .tool-run, .section, .cta-band { scroll-margin-top: 72px; }
+
+/* 목차가 펼쳐져 있으면 본문 오른쪽에 목차 너비(약 210px)만큼 비워 결과 행의 버튼을 가리지 않는다.
+   본문(최대 1200px) 바깥 여백이 충분한 넓은 화면(약 1640px 이상)은 기본 여백 그대로. */
+@media (min-width: 769px) {
+  .toc-open .page { padding-right: max(var(--space-6), min(210px, calc(810px - 50vw))); }
+}
 a { color: inherit; }
 img { max-width: 100%; display: block; }
 button, input, select, textarea { font: inherit; color: inherit; }
