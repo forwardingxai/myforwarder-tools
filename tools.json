@@ -1,1 +1,36 @@
-[]
+[
+  {
+    "slug": "bonded-area-code",
+    "name": "장치장 코드 조회기",
+    "area": "ops",
+    "day": 1,
+    "date": "2026-10-17",
+    "stage": "공통",
+    "summary": "장치장명·코드·초성·약칭으로 보세구역 부호를 찾아 바로 복사합니다.",
+    "features": [
+      "장치장명·코드·초성·약칭 검색",
+      "지역·구분·세관 필터",
+      "관세사 전달용 복사 3형식(한 줄·표·코드만)",
+      "즐겨찾기·최근 조회·내 메모"
+    ],
+    "history": [
+      {"date": "2026-10-15", "step": "기획", "note": "입력 3개(검색어·지역·구분)와 관세사 전달용 복사로 범위 확정"},
+      {"date": "2026-10-16", "step": "데이터", "note": "UNI-PASS API005·API019 명세 확인, 시험 호출로 세관별 수집 방식 확정"},
+      {"date": "2026-10-17", "step": "데이터", "note": "전국 관할세관 50곳 3,426건 수집·정제, 구분 11종 추정 규칙"},
+      {"date": "2026-10-17", "step": "구현", "note": "Claude Code, 단일 HTML"}
+    ],
+    "promptStructure": [
+      {"title": "역할 지정", "open": true},
+      {"title": "데이터 수집·정제", "open": true},
+      {"title": "검색·정렬 규칙", "open": false},
+      {"title": "초성·별칭 처리", "open": false},
+      {"title": "복사 형식 설계", "open": false},
+      {"title": "출력 형식", "open": false}
+    ],
+    "toolsUsed": ["Claude 채팅(기획)", "Claude Code", "UNI-PASS Open API"],
+    "hours": 0,
+    "status": "draft",
+    "thumb": "",
+    "related": []
+  }
+]

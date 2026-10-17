@@ -1,0 +1,210 @@
+/* 마이포워더 도구 — 공통 컴포넌트
+   Button · Tag · ToolCard · AreaCard · PromptStructureCard + 입력창 · 필터 pill · 토스트
+   색은 네 곳에만: 영역 태그, 다크 블록 위 숫자, 실행 버튼 1개(.btn-accent), 연한 강조면(--accent-soft) */
+
+/* Button — 전부 pill */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 40px;
+  padding: 0 var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  background: var(--card-raised);
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.4;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+}
+.btn:hover { background: var(--card); border-color: var(--ink-3); }
+.btn:disabled { cursor: not-allowed; color: var(--ink-3); background: var(--card); border-color: var(--line); }
+.btn svg { width: 16px; height: 16px; flex: none; }
+.btn-sm { min-height: 32px; padding: 0 var(--space-3); font-size: 13px; }
+.btn-dark { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.btn-dark:hover { background: var(--ink-2); border-color: var(--ink-2); }
+/* 실행 버튼 — 한 페이지에 하나 */
+.btn-accent { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); min-height: 44px; padding: 0 var(--space-6); }
+.btn-accent:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.btn-accent:disabled { background: var(--card); color: var(--ink-3); border-color: var(--line); }
+.btn-icon {
+  width: 32px; height: 32px; padding: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid transparent; border-radius: var(--radius-pill);
+  background: transparent; color: var(--ink-3); cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+.btn-icon:hover { background: var(--card); color: var(--ink); }
+.btn-icon svg { width: 18px; height: 18px; }
+.btn-icon[aria-pressed="true"] { color: var(--ink); }
+
+/* Tag — pill */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  background: var(--card);
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+.tag-area { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.tag-mini {
+  padding: 2px 6px;
+  font-size: 11px;
+  line-height: 1.2;
+  font-weight: 400;
+  color: var(--ink-3);
+  background: var(--bg);
+}
+
+/* 필터 pill — 활성은 연한 강조면 */
+.pill-group { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.pill {
+  min-height: 32px;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  background: var(--card-raised);
+  color: var(--ink-2);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+}
+.pill:hover { color: var(--ink); border-color: var(--ink-3); }
+.pill[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent-soft); color: var(--ink); }
+.pill .pill__count { color: var(--ink-3); font-weight: 400; margin-left: 2px; }
+
+/* 입력창 — 8px */
+.field { display: grid; gap: var(--space-2); }
+.field__label { font-size: 14px; line-height: 1.4; font-weight: 500; }
+.input, .select, .textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--card-raised);
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.4;
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+.input:hover, .select:hover, .textarea:hover { border-color: var(--ink-3); }
+.input:focus, .select:focus, .textarea:focus { outline: none; border-color: var(--ink); }
+.input::placeholder, .textarea::placeholder { color: var(--ink-3); }
+.select { appearance: none; padding-right: 36px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2371727b' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; }
+.select-sm { width: auto; padding: 6px 32px 6px 12px; font-size: 13px; border-radius: var(--radius-pill); background-position: right 12px center; }
+.textarea { resize: vertical; min-height: 88px; line-height: 1.6; }
+
+/* 카드 — 16px, 흰 카드는 card-rest 그림자 */
+.card {
+  background: var(--card-raised);
+  border-radius: var(--radius-md);
+  box-shadow: var(--card-rest);
+  padding: var(--space-6);
+}
+.card-flat { background: var(--card); border-radius: var(--radius-md); padding: var(--space-4) var(--space-6); }
+
+/* ToolCard */
+.tool-card {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: var(--card-raised);
+  border-radius: var(--radius-md);
+  box-shadow: var(--card-rest);
+  color: var(--ink);
+  text-decoration: none;
+  transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
+}
+.tool-card:hover { transform: translateY(-4px); box-shadow: var(--card-hover); }
+.tool-card__thumb { aspect-ratio: 16 / 10; border-radius: var(--radius-sm); background: var(--card); overflow: hidden; }
+.tool-card__thumb img { width: 100%; height: 100%; object-fit: cover; }
+.tool-card__tags { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.tool-card__meta { color: var(--ink-3); }
+.tool-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-6); }
+@media (max-width: 1024px) { .tool-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 768px) { .tool-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* AreaCard — 다크 블록, 큰 숫자만 액센트 */
+.area-card {
+  display: grid;
+  gap: var(--space-4);
+  padding: var(--space-8);
+  background: var(--bg-dark);
+  color: var(--on-dark);
+  border-radius: var(--radius-md);
+}
+.area-card__number { color: var(--accent); }
+.area-card__desc { color: var(--on-dark-2); }
+
+/* PromptStructureCard — 단계 제목만 공개, 번호칸은 연한 강조면 */
+.prompt-card { display: grid; gap: var(--space-2); }
+.prompt-step {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  background: var(--card-raised);
+  border-radius: var(--radius-md);
+  box-shadow: var(--card-rest);
+}
+.prompt-step__no {
+  display: inline-flex; align-items: center; justify-content: center;
+  height: 32px; border-radius: var(--radius-pill);
+  background: var(--accent-soft); color: var(--ink);
+  font-family: var(--font-mono); font-size: 13px;
+}
+.prompt-step__lock { display: inline-flex; align-items: center; gap: var(--space-1); color: var(--ink-3); font-size: 13px; }
+.prompt-step__lock svg { width: 14px; height: 14px; }
+.prompt-step.is-locked .prompt-step__title { color: var(--ink-2); }
+
+/* 기능 목록 */
+.feature-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); }
+.feature-list li { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4); background: var(--card); border-radius: var(--radius-md); }
+.feature-list__no {
+  flex: none; display: inline-flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px; border-radius: var(--radius-pill);
+  background: var(--accent-soft); font-family: var(--font-mono); font-size: 13px;
+}
+@media (max-width: 768px) { .feature-list { grid-template-columns: minmax(0, 1fr); } }
+
+/* 만든 과정 타임라인 */
+.timeline { list-style: none; margin: 0; padding: 0; display: grid; }
+.timeline li {
+  display: grid;
+  grid-template-columns: 112px 72px minmax(0, 1fr);
+  gap: var(--space-4);
+  padding: var(--space-4) 0;
+  border-top: 1px solid var(--line);
+}
+.timeline li:last-child { border-bottom: 1px solid var(--line); }
+.timeline__date { color: var(--ink-3); font-family: var(--font-mono); font-size: 13px; padding-top: 2px; }
+@media (max-width: 768px) { .timeline li { grid-template-columns: 96px minmax(0, 1fr); } .timeline__note { grid-column: 1 / -1; } }
+
+/* 토스트 — 애니메이션 없이 표시/숨김 */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: var(--space-8);
+  transform: translateX(-50%);
+  z-index: 50;
+  padding: 12px 20px;
+  border-radius: var(--radius-pill);
+  background: var(--bg-dark);
+  color: var(--on-dark);
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: var(--card-hover);
+  max-width: calc(100vw - 32px);
+}
+.toast[hidden] { display: none; }

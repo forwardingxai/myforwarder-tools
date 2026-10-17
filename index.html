@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>마이포워더 도구</title>
+<meta name="description" content="포워딩·SCM 실무자가 로그인 없이 바로 쓰는 업무 도구 모음. 1일 1개발.">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="design-tokens.css">
+<link rel="stylesheet" href="shared/layout.css">
+<link rel="stylesheet" href="shared/components.css">
+<style>
+  .hero { display: grid; gap: var(--space-6); padding: var(--space-16) 0 var(--space-12); }
+  .hero .body-l { max-width: 640px; }
+  .hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+  .band { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-6); padding: var(--space-12); background: var(--bg-dark); color: var(--on-dark); border-radius: var(--radius-md); }
+  .band__num { color: var(--accent-sales); }
+  .band__label { color: var(--on-dark-2); }
+  .areas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-6); }
+  .landing-section { display: grid; gap: var(--space-6); margin-top: var(--space-24); }
+  .empty { padding: var(--space-12) var(--space-6); text-align: center; color: var(--ink-2); background: var(--card); border-radius: var(--radius-md); }
+  @media (max-width: 768px) {
+    .hero .display-xl { font-size: 48px; }
+    .band, .areas { grid-template-columns: minmax(0, 1fr); padding: var(--space-8); }
+    .areas { padding: 0; }
+    .band .display-l { font-size: 44px; }
+    .landing-section { margin-top: var(--space-16); }
+  }
+</style>
+</head>
+<body>
+<main class="page">
+  <section class="hero">
+    <h1 class="display-xl">마이포워더 도구</h1>
+    <p class="body-l ink-2">포워딩·SCM 실무자가 로그인 없이 바로 쓰는 업무 도구 모음. 하루에 하나씩 만듭니다.</p>
+    <div class="hero__actions">
+      <a class="btn btn-dark" href="#tools">도구 보기</a>
+      <a class="btn" href="#about">소개</a>
+    </div>
+  </section>
+
+  <section class="band" data-reveal aria-label="숫자로 보기">
+    <div><p class="display-l band__num" id="n-tools">0</p><p class="body band__label">공개된 도구</p></div>
+    <div><p class="display-l band__num" id="n-day">D+0</p><p class="body band__label">1일 1개발</p></div>
+  </section>
+
+  <section class="landing-section" data-reveal aria-label="영역">
+    <div class="areas">
+      <div class="area-card" data-area="sales"><p class="display-l area-card__number" id="n-sales">0</p><h2 class="heading-2">영업</h2><p class="body area-card__desc">견적·운임·고객 응대에 쓰는 도구</p></div>
+      <div class="area-card" data-area="ops"><p class="display-l area-card__number" id="n-ops">0</p><h2 class="heading-2">운영</h2><p class="body area-card__desc">통관·선적·서류 처리에 쓰는 도구</p></div>
+    </div>
+  </section>
+
+  <section class="landing-section" id="tools" data-reveal>
+    <h2 class="heading-2">도구</h2>
+    <div id="grid"></div>
+  </section>
+
+  <section class="landing-section" id="about" data-reveal>
+    <h2 class="heading-2">소개</h2>
+    <p class="body ink-2">실무에서 반복되는 확인 작업을 도구로 바꿉니다. 각 도구 페이지 아래에 기능 목록과 만든 과정을 함께 공개합니다.</p>
+  </section>
+
+  <section class="landing-section" id="contact" data-reveal>
+    <h2 class="heading-2">연락</h2>
+    <p class="body ink-2">오류 제보와 제안 창구는 준비 중입니다.</p>
+  </section>
+</main>
+<script src="shared/page.js" defer></script>
+<script>
+(() => {
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+  const pad2 = (n) => String(n).padStart(2, '0');
+  fetch('tools.json', { cache: 'no-cache' })
+    .then((r) => r.json())
+    .then((all) => {
+      const live = all.filter((t) => t.status === 'live').sort((a, b) => b.date.localeCompare(a.date));
+      document.getElementById('n-tools').textContent = live.length;
+      document.getElementById('n-day').textContent = `D+${all.length ? Math.max(...all.map((t) => t.day)) : 0}`;
+      document.getElementById('n-sales').textContent = live.filter((t) => t.area === 'sales').length;
+      document.getElementById('n-ops').textContent = live.filter((t) => t.area === 'ops').length;
+      document.getElementById('grid').innerHTML = live.length
+        ? `<div class="tool-grid">${live.map((t) => `<a class="tool-card" href="tools/${esc(t.slug)}.html">
+            <div class="tool-card__thumb">${t.thumb ? `<img src="${esc(t.thumb)}" alt="" loading="lazy">` : ''}</div>
+            <div class="tool-card__tags"><span class="tag tag-area" data-area="${esc(t.area)}">${t.area === 'sales' ? '영업' : '운영'}</span><span class="tag">${esc(t.stage)}</span></div>
+            <h3 class="heading-2">${esc(t.name)}</h3>
+            <p class="body ink-2">${esc(t.summary)}</p>
+            <p class="caption tool-card__meta">D${pad2(t.day)} · ${esc(t.date)}</p></a>`).join('')}</div>`
+        : '<p class="empty body">첫 도구를 검증하고 있습니다. 곧 공개합니다.</p>';
+    })
+    .catch(() => { document.getElementById('grid').innerHTML = '<p class="empty body">도구 목록을 불러오지 못했습니다.</p>'; });
+})();
+</script>
+</body>
+</html>

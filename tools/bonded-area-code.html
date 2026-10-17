@@ -1,0 +1,774 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>장치장 코드 조회기 — 마이포워더 도구</title>
+<meta name="description" content="장치장명·코드·초성·약칭으로 보세구역(장치장) 부호를 찾아 관세사 전달용으로 바로 복사합니다.">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="../design-tokens.css">
+<link rel="stylesheet" href="../shared/layout.css">
+<link rel="stylesheet" href="../shared/components.css">
+<style>
+  /* ── 입력 영역 ── */
+  .search-wrap { position: relative; }
+  .search-wrap .input { padding-right: 44px; font-size: 18px; }
+  .search-wrap .input::-webkit-search-cancel-button { -webkit-appearance: none; appearance: none; }
+  .search-clear { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); }
+  .search-clear[hidden], .kbd[hidden] { display: none; }
+  .kbd {
+    position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+    min-width: 22px; height: 22px; padding: 0 6px;
+    display: inline-flex; align-items: center; justify-content: center;
+    border: 1px solid var(--line); border-radius: var(--radius-sm);
+    background: var(--card); color: var(--ink-3);
+    font-family: var(--font-mono); font-size: 12px;
+  }
+  .filter-block { display: grid; gap: var(--space-3); }
+  .filter-block__head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-2); }
+  .link-btn {
+    padding: 0; border: 0; background: none; cursor: pointer;
+    color: var(--ink-3); font-size: 13px; text-decoration: underline; text-underline-offset: 3px;
+  }
+  .link-btn:hover { color: var(--ink); }
+  details.adv { border-top: 1px solid var(--line); padding-top: var(--space-4); }
+  details.adv summary {
+    cursor: pointer; list-style: none;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 14px; font-weight: 500;
+  }
+  details.adv summary::-webkit-details-marker { display: none; }
+  details.adv summary svg { width: 16px; height: 16px; color: var(--ink-3); transition: transform var(--dur-fast) var(--ease-out); }
+  details.adv[open] summary svg { transform: rotate(180deg); }
+  details.adv .pill-group { margin-top: var(--space-3); max-height: 240px; overflow-y: auto; padding: 2px; }
+
+  .tabs { display: flex; gap: var(--space-2); }
+  .saved-list { list-style: none; margin: var(--space-3) 0 0; padding: 0; display: grid; gap: var(--space-1); }
+  .saved-list button {
+    width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--space-3); align-items: center;
+    padding: var(--space-2) var(--space-3); border: 0; border-radius: var(--radius-sm);
+    background: transparent; text-align: left; cursor: pointer;
+    transition: background-color var(--dur-fast) var(--ease-out);
+  }
+  .saved-list button:hover { background: var(--card); }
+  .saved-list .name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; }
+  .saved-list .code { color: var(--ink-3); }
+  .saved-empty { margin-top: var(--space-3); color: var(--ink-3); font-size: 13px; }
+
+  .data-panel { display: grid; gap: var(--space-3); }
+  .data-panel dl { margin: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--space-2) var(--space-4); font-size: 13px; line-height: 1.5; }
+  .data-panel dt { color: var(--ink-3); }
+  .data-panel dd { margin: 0; color: var(--ink); overflow-wrap: anywhere; }
+
+  /* ── 결과 영역 ── */
+  .result-head { display: grid; gap: var(--space-3); }
+  .result-head__row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3); }
+  .result-count { display: flex; align-items: baseline; gap: var(--space-2); }
+  .result-count strong { font-size: 24px; font-weight: 500; letter-spacing: -0.01em; }
+  .controls { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
+  .segmented { display: inline-flex; padding: 3px; border: 1px solid var(--line); border-radius: var(--radius-pill); background: var(--card); }
+  .segmented button {
+    min-height: 28px; padding: 0 var(--space-3); border: 0; border-radius: var(--radius-pill);
+    background: transparent; color: var(--ink-2); font-size: 13px; font-weight: 500; cursor: pointer;
+    transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+  }
+  .segmented button[aria-pressed="true"] { background: var(--card-raised); color: var(--ink); box-shadow: var(--card-rest); }
+  .copy-bar {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3);
+    padding: var(--space-3) var(--space-3) var(--space-3) var(--space-4);
+    background: var(--card); border-radius: var(--radius-md);
+  }
+  .copy-bar__left { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); font-size: 13px; color: var(--ink-2); }
+  .copy-bar__right { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
+
+  .state { padding: var(--space-16) var(--space-6); text-align: center; color: var(--ink-2); background: var(--card); border-radius: var(--radius-md); }
+  .state .body { max-width: 420px; margin: 0 auto; }
+  .state a { color: var(--ink); }
+
+  .results { display: grid; gap: var(--space-2); }
+  .results.is-card { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); }
+  @media (max-width: 1024px) { .results.is-card { grid-template-columns: minmax(0, 1fr); } }
+
+  .item { background: var(--card-raised); border-radius: var(--radius-md); box-shadow: var(--card-rest); }
+  .item.is-selected { background: var(--accent-soft); }
+  mark { background: var(--accent-soft); color: inherit; border-radius: 3px; padding: 0 1px; }
+  .item.is-selected mark { background: var(--card-raised); }
+
+  /* 리스트형 행 */
+  .row {
+    display: grid;
+    grid-template-columns: 20px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-3) var(--space-3) var(--space-4);
+    cursor: pointer;
+  }
+  .row__main { display: grid; gap: 2px; min-width: 0; }
+  .row__name { display: flex; align-items: center; gap: var(--space-2); min-width: 0; }
+  .row__name button {
+    padding: 0; border: 0; background: none; cursor: pointer; text-align: left;
+    font-size: 16px; font-weight: 500; line-height: 1.4; color: var(--ink);
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0;
+  }
+  .row__meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-1) var(--space-3); font-size: 13px; color: var(--ink-2); }
+  .row__code { font-family: var(--font-mono); font-size: 14px; color: var(--ink); letter-spacing: 0.02em; }
+  .row__actions { display: flex; align-items: center; gap: var(--space-1); }
+  .type-tag { display: inline-flex; align-items: center; gap: var(--space-1); }
+  .alias-hit { font-size: 12px; color: var(--ink-3); }
+  input[type="checkbox"] { width: 18px; height: 18px; margin: 0; accent-color: var(--ink); cursor: pointer; }
+
+  /* 카드형 */
+  .cardv { display: grid; gap: var(--space-3); padding: var(--space-4) var(--space-4) var(--space-4) var(--space-6); cursor: pointer; }
+  .cardv__top { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--space-3); align-items: start; }
+  .cardv__name button { padding: 0; border: 0; background: none; cursor: pointer; text-align: left; font-size: 16px; font-weight: 500; line-height: 1.4; color: var(--ink); }
+  .cardv__code { font-family: var(--font-mono); font-size: 28px; line-height: 1.1; letter-spacing: 0.02em; }
+  .cardv__tags { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .cardv__memo { font-size: 13px; color: var(--ink-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .cardv__bottom { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); }
+
+  /* 상세 펼침 */
+  .detail { display: grid; gap: var(--space-4); padding: var(--space-4) var(--space-4) var(--space-4) var(--space-6); border-top: 1px solid var(--line); cursor: default; }
+  .item.is-selected .detail { border-top-color: var(--card-raised); }
+  .detail dl { margin: 0; display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: var(--space-2) var(--space-4); font-size: 14px; }
+  .detail dt { color: var(--ink-3); }
+  .detail dd { margin: 0; overflow-wrap: anywhere; }
+  .detail__copies { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .memo-status { font-size: 12px; color: var(--ink-3); min-height: 18px; }
+  .more { justify-self: center; }
+
+  @media (max-width: 768px) {
+    .row { grid-template-columns: 20px minmax(0, 1fr); }
+    .row__actions { grid-column: 2; justify-content: flex-start; margin-left: -6px; }
+    .copy-bar { padding: var(--space-3); }
+    .copy-bar__right { width: 100%; }
+    .copy-bar__right .btn-accent { flex: 1; }
+    .detail { padding: var(--space-4); }
+  }
+</style>
+</head>
+<body data-area="ops">
+<main class="page">
+  <header class="tool-header">
+    <a class="back-link body" href="../index.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+      도구 목록
+    </a>
+    <div class="tool-header__tags"><span class="tag tag-area">운영</span><span class="tag">공통</span></div>
+    <h1 class="heading-1">장치장 코드 조회기</h1>
+    <p class="body-l ink-2 tool-header__summary">장치장명 일부, 코드, 초성, 약칭으로 보세구역 부호를 찾고 관세사에게 보낼 문구를 한 번에 복사합니다.</p>
+    <p class="caption ink-3" data-tool-meta></p>
+  </header>
+
+  <section class="tool-run" aria-label="장치장 코드 조회">
+    <!-- 입력 -->
+    <div class="tool-run__input">
+      <div class="field">
+        <label class="field__label" for="q">검색어</label>
+        <div class="search-wrap">
+          <input class="input" id="q" type="search" autocomplete="off" spellcheck="false" placeholder="장치장명, 코드, 초성(ㅂㅅㅅㅎ)" autofocus>
+          <span class="kbd" id="kbd" aria-hidden="true">/</span>
+          <button class="btn-icon search-clear" id="q-clear" type="button" aria-label="검색어 지우기" hidden>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+          </button>
+        </div>
+        <p class="caption ink-3">약칭(HPNT 등)과 코드 일부로도 찾습니다.</p>
+      </div>
+
+      <div class="filter-block">
+        <div class="filter-block__head"><span class="label">지역</span><button class="link-btn" type="button" data-clear="region" hidden>해제</button></div>
+        <div class="pill-group" id="f-region"></div>
+      </div>
+
+      <div class="filter-block">
+        <div class="filter-block__head"><span class="label">구분(이름 기준 추정)</span><button class="link-btn" type="button" data-clear="type" hidden>해제</button></div>
+        <div class="pill-group" id="f-type"></div>
+      </div>
+
+      <details class="adv" id="adv">
+        <summary>고급 필터 — 세관 <span id="adv-count" class="caption ink-3"></span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </summary>
+        <div class="pill-group" id="f-customs"></div>
+        <button class="link-btn" type="button" data-clear="customs" hidden style="margin-top: 8px">세관 필터 해제</button>
+      </details>
+
+      <div class="card" style="padding: 16px">
+        <div class="tabs" role="tablist">
+          <button class="pill" type="button" role="tab" id="tab-fav" aria-pressed="true" aria-selected="true">즐겨찾기 <span class="pill__count" id="fav-count">0</span></button>
+          <button class="pill" type="button" role="tab" id="tab-recent" aria-pressed="false" aria-selected="false">최근 조회 <span class="pill__count" id="recent-count">0</span></button>
+        </div>
+        <div id="saved" role="tabpanel"></div>
+      </div>
+
+      <div class="card-flat data-panel" id="data-panel">
+        <span class="label">데이터 안내</span>
+        <dl id="data-info"><dt>상태</dt><dd>불러오는 중</dd></dl>
+        <p class="caption ink-3">구분은 장치장명·부호 패턴으로 추정한 값이라 "추정"으로 표시합니다. 지역은 관할세관 기준입니다.</p>
+      </div>
+    </div>
+
+    <!-- 결과 -->
+    <div class="tool-run__result">
+      <div class="result-head">
+        <div class="result-head__row">
+          <p class="result-count" aria-live="polite"><strong id="count">0</strong><span class="ink-2">건</span></p>
+          <div class="controls">
+            <label class="visually-hidden" for="sort">정렬</label>
+            <select class="select select-sm" id="sort">
+              <option value="relevance">관련도순</option>
+              <option value="name">이름순</option>
+              <option value="code">코드순</option>
+            </select>
+            <div class="segmented" role="group" aria-label="보기 방식">
+              <button type="button" data-view="list" aria-pressed="true">리스트형</button>
+              <button type="button" data-view="card" aria-pressed="false">카드형</button>
+            </div>
+          </div>
+        </div>
+        <div class="copy-bar">
+          <div class="copy-bar__left">
+            <label><input type="checkbox" id="select-page"> <span>보이는 항목 선택</span></label>
+            <span id="selected-info">선택 0건</span>
+            <button class="link-btn" type="button" id="clear-selection" hidden>선택 해제</button>
+          </div>
+          <div class="copy-bar__right">
+            <label class="visually-hidden" for="copy-format">복사 형식</label>
+            <select class="select select-sm" id="copy-format">
+              <option value="line">한 줄</option>
+              <option value="table">표(엑셀·메일)</option>
+              <option value="code">코드만</option>
+            </select>
+            <button class="btn btn-accent" type="button" id="copy-selected" disabled>관세사 전달용 복사</button>
+          </div>
+        </div>
+      </div>
+      <div id="results-host">
+        <div class="state"><p class="body">데이터를 불러오는 중입니다.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div data-tool-sections data-slug="bonded-area-code"></div>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script src="../shared/page.js" defer></script>
+<script>
+(() => {
+  'use strict';
+  const SLUG = 'bonded-area-code';
+  const DATA_URL = '../data/bonded-area-code.json';
+  const REPORT_URL = '../index.html#contact';
+  const PAGE_SIZE = 50;
+  const RECENT_MAX = 10;
+  const REGIONS = ['부산', '인천', '광양', '평택', '울산', '서울·경기', '경남', '공항', '기타'];
+  const TYPES = ['CY', 'CFS', '보세창고', '지정장치장', '세관검사장', '보세공장', '보세판매장', '자유무역지역', '보세구역외장치', '공항화물', '기타'];
+  const TYPE_LABEL = { CY: 'CY(터미널)' };
+  const BASIS_LABEL = { name: '장치장명 키워드', unloading: '하역장소 여부·부호 패턴', code: '부호 자리 패턴', none: '판단 근거 없음' };
+  const FORMAT_LABEL = { line: '한 줄', table: '표', code: '코드만' };
+
+  // ── 저장소(localStorage, 실패해도 동작) ──
+  const store = {
+    get(key, fallback) {
+      try { const v = localStorage.getItem(`mft:${SLUG}:${key}`); return v == null ? fallback : JSON.parse(v); }
+      catch { return fallback; }
+    },
+    set(key, value) {
+      try { localStorage.setItem(`mft:${SLUG}:${key}`, JSON.stringify(value)); } catch { /* 저장 불가 환경 */ }
+    },
+  };
+  const state = {
+    items: [], byCode: new Map(), meta: null,
+    q: '', region: new Set(), type: new Set(), customs: new Set(),
+    sort: 'relevance',
+    view: store.get('view', 'list') === 'card' ? 'card' : 'list',
+    copyFormat: ['line', 'table', 'code'].includes(store.get('copyFormat', 'line')) ? store.get('copyFormat', 'line') : 'line',
+    favorites: new Set(store.get('favorites', [])),
+    recent: store.get('recent', []),
+    memos: store.get('memos', {}),
+    selected: new Set(),
+    expanded: null,
+    shown: PAGE_SIZE,
+    results: [],
+    tab: 'fav',
+  };
+
+  // ── 검색 정규화 (PRD 3-3: 공백·괄호·㈜·주식회사 무시, 대소문자 무시, 초성) ──
+  const CHO = ['ㄱ','ㄲ','ㄴ','ㄷ','ㄸ','ㄹ','ㅁ','ㅂ','ㅃ','ㅅ','ㅆ','ㅇ','ㅈ','ㅉ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'];
+  const IGNORE_TOKENS = ['주식회사', '(주)', '(유)', '(사)', '㈜'];
+  const IGNORE_CHAR = /[\s()[\]{}·]/;
+  const isChoOnly = (s) => /^[ㄱ-ㅎ]+$/.test(s);
+  const choOf = (ch) => {
+    const c = ch.charCodeAt(0);
+    if (c >= 0xac00 && c <= 0xd7a3) return CHO[Math.floor((c - 0xac00) / 588)];
+    return ch.toLowerCase();
+  };
+  // 원문 → 비교용 글자 배열 [{i: 원문 위치, k: 비교 글자}]
+  function keyChars(str, cho) {
+    const out = [];
+    for (let i = 0; i < str.length;) {
+      const tok = IGNORE_TOKENS.find((t) => str.startsWith(t, i));
+      if (tok) { i += tok.length; continue; }
+      const ch = str[i];
+      if (!IGNORE_CHAR.test(ch)) out.push({ i, k: cho ? choOf(ch) : ch.toLowerCase() });
+      i++;
+    }
+    return out;
+  }
+  const keyString = (str, cho) => keyChars(str, cho).map((c) => c.k).join('');
+  const rankOf = (hay, needle) => {
+    if (!needle || !hay) return null;
+    if (hay === needle) return 0;
+    if (hay.startsWith(needle)) return 1;
+    return hay.includes(needle) ? 2 : null;
+  };
+
+  function prepare(it) {
+    it._name = keyString(it.name, false);
+    it._cho = keyString(it.name, true);
+    it._aliases = it.aliases.map((a) => ({ raw: a, key: keyString(a, false), cho: keyString(a, true) }));
+  }
+
+  // 일치 결과: { rank, field: 'name'|'code'|'alias', alias }
+  function matchItem(it, qKey, cho) {
+    let best = null;
+    const take = (rank, field, alias) => {
+      if (rank == null) return;
+      if (!best || rank < best.rank) best = { rank, field, alias };
+    };
+    if (cho) {
+      take(rankOf(it._cho, qKey), 'name');
+      it._aliases.forEach((a) => take(rankOf(a.cho, qKey), 'alias', a.raw));
+    } else {
+      take(rankOf(it._name, qKey), 'name');
+      take(rankOf(it.code, qKey), 'code');
+      it._aliases.forEach((a) => take(rankOf(a.key, qKey), 'alias', a.raw));
+    }
+    return best;
+  }
+
+  // ── 렌더 유틸 ──
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+  const fmtNum = (n) => Number(n).toLocaleString('ko-KR');
+  const $ = (sel) => document.querySelector(sel);
+
+  function highlight(str, qKey, cho) {
+    if (!qKey) return esc(str);
+    const keys = keyChars(str, cho);
+    const at = keys.map((c) => c.k).join('').indexOf(qKey);
+    if (at < 0) return esc(str);
+    const start = keys[at].i;
+    const end = keys[at + qKey.length - 1].i + 1;
+    return `${esc(str.slice(0, start))}<mark>${esc(str.slice(start, end))}</mark>${esc(str.slice(end))}`;
+  }
+  const highlightCode = (code, qKey) => {
+    const at = qKey ? code.indexOf(qKey) : -1;
+    if (at < 0) return esc(code);
+    return `${esc(code.slice(0, at))}<mark>${esc(code.slice(at, at + qKey.length))}</mark>${esc(code.slice(at + qKey.length))}`;
+  };
+  const customsLabel = (it) => (it.customsName ? `${it.customsName}(${it.customs})` : it.customs);
+  const typeLabel = (t) => TYPE_LABEL[t] || t;
+
+  const ICON = {
+    star: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="m12 3.5 2.6 5.4 5.9.8-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.8z"/></svg>',
+    starOn: '<svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="m12 3.5 2.6 5.4 5.9.8-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.8z"/></svg>',
+    copy: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>',
+  };
+
+  // ── 복사 ──
+  function formatItems(list, format) {
+    if (format === 'table') return list.map((it) => `${it.name}\t${it.code}`).join('\n');
+    if (format === 'code') return list.map((it) => it.code).join('\n');
+    return list.map((it) => `장치장: ${it.name} / 장치장코드: ${it.code}`).join('\n');
+  }
+  async function writeClipboard(text) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      const ok = document.execCommand('copy');
+      ta.remove();
+      return ok;
+    }
+  }
+  let toastTimer = null;
+  function toast(msg) {
+    const el = $('#toast');
+    el.textContent = msg;
+    el.hidden = false;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { el.hidden = true; }, 2400);
+  }
+  async function copyItems(list, format) {
+    if (!list.length) return;
+    const ok = await writeClipboard(formatItems(list, format));
+    if (ok) {
+      list.forEach((it) => pushRecent(it.code));
+      toast('복사됨 — 관세사에게 붙여넣으세요');
+    } else {
+      toast('복사하지 못했습니다. 브라우저 권한을 확인하세요.');
+    }
+  }
+
+  // ── 즐겨찾기·최근·메모 ──
+  function pushRecent(code) {
+    state.recent = [code, ...state.recent.filter((c) => c !== code)].slice(0, RECENT_MAX);
+    store.set('recent', state.recent);
+    renderSaved();
+  }
+  function toggleFavorite(code) {
+    state.favorites.has(code) ? state.favorites.delete(code) : state.favorites.add(code);
+    store.set('favorites', [...state.favorites]);
+    renderSaved();
+    renderResults();
+  }
+  let memoTimer = null;
+  function saveMemo(code, text, statusEl) {
+    clearTimeout(memoTimer);
+    statusEl.textContent = '입력 중';
+    memoTimer = setTimeout(() => {
+      const v = text.trim();
+      if (v) state.memos[code] = v; else delete state.memos[code];
+      store.set('memos', state.memos);
+      statusEl.textContent = v ? '저장됨' : '메모 없음';
+    }, 400);
+  }
+
+  // ── 검색 실행 ──
+  function compute() {
+    const raw = state.q.trim();
+    const cho = isChoOnly(raw.replace(/\s/g, ''));
+    const qKey = keyString(raw, false);
+    const hasFilter = state.region.size || state.type.size || state.customs.size;
+    state.qKey = qKey;
+    state.cho = cho;
+    if (!qKey && !hasFilter) { state.results = []; return; }
+
+    const out = [];
+    for (const it of state.items) {
+      if (state.region.size && !state.region.has(it.region)) continue;
+      if (state.type.size && !state.type.has(it.type)) continue;
+      if (state.customs.size && !state.customs.has(it.customs)) continue;
+      if (qKey) {
+        const m = matchItem(it, qKey, cho);
+        if (!m) continue;
+        out.push({ it, m });
+      } else {
+        out.push({ it, m: { rank: 3, field: null } });
+      }
+    }
+    // 이름순도 검색과 같은 기준(괄호·㈜·공백 무시)으로 비교한다
+    const byName = (a, b) => a.it._name.localeCompare(b.it._name, 'ko');
+    if (state.sort === 'name') out.sort(byName);
+    else if (state.sort === 'code') out.sort((a, b) => a.it.code.localeCompare(b.it.code));
+    else out.sort((a, b) => a.m.rank - b.m.rank || byName(a, b));
+    state.results = out;
+  }
+
+  // ── 렌더 ──
+  function renderPills() {
+    const countBy = (key) => state.items.reduce((acc, it) => ((acc[it[key]] = (acc[it[key]] || 0) + 1), acc), {});
+    const rc = countBy('region');
+    const tc = countBy('type');
+    $('#f-region').innerHTML = REGIONS.map((r) =>
+      `<button class="pill" type="button" data-filter="region" data-value="${esc(r)}" aria-pressed="${state.region.has(r)}">${esc(r)}<span class="pill__count">${fmtNum(rc[r] || 0)}</span></button>`).join('');
+    $('#f-type').innerHTML = TYPES.map((t) =>
+      `<button class="pill" type="button" data-filter="type" data-value="${esc(t)}" aria-pressed="${state.type.has(t)}">${esc(typeLabel(t))}<span class="pill__count">${fmtNum(tc[t] || 0)}</span></button>`).join('');
+    const customs = new Map();
+    state.items.forEach((it) => customs.set(it.customs, (customs.get(it.customs) || { label: customsLabel(it), n: 0 })));
+    state.items.forEach((it) => customs.get(it.customs).n++);
+    $('#f-customs').innerHTML = [...customs.entries()].sort((a, b) => a[0].localeCompare(b[0])).map(([code, c]) =>
+      `<button class="pill" type="button" data-filter="customs" data-value="${esc(code)}" aria-pressed="${state.customs.has(code)}">${esc(c.label)}<span class="pill__count">${fmtNum(c.n)}</span></button>`).join('');
+    syncFilterUI();
+  }
+  function syncFilterUI() {
+    document.querySelectorAll('[data-filter]').forEach((b) => b.setAttribute('aria-pressed', state[b.dataset.filter].has(b.dataset.value)));
+    document.querySelectorAll('[data-clear]').forEach((b) => { b.hidden = !state[b.dataset.clear].size; });
+    $('#adv-count').textContent = state.customs.size ? `${state.customs.size}곳 선택` : '';
+  }
+
+  function renderDataInfo() {
+    const m = state.meta;
+    const next = new Date(`${m.updatedAt}T00:00:00`);
+    next.setMonth(next.getMonth() + 3);
+    const nextStr = `${next.getFullYear()}-${String(next.getMonth() + 1).padStart(2, '0')}-${String(next.getDate()).padStart(2, '0')}`;
+    $('#data-info').innerHTML = `
+      <dt>출처</dt><dd>${esc(m.source)}</dd>
+      <dt>기준일</dt><dd>${esc(m.updatedAt)}</dd>
+      <dt>전체</dt><dd>${fmtNum(m.count)}건</dd>
+      <dt>범위</dt><dd>${esc(m.scope)}</dd>
+      <dt>다음 갱신</dt><dd>${nextStr} 예정 (분기 1회)</dd>
+      <dt>오류 제보</dt><dd><a href="${REPORT_URL}">코드가 다르거나 빠진 장치장 알리기</a></dd>`;
+  }
+
+  function renderSaved() {
+    $('#fav-count').textContent = state.favorites.size;
+    $('#recent-count').textContent = state.recent.length;
+    $('#tab-fav').setAttribute('aria-pressed', state.tab === 'fav');
+    $('#tab-fav').setAttribute('aria-selected', state.tab === 'fav');
+    $('#tab-recent').setAttribute('aria-pressed', state.tab === 'recent');
+    $('#tab-recent').setAttribute('aria-selected', state.tab === 'recent');
+    const codes = state.tab === 'fav' ? [...state.favorites] : state.recent;
+    const list = codes.map((c) => state.byCode.get(c)).filter(Boolean);
+    $('#saved').innerHTML = list.length
+      ? `<ul class="saved-list">${list.map((it) =>
+          `<li><button type="button" data-open="${esc(it.code)}"><span class="name">${esc(it.name)}</span><span class="code mono">${esc(it.code)}</span></button></li>`).join('')}</ul>`
+      : `<p class="saved-empty">${state.tab === 'fav' ? '별을 누른 장치장이 여기에 모입니다.' : '복사하거나 펼쳐 본 장치장이 최근 10건까지 남습니다.'}</p>`;
+  }
+
+  function tagsHtml(it) {
+    return `<span class="tag type-tag" title="${esc(BASIS_LABEL[it.typeBasis] || '')} 기준 추정">${esc(typeLabel(it.type))}<span class="tag tag-mini">추정</span></span>`;
+  }
+  function actionsHtml(it) {
+    const fav = state.favorites.has(it.code);
+    return `<button class="btn-icon" type="button" data-act="fav" aria-pressed="${fav}" aria-label="${fav ? '즐겨찾기 해제' : '즐겨찾기'}" title="${fav ? '즐겨찾기 해제' : '즐겨찾기'}">${fav ? ICON.starOn : ICON.star}</button>
+      <button class="btn-icon" type="button" data-act="copy" aria-label="${FORMAT_LABEL[state.copyFormat]} 형식으로 복사" title="${FORMAT_LABEL[state.copyFormat]} 형식으로 복사">${ICON.copy}</button>`;
+  }
+  function detailHtml(it) {
+    const memo = state.memos[it.code] || '';
+    return `<div class="detail" data-detail>
+      <dl>
+        <dt>주소</dt><dd>${esc(it.address || '원본에 주소 없음')}</dd>
+        <dt>약칭</dt><dd>${it.aliases.length ? esc(it.aliases.join(', ')) : '없음'}</dd>
+        <dt>세관</dt><dd>${esc(customsLabel(it))}</dd>
+        <dt>지역</dt><dd>${esc(it.region)}</dd>
+        <dt>구분</dt><dd>${esc(typeLabel(it.type))} <span class="ink-3">(추정 · ${esc(BASIS_LABEL[it.typeBasis] || '')})</span></dd>
+      </dl>
+      <div class="field">
+        <label class="field__label" for="memo-${esc(it.code)}">내 메모 <span class="caption ink-3">이 브라우저에만 저장</span></label>
+        <textarea class="textarea" id="memo-${esc(it.code)}" data-memo placeholder="예: 반입 마감 17시, 담당 창구 2번">${esc(memo)}</textarea>
+        <span class="memo-status" data-memo-status>${memo ? '저장됨' : ''}</span>
+      </div>
+      <div class="detail__copies">
+        <button class="btn btn-sm" type="button" data-copy-format="line">${ICON.copy}한 줄 복사</button>
+        <button class="btn btn-sm" type="button" data-copy-format="table">${ICON.copy}표 복사</button>
+        <button class="btn btn-sm" type="button" data-copy-format="code">${ICON.copy}코드만 복사</button>
+      </div>
+    </div>`;
+  }
+
+  function itemHtml({ it, m }) {
+    const sel = state.selected.has(it.code);
+    const open = state.expanded === it.code;
+    const nameHtml = m.field === 'name' ? highlight(it.name, state.qKey, state.cho) : esc(it.name);
+    const codeHtml = m.field === 'code' ? highlightCode(it.code, state.qKey) : esc(it.code);
+    const aliasHit = m.field === 'alias' ? `<span class="alias-hit">약칭 <mark>${esc(m.alias)}</mark> 일치</span>` : '';
+    const check = `<input type="checkbox" data-act="select" ${sel ? 'checked' : ''} aria-label="${esc(it.name)} 선택">`;
+    const toggle = `<button type="button" data-act="toggle" aria-expanded="${open}">${nameHtml || '(이름 없음)'}</button>`;
+    if (state.view === 'card') {
+      const memo = state.memos[it.code];
+      return `<article class="item${sel ? ' is-selected' : ''}" data-code="${esc(it.code)}">
+        <div class="cardv" data-act="toggle-area">
+          <div class="cardv__top"><div class="cardv__name">${toggle}${aliasHit ? `<div>${aliasHit}</div>` : ''}</div>${check}</div>
+          <div class="cardv__code">${codeHtml}</div>
+          <div class="cardv__tags"><span class="tag">${esc(customsLabel(it))}</span><span class="tag">${esc(it.region)}</span>${tagsHtml(it)}</div>
+          ${memo ? `<p class="cardv__memo">메모 · ${esc(memo)}</p>` : ''}
+          <div class="cardv__bottom"><span></span><div class="row__actions">${actionsHtml(it)}</div></div>
+        </div>
+        ${open ? detailHtml(it) : ''}
+      </article>`;
+    }
+    return `<article class="item${sel ? ' is-selected' : ''}" data-code="${esc(it.code)}">
+      <div class="row" data-act="toggle-area">
+        ${check}
+        <div class="row__main">
+          <div class="row__name">${toggle}</div>
+          <div class="row__meta"><span class="row__code">${codeHtml}</span><span>${esc(customsLabel(it))}</span>${tagsHtml(it)}${aliasHit}</div>
+        </div>
+        <div class="row__actions">${actionsHtml(it)}</div>
+      </div>
+      ${open ? detailHtml(it) : ''}
+    </article>`;
+  }
+
+  function renderResults() {
+    const host = $('#results-host');
+    const total = state.results.length;
+    $('#count').textContent = fmtNum(total);
+    const hasQuery = state.qKey || state.region.size || state.type.size || state.customs.size;
+    if (!hasQuery) {
+      host.innerHTML = '<div class="state"><p class="body">장치장명이나 코드를 입력하세요. 초성 검색도 됩니다.</p></div>';
+    } else if (!total) {
+      host.innerHTML = `<div class="state"><p class="body">일치하는 장치장이 없습니다. 이름 일부만 입력해 보세요.</p><p class="caption" style="margin-top: 8px"><a href="${REPORT_URL}">찾는 장치장이 없나요? 오류 제보</a></p></div>`;
+    } else {
+      const visible = state.results.slice(0, state.shown);
+      const more = total - visible.length;
+      host.innerHTML = `<div class="results${state.view === 'card' ? ' is-card' : ''}">${visible.map(itemHtml).join('')}</div>${
+        more > 0 ? `<button class="btn more" type="button" id="more" style="margin-top: 16px">더 보기 (${fmtNum(more)}건 남음)</button>` : ''}`;
+    }
+    renderSelection();
+  }
+
+  function renderSelection() {
+    const n = state.selected.size;
+    $('#selected-info').textContent = `선택 ${fmtNum(n)}건`;
+    $('#clear-selection').hidden = !n;
+    const btn = $('#copy-selected');
+    btn.disabled = !n;
+    btn.textContent = n ? `관세사 전달용 복사 (${fmtNum(n)})` : '관세사 전달용 복사';
+    const visible = state.results.slice(0, state.shown);
+    const pageBox = $('#select-page');
+    const selVisible = visible.filter(({ it }) => state.selected.has(it.code)).length;
+    pageBox.checked = visible.length > 0 && selVisible === visible.length;
+    pageBox.indeterminate = selVisible > 0 && selVisible < visible.length;
+    pageBox.disabled = !visible.length;
+  }
+
+  function run() {
+    state.shown = PAGE_SIZE;
+    compute();
+    renderResults();
+  }
+
+  function openItem(code) {
+    const it = state.byCode.get(code);
+    if (!it) return;
+    state.q = code;
+    $('#q').value = code;
+    syncClear();
+    state.region.clear(); state.type.clear(); state.customs.clear();
+    syncFilterUI();
+    state.expanded = code;
+    pushRecent(code);
+    run();
+    document.querySelector(`[data-code="${code}"]`)?.scrollIntoView({ block: 'nearest' });
+  }
+
+  // ── 이벤트 ──
+  let qTimer = null;
+  const syncClear = () => {
+    const has = $('#q').value.length > 0;
+    $('#q-clear').hidden = !has;
+    $('#kbd').hidden = has;
+  };
+  $('#q').addEventListener('input', (e) => {
+    syncClear();
+    clearTimeout(qTimer);
+    qTimer = setTimeout(() => { state.q = e.target.value; run(); }, 80);
+  });
+  $('#q-clear').addEventListener('click', () => {
+    $('#q').value = '';
+    state.q = '';
+    syncClear();
+    run();
+    $('#q').focus();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== '/' || e.ctrlKey || e.metaKey || e.altKey) return;
+    const t = e.target;
+    if (t.closest('input, textarea, select, [contenteditable="true"]')) return;
+    e.preventDefault();
+    $('#q').focus();
+    $('#q').select();
+  });
+
+  document.querySelector('.tool-run__input').addEventListener('click', (e) => {
+    const pill = e.target.closest('[data-filter]');
+    if (pill) {
+      const set = state[pill.dataset.filter];
+      set.has(pill.dataset.value) ? set.delete(pill.dataset.value) : set.add(pill.dataset.value);
+      syncFilterUI();
+      run();
+      return;
+    }
+    const clear = e.target.closest('[data-clear]');
+    if (clear) { state[clear.dataset.clear].clear(); syncFilterUI(); run(); return; }
+    const open = e.target.closest('[data-open]');
+    if (open) { openItem(open.dataset.open); return; }
+    if (e.target.closest('#tab-fav')) { state.tab = 'fav'; renderSaved(); }
+    if (e.target.closest('#tab-recent')) { state.tab = 'recent'; renderSaved(); }
+  });
+
+  $('#sort').addEventListener('change', (e) => { state.sort = e.target.value; run(); });
+  $('#copy-format').addEventListener('change', (e) => {
+    state.copyFormat = e.target.value;
+    store.set('copyFormat', state.copyFormat);
+    renderResults();
+  });
+  document.querySelectorAll('[data-view]').forEach((b) => b.addEventListener('click', () => {
+    state.view = b.dataset.view;
+    store.set('view', state.view);
+    document.querySelectorAll('[data-view]').forEach((x) => x.setAttribute('aria-pressed', x.dataset.view === state.view));
+    renderResults();
+  }));
+  $('#select-page').addEventListener('change', (e) => {
+    state.results.slice(0, state.shown).forEach(({ it }) => (e.target.checked ? state.selected.add(it.code) : state.selected.delete(it.code)));
+    renderResults();
+  });
+  $('#clear-selection').addEventListener('click', () => { state.selected.clear(); renderResults(); });
+  $('#copy-selected').addEventListener('click', () => {
+    const order = new Map(state.results.map(({ it }, i) => [it.code, i]));
+    const list = [...state.selected].map((c) => state.byCode.get(c)).filter(Boolean)
+      .sort((a, b) => (order.get(a.code) ?? 1e9) - (order.get(b.code) ?? 1e9));
+    copyItems(list, state.copyFormat);
+  });
+
+  const host = $('#results-host');
+  host.addEventListener('click', (e) => {
+    if (e.target.closest('#more')) { state.shown += PAGE_SIZE; renderResults(); return; }
+    const card = e.target.closest('[data-code]');
+    if (!card) return;
+    const it = state.byCode.get(card.dataset.code);
+    const act = e.target.closest('[data-act]')?.dataset.act;
+    if (e.target.closest('[data-detail]')) {
+      const fmt = e.target.closest('[data-copy-format]')?.dataset.copyFormat;
+      if (fmt) copyItems([it], fmt);
+      return;
+    }
+    if (act === 'select') {
+      e.target.checked ? state.selected.add(it.code) : state.selected.delete(it.code);
+      card.classList.toggle('is-selected', e.target.checked);
+      renderSelection();
+      return;
+    }
+    if (act === 'fav') { toggleFavorite(it.code); return; }
+    if (act === 'copy') { copyItems([it], state.copyFormat); return; }
+    if (act === 'toggle' || act === 'toggle-area') {
+      state.expanded = state.expanded === it.code ? null : it.code;
+      if (state.expanded) pushRecent(it.code);
+      renderResults();
+    }
+  });
+  host.addEventListener('input', (e) => {
+    if (!e.target.matches('[data-memo]')) return;
+    const card = e.target.closest('[data-code]');
+    saveMemo(card.dataset.code, e.target.value, card.querySelector('[data-memo-status]'));
+  });
+
+  // ── 시작 ──
+  document.querySelectorAll('[data-view]').forEach((x) => x.setAttribute('aria-pressed', x.dataset.view === state.view));
+  $('#copy-format').value = state.copyFormat;
+  renderSaved();
+
+  fetch(DATA_URL, { cache: 'no-cache' })
+    .then((r) => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
+    .then((data) => {
+      const { items, ...meta } = data;
+      state.meta = meta;
+      state.items = items;
+      items.forEach((it) => { prepare(it); state.byCode.set(it.code, it); });
+      // 저장된 즐겨찾기·최근 중 데이터에서 사라진 부호는 목록에서만 숨긴다(저장값은 유지)
+      renderPills();
+      renderDataInfo();
+      renderSaved();
+      state.q = $('#q').value;
+      run();
+      document.dispatchEvent(new CustomEvent('mft:ready'));
+    })
+    .catch((err) => {
+      console.error(err);
+      $('#data-info').innerHTML = '<dt>상태</dt><dd>불러오기 실패</dd>';
+      host.innerHTML = '<div class="state"><p class="body">데이터를 불러오지 못했습니다. 로컬 서버(포트 5510)로 열었는지 확인하세요.</p></div>';
+    });
+})();
+</script>
+</body>
+</html>
