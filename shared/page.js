@@ -259,7 +259,7 @@
     const out = [];
     if (c.name) {
       const links = (c.links || []).filter((l) => l.label && l.href)
-        .map((l) => `<a class="btn btn-sm" href="${esc(l.href)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join('');
+        .map((l) => `<a class="btn btn-sm" href="${esc(l.href)}"${external(l.href)}>${esc(l.label)}</a>`).join('');
       out.push(section('만든 사람', `<div class="creator-card">
         <div class="creator-card__head"><h3 class="heading-2">${esc(c.name)}</h3>${c.role ? `<p class="body ink-2">${esc(c.role)}</p>` : ''}</div>
         ${c.bio ? `<p class="body">${esc(c.bio)}</p>` : ''}
@@ -272,8 +272,8 @@
         <h2 class="display-l cta-band__title">${esc(cta.title)}</h2>
         ${cta.body ? `<p class="body-l cta-band__body">${esc(cta.body)}</p>` : ''}
         <div class="cta-band__actions">
-          <a class="btn cta-band__primary" href="${esc(cta.primary.href)}">${esc(cta.primary.label || '자세히 보기')}</a>
-          ${cta.secondary?.href ? `<a class="btn cta-band__secondary" href="${esc(cta.secondary.href)}">${esc(cta.secondary.label || '더 알아보기')}</a>` : ''}
+          <a class="btn cta-band__primary" href="${esc(cta.primary.href)}"${external(cta.primary.href)}>${esc(cta.primary.label || '자세히 보기')}</a>
+          ${cta.secondary?.href ? `<a class="btn cta-band__secondary" href="${esc(cta.secondary.href)}"${external(cta.secondary.href)}>${esc(cta.secondary.label || '더 알아보기')}</a>` : ''}
         </div>
       </section>`);
     }
