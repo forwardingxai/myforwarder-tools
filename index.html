@@ -29,9 +29,18 @@
 </style>
 </head>
 <body>
+<header class="site-nav">
+  <div class="site-nav__inner">
+    <a class="brand" href="index.html">
+      <span class="brand__mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 17V7l7 7 7-7v10"/></svg></span>
+      <span class="label">마이포워더 도구</span>
+    </a>
+    <a class="btn btn-sm" href="#tools">도구 보기</a>
+  </div>
+</header>
 <main class="page">
   <section class="hero">
-    <h1 class="display-xl">마이포워더 도구</h1>
+    <h1 class="display-xl" data-reveal-words>마이포워더 도구</h1>
     <p class="body-l ink-2">포워딩·SCM 실무자가 로그인 없이 바로 쓰는 업무 도구 모음. 하루에 하나씩 만듭니다.</p>
     <div class="hero__actions">
       <a class="btn btn-dark" href="#tools">도구 보기</a>
@@ -66,6 +75,10 @@
     <p class="body ink-2">오류 제보와 제안 창구는 준비 중입니다.</p>
   </section>
 </main>
+<footer class="site-footer">
+  <span>마이포워더 도구 · 로그인 없이 바로 쓰는 포워딩·SCM 업무 도구</span>
+  <span>1일 1개발</span>
+</footer>
 <script src="shared/page.js" defer></script>
 <script>
 (() => {

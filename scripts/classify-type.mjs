@@ -1,7 +1,7 @@
 // 장치장 구분(type)을 추정한다. API005 응답에 구분 항목이 없어서 쓰는 규칙이며,
 // 결과는 항상 "추정"으로 표시한다(PRD 3-3).
-// 판단 순서: 1) 이름 키워드(TYPE_RULES, 위에서부터) → 2) 하역장소 Y 보조(UNLOADING_SEGMENTS 부호만)
-//           → 3) 부호 4~5번째 자리(CODE_SEGMENT_TYPES) → 4) 기타
+// 판단 순서: 0) 공항세관 관할 항공사·화주터미널(AIRPORT_CARGO_*) → 1) 이름 키워드(TYPE_RULES, 위에서부터)
+//           → 2) 하역장소 Y 보조(UNLOADING_SEGMENTS 부호만) → 3) 부호 4~5번째 자리(CODE_SEGMENT_TYPES) → 4) 기타
 // 규칙을 고칠 때는 이 파일의 표만 바꾼다.
 
 // 영문 약어는 다른 영단어 속(예: AGENCY의 CY)에서 걸리지 않도록 앞뒤가 영문자가 아닐 때만 인정한다.
@@ -28,6 +28,11 @@ export const TYPE_RULES = [
       '냉장', '냉동', '물류', '로지스', '로지텍', '로직스', '디스트리파크', '센타', '센터', '종합보세', '크로스독'],
   },
 ];
+
+// 공항세관 관할의 항공사·화주 화물터미널은 공항화물. 이름으로 판단이 안 됐거나 "터미널" 때문에 CY가 된 경우에만 적용한다
+// (지정장치장·보세판매장·보세창고처럼 이름으로 분명한 구분은 그대로 둔다).
+export const AIRPORT_CARGO_CUSTOMS = ['040']; // 인천공항세관
+export const AIRPORT_CARGO_NAME = /항공|터미널|터미날/;
 
 // 이름으로 판단이 안 되고, 부호 4~5번째 자리가 아래 값이며, 하역장소 여부(ldunPlcSnarYn)가 Y면 CY.
 export const UNLOADING_SEGMENTS = ['12', '77', '78'];
@@ -68,9 +73,12 @@ export function typeByName(name = '') {
 }
 
 // 반환: { type, basis, keyword }
-//   basis: 'name' | 'unloading' | 'code' | 'none' — 분류 근거
-export function classifyType(name = '', { code = '', unloadingPlace } = {}) {
+//   basis: 'name' | 'airport' | 'unloading' | 'code' | 'none' — 분류 근거
+export function classifyType(name = '', { code = '', unloadingPlace, customs = '' } = {}) {
   const byName = typeByName(name);
+  if (AIRPORT_CARGO_CUSTOMS.includes(customs) && AIRPORT_CARGO_NAME.test(name) && (!byName || byName.type === 'CY')) {
+    return { type: '공항화물', basis: 'airport', keyword: `관할세관 ${customs} · 이름 ${name.match(AIRPORT_CARGO_NAME)[0]}` };
+  }
   if (byName) return { type: byName.type, basis: 'name', keyword: byName.keyword };
   const segment = codeSegment(code);
   if (unloadingPlace === 'Y' && UNLOADING_SEGMENTS.includes(segment)) {

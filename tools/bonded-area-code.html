@@ -10,9 +10,22 @@
 <link rel="stylesheet" href="../shared/layout.css">
 <link rel="stylesheet" href="../shared/components.css">
 <style>
+  /* ── 머리·숫자 밴드 ── */
+  .stat-band { margin-bottom: var(--space-12); }
+
   /* ── 입력 영역 ── */
   .search-wrap { position: relative; }
-  .search-wrap .input { padding-right: 44px; font-size: 18px; }
+  .search-wrap .input { height: 56px; padding-left: 48px; padding-right: 48px; font-size: 18px; }
+  .search-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; color: var(--ink-3); pointer-events: none; }
+  .filters { display: grid; gap: var(--space-6); }
+  .filter-toggle { display: none; }
+  .filter-toggle__count {
+    min-width: 20px; height: 20px; padding: 0 6px; margin-left: 2px;
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: var(--radius-pill); background: var(--accent-soft); color: var(--ink);
+    font-size: 12px; font-weight: 500;
+  }
+  .filter-toggle__count[hidden] { display: none; }
   .search-wrap .input::-webkit-search-cancel-button { -webkit-appearance: none; appearance: none; }
   .search-clear { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); }
   .search-clear[hidden], .kbd[hidden] { display: none; }
@@ -64,7 +77,7 @@
   .result-head { display: grid; gap: var(--space-3); }
   .result-head__row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3); }
   .result-count { display: flex; align-items: baseline; gap: var(--space-2); }
-  .result-count strong { font-size: 24px; font-weight: 500; letter-spacing: -0.01em; }
+  .result-count strong { font-size: 44px; line-height: 1; font-weight: 500; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
   .controls { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
   .segmented { display: inline-flex; padding: 3px; border: 1px solid var(--line); border-radius: var(--radius-pill); background: var(--card); }
   .segmented button {
@@ -89,7 +102,13 @@
   .results.is-card { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); }
   @media (max-width: 1024px) { .results.is-card { grid-template-columns: minmax(0, 1fr); } }
 
-  .item { background: var(--card-raised); border-radius: var(--radius-md); box-shadow: var(--card-rest); }
+  .item {
+    background: var(--card-raised); border-radius: var(--radius-md); box-shadow: var(--card-rest);
+    transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out), background-color var(--dur-fast) var(--ease-out);
+  }
+  /* 호버: 리스트형은 그림자만, 카드형은 -4px 떠오름. 펼친 항목은 메모 입력 중 흔들리지 않게 고정 */
+  .item:not(.is-open):hover { box-shadow: var(--card-hover); }
+  .results.is-card .item:not(.is-open):hover { transform: translateY(-4px); }
   .item.is-selected { background: var(--accent-soft); }
   mark { background: var(--accent-soft); color: inherit; border-radius: 3px; padding: 0 1px; }
   .item.is-selected mark { background: var(--card-raised); }
@@ -121,7 +140,7 @@
   .cardv { display: grid; gap: var(--space-3); padding: var(--space-4) var(--space-4) var(--space-4) var(--space-6); cursor: pointer; }
   .cardv__top { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--space-3); align-items: start; }
   .cardv__name button { padding: 0; border: 0; background: none; cursor: pointer; text-align: left; font-size: 16px; font-weight: 500; line-height: 1.4; color: var(--ink); }
-  .cardv__code { font-family: var(--font-mono); font-size: 28px; line-height: 1.1; letter-spacing: 0.02em; }
+  .cardv__code { font-family: var(--font-mono); font-size: 32px; line-height: 1.1; letter-spacing: 0.01em; }
   .cardv__tags { display: flex; flex-wrap: wrap; gap: var(--space-2); }
   .cardv__memo { font-size: 13px; color: var(--ink-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .cardv__bottom { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); }
@@ -137,6 +156,18 @@
   .more { justify-self: center; }
 
   @media (max-width: 768px) {
+    /* 모바일: 검색창 → 필터 버튼(접힘) → 결과 → 즐겨찾기·최근 → 데이터 안내 */
+    .stat-band { margin-bottom: var(--space-8); }
+    .tool-run { gap: var(--space-4); }
+    .tool-run__input { display: contents; }
+    .search-field { order: 1; }
+    .filter-toggle { display: inline-flex; order: 2; justify-self: start; }
+    .filters { order: 3; display: none; padding: var(--space-4); background: var(--card); border-radius: var(--radius-md); }
+    .tool-run.filters-open .filters { display: grid; }
+    .tool-run__result { order: 4; margin-top: var(--space-4); }
+    .saved-card { order: 5; margin-top: var(--space-8); }
+    #data-panel { order: 6; }
+    .result-count strong { font-size: 36px; }
     .row { grid-template-columns: 20px minmax(0, 1fr); }
     .row__actions { grid-column: 2; justify-content: flex-start; margin-left: -6px; }
     .copy-bar { padding: var(--space-3); }
@@ -147,6 +178,15 @@
 </style>
 </head>
 <body data-area="ops">
+<header class="site-nav">
+  <div class="site-nav__inner">
+    <a class="brand" href="../index.html">
+      <span class="brand__mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 17V7l7 7 7-7v10"/></svg></span>
+      <span class="label">마이포워더 도구</span>
+    </a>
+    <span class="caption ink-3" data-tool-meta></span>
+  </div>
+</header>
 <main class="page">
   <header class="tool-header">
     <a class="back-link body" href="../index.html">
@@ -154,17 +194,24 @@
       도구 목록
     </a>
     <div class="tool-header__tags"><span class="tag tag-area">운영</span><span class="tag">공통</span></div>
-    <h1 class="heading-1">장치장 코드 조회기</h1>
+    <h1 class="heading-1 tool-title" data-reveal-words>장치장 코드 조회기</h1>
     <p class="body-l ink-2 tool-header__summary">장치장명 일부, 코드, 초성, 약칭으로 보세구역 부호를 찾고 관세사에게 보낼 문구를 한 번에 복사합니다.</p>
-    <p class="caption ink-3" data-tool-meta></p>
   </header>
+
+  <section class="stat-band" data-reveal aria-label="데이터 요약">
+    <div class="stat"><p class="display-l stat__num" id="stat-count">—</p><p class="body stat__label">전국 장치장</p></div>
+    <div class="stat"><p class="display-l stat__num" id="stat-customs">—</p><p class="body stat__label">관할세관</p></div>
+    <div class="stat"><p class="display-l stat__num" id="stat-types">—</p><p class="body stat__label">구분(추정)</p></div>
+    <p class="caption stat-band__note" id="stat-note">관세청 UNI-PASS 공개 데이터</p>
+  </section>
 
   <section class="tool-run" aria-label="장치장 코드 조회">
     <!-- 입력 -->
     <div class="tool-run__input">
-      <div class="field">
+      <div class="field search-field">
         <label class="field__label" for="q">검색어</label>
         <div class="search-wrap">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
           <input class="input" id="q" type="search" autocomplete="off" spellcheck="false" placeholder="장치장명, 코드, 초성(ㅂㅅㅅㅎ)" autofocus>
           <span class="kbd" id="kbd" aria-hidden="true">/</span>
           <button class="btn-icon search-clear" id="q-clear" type="button" aria-label="검색어 지우기" hidden>
@@ -174,6 +221,12 @@
         <p class="caption ink-3">약칭(HPNT 등)과 코드 일부로도 찾습니다.</p>
       </div>
 
+      <button class="btn filter-toggle" type="button" id="filter-toggle" aria-expanded="false" aria-controls="filters">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
+        필터<span class="filter-toggle__count" id="filter-count" hidden></span>
+      </button>
+
+      <div class="filters" id="filters">
       <div class="filter-block">
         <div class="filter-block__head"><span class="label">지역</span><button class="link-btn" type="button" data-clear="region" hidden>해제</button></div>
         <div class="pill-group" id="f-region"></div>
@@ -191,8 +244,9 @@
         <div class="pill-group" id="f-customs"></div>
         <button class="link-btn" type="button" data-clear="customs" hidden style="margin-top: 8px">세관 필터 해제</button>
       </details>
+      </div>
 
-      <div class="card" style="padding: 16px">
+      <div class="card saved-card" style="padding: 16px">
         <div class="tabs" role="tablist">
           <button class="pill" type="button" role="tab" id="tab-fav" aria-pressed="true" aria-selected="true">즐겨찾기 <span class="pill__count" id="fav-count">0</span></button>
           <button class="pill" type="button" role="tab" id="tab-recent" aria-pressed="false" aria-selected="false">최근 조회 <span class="pill__count" id="recent-count">0</span></button>
@@ -238,7 +292,7 @@
               <option value="table">표(엑셀·메일)</option>
               <option value="code">코드만</option>
             </select>
-            <button class="btn btn-accent" type="button" id="copy-selected" disabled>관세사 전달용 복사</button>
+            <button class="btn btn-accent" type="button" id="copy-selected" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg><span id="copy-selected-label">관세사 전달용 복사</span></button>
           </div>
         </div>
       </div>
@@ -250,6 +304,10 @@
 
   <div data-tool-sections data-slug="bonded-area-code"></div>
 </main>
+<footer class="site-footer">
+  <span>마이포워더 도구 · 로그인 없이 바로 쓰는 포워딩·SCM 업무 도구</span>
+  <span>데이터: 관세청 UNI-PASS 공개 API</span>
+</footer>
 
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 
@@ -265,7 +323,7 @@
   const REGIONS = ['부산', '인천', '광양', '평택', '울산', '서울·경기', '경남', '공항', '기타'];
   const TYPES = ['CY', 'CFS', '보세창고', '지정장치장', '세관검사장', '보세공장', '보세판매장', '자유무역지역', '보세구역외장치', '공항화물', '기타'];
   const TYPE_LABEL = { CY: 'CY(터미널)' };
-  const BASIS_LABEL = { name: '장치장명 키워드', unloading: '하역장소 여부·부호 패턴', code: '부호 자리 패턴', none: '판단 근거 없음' };
+  const BASIS_LABEL = { airport: '공항세관 관할·항공사 이름', name: '장치장명 키워드', unloading: '하역장소 여부·부호 패턴', code: '부호 자리 패턴', none: '판단 근거 없음' };
   const FORMAT_LABEL = { line: '한 줄', table: '표', code: '코드만' };
 
   // ── 저장소(localStorage, 실패해도 동작) ──
@@ -493,6 +551,9 @@
     document.querySelectorAll('[data-filter]').forEach((b) => b.setAttribute('aria-pressed', state[b.dataset.filter].has(b.dataset.value)));
     document.querySelectorAll('[data-clear]').forEach((b) => { b.hidden = !state[b.dataset.clear].size; });
     $('#adv-count').textContent = state.customs.size ? `${state.customs.size}곳 선택` : '';
+    const active = state.region.size + state.type.size + state.customs.size;
+    $('#filter-count').textContent = active;
+    $('#filter-count').hidden = !active;
   }
 
   function renderDataInfo() {
@@ -563,9 +624,10 @@
     const aliasHit = m.field === 'alias' ? `<span class="alias-hit">약칭 <mark>${esc(m.alias)}</mark> 일치</span>` : '';
     const check = `<input type="checkbox" data-act="select" ${sel ? 'checked' : ''} aria-label="${esc(it.name)} 선택">`;
     const toggle = `<button type="button" data-act="toggle" aria-expanded="${open}">${nameHtml || '(이름 없음)'}</button>`;
+    const cls = `item${sel ? ' is-selected' : ''}${open ? ' is-open' : ''}`;
     if (state.view === 'card') {
       const memo = state.memos[it.code];
-      return `<article class="item${sel ? ' is-selected' : ''}" data-code="${esc(it.code)}">
+      return `<article class="${cls}" data-code="${esc(it.code)}">
         <div class="cardv" data-act="toggle-area">
           <div class="cardv__top"><div class="cardv__name">${toggle}${aliasHit ? `<div>${aliasHit}</div>` : ''}</div>${check}</div>
           <div class="cardv__code">${codeHtml}</div>
@@ -576,7 +638,7 @@
         ${open ? detailHtml(it) : ''}
       </article>`;
     }
-    return `<article class="item${sel ? ' is-selected' : ''}" data-code="${esc(it.code)}">
+    return `<article class="${cls}" data-code="${esc(it.code)}">
       <div class="row" data-act="toggle-area">
         ${check}
         <div class="row__main">
@@ -613,7 +675,7 @@
     $('#clear-selection').hidden = !n;
     const btn = $('#copy-selected');
     btn.disabled = !n;
-    btn.textContent = n ? `관세사 전달용 복사 (${fmtNum(n)})` : '관세사 전달용 복사';
+    $('#copy-selected-label').textContent = n ? `관세사 전달용 복사 (${fmtNum(n)})` : '관세사 전달용 복사';
     const visible = state.results.slice(0, state.shown);
     const pageBox = $('#select-page');
     const selVisible = visible.filter(({ it }) => state.selected.has(it.code)).length;
@@ -683,6 +745,11 @@
     if (clear) { state[clear.dataset.clear].clear(); syncFilterUI(); run(); return; }
     const open = e.target.closest('[data-open]');
     if (open) { openItem(open.dataset.open); return; }
+    if (e.target.closest('#filter-toggle')) {
+      const isOpen = document.querySelector('.tool-run').classList.toggle('filters-open');
+      $('#filter-toggle').setAttribute('aria-expanded', isOpen);
+      return;
+    }
     if (e.target.closest('#tab-fav')) { state.tab = 'fav'; renderSaved(); }
     if (e.target.closest('#tab-recent')) { state.tab = 'recent'; renderSaved(); }
   });
@@ -758,6 +825,10 @@
       // 저장된 즐겨찾기·최근 중 데이터에서 사라진 부호는 목록에서만 숨긴다(저장값은 유지)
       renderPills();
       renderDataInfo();
+      $('#stat-count').textContent = fmtNum(meta.count);
+      $('#stat-customs').textContent = fmtNum(new Set(items.map((it) => it.customs)).size);
+      $('#stat-types').textContent = fmtNum(new Set(items.map((it) => it.type)).size);
+      $('#stat-note').textContent = `기준일 ${meta.updatedAt} · 관세청 UNI-PASS 공개 API · 분기 1회 갱신`;
       renderSaved();
       state.q = $('#q').value;
       run();

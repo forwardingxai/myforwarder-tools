@@ -146,6 +146,29 @@
 .area-card__number { color: var(--accent); }
 .area-card__desc { color: var(--on-dark-2); }
 
+/* StatBand — 다크 블록 위 큰 숫자(액센트는 숫자에만) */
+.stat-band {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-6) var(--space-8);
+  padding: var(--space-8) var(--space-12);
+  background: var(--bg-dark);
+  color: var(--on-dark);
+  border-radius: var(--radius-md);
+}
+.stat { display: grid; gap: var(--space-1); align-content: start; }
+.stat + .stat { border-left: 1px solid color-mix(in srgb, var(--on-dark) 14%, transparent); padding-left: var(--space-8); }
+.stat__num { color: var(--accent); font-variant-numeric: tabular-nums; }
+.stat__label { color: var(--on-dark-2); }
+.stat-band__note { grid-column: 1 / -1; color: var(--on-dark-2); }
+@media (max-width: 768px) {
+  .stat-band { padding: var(--space-4) var(--space-6); gap: var(--space-3) var(--space-4); }
+  .stat-band__note { display: none; }
+  .stat + .stat { padding-left: var(--space-4); }
+  .stat .display-l { font-size: 30px; }
+  .stat .body { font-size: 13px; }
+}
+
 /* PromptStructureCard — 단계 제목만 공개, 번호칸은 연한 강조면 */
 .prompt-card { display: grid; gap: var(--space-2); }
 .prompt-step {

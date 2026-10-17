@@ -2,6 +2,8 @@
 // 1) tools.json에서 하단 섹션(기능 목록 · 만든 과정 · 프롬프트 구조 · 관련 도구)을 렌더한다.
 //    자리: <div data-tool-sections data-slug="{slug}"></div>, 머리 메타: <p data-tool-meta></p>
 // 2) [data-reveal] 요소를 뷰포트에 들어올 때 한 번 드러낸다(prefers-reduced-motion이면 즉시 표시).
+//    [data-reveal-words]는 단어 단위로 나눠 40ms 간격으로 드러낸다.
+// 3) .site-nav에 스크롤하면 .is-scrolled(그림자)를 붙인다.
 (() => {
   const ROOT = new URL('..', document.currentScript.src); // shared/의 상위 = 저장소 루트
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -13,10 +15,21 @@
   const LOCK_SVG =
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
 
+  // 헤드라인을 단어 단위 span으로 나눈다(텍스트만 있는 요소 전제)
+  function splitWords(root = document) {
+    root.querySelectorAll('[data-reveal-words]:not([data-split])').forEach((el) => {
+      const words = el.textContent.trim().split(/\s+/);
+      el.setAttribute('aria-label', el.textContent.trim());
+      el.innerHTML = words.map((w, i) => `<span class="w" style="--i:${i}" aria-hidden="true">${esc(w)}</span>`).join(' ');
+      el.setAttribute('data-split', '');
+    });
+  }
+
   // 스크롤 리빌
   let observer = null;
   function reveal(root = document) {
-    const els = root.querySelectorAll('[data-reveal]:not(.is-revealed)');
+    splitWords(root);
+    const els = root.querySelectorAll('[data-reveal]:not(.is-revealed), [data-reveal-words]:not(.is-revealed)');
     if (reducedMotion || !('IntersectionObserver' in window)) {
       els.forEach((el) => el.classList.add('is-revealed'));
       return;
@@ -33,12 +46,14 @@
   }
   // 한 번에 크게 스크롤하면 관찰자가 지나친 요소를 놓칠 수 있어, 이미 화면 위로 지나간 요소도 드러낸다.
   let ticking = false;
+  const nav = document.querySelector('.site-nav');
   window.addEventListener('scroll', () => {
     if (ticking) return;
     ticking = true;
     requestAnimationFrame(() => {
       ticking = false;
-      document.querySelectorAll('[data-reveal]:not(.is-revealed)').forEach((el) => {
+      nav?.classList.toggle('is-scrolled', window.scrollY > 8);
+      document.querySelectorAll('[data-reveal]:not(.is-revealed), [data-reveal-words]:not(.is-revealed)').forEach((el) => {
         if (el.getBoundingClientRect().top < window.innerHeight) {
           el.classList.add('is-revealed');
           observer?.unobserve(el);
@@ -48,8 +63,9 @@
   }, { passive: true });
   document.documentElement.classList.add('reveal-ready');
 
+  let sectionNo = 0;
   const section = (title, body) =>
-    `<section class="section" data-reveal><h2 class="heading-2">${esc(title)}</h2>${body}</section>`;
+    `<section class="section" data-reveal><div class="section__head"><span class="eyebrow">${pad2(++sectionNo)}</span><h2 class="heading-2">${esc(title)}</h2></div>${body}</section>`;
 
   function toolCard(t) {
     const thumb = t.thumb ? `<img src="${esc(new URL(t.thumb, ROOT))}" alt="" loading="lazy">` : '';

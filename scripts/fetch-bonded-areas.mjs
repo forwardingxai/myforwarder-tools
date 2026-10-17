@@ -144,7 +144,7 @@ function build(targets) {
 
   const items = [...byCode.values()]
     .map(({ row, customs }) => {
-      const t = classifyType(row.name, { code: row.code, unloadingPlace: row.unloading });
+      const t = classifyType(row.name, { code: row.code, unloadingPlace: row.unloading, customs });
       return {
         code: row.code,
         name: row.name,
