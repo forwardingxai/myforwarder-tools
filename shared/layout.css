@@ -17,6 +17,10 @@ body {
 
 h1, h2, h3, h4, p { margin: 0; }
 [hidden] { display: none !important; } /* .btn처럼 display를 지정한 요소도 hidden을 따르게 */
+
+/* 목차 링크로 이동할 때: 사용자가 누른 이동만 부드럽게(자동 재생 아님), 상단 바 높이만큼 여유 */
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+.tool-run, .section, .cta-band { scroll-margin-top: 72px; }
 a { color: inherit; }
 img { max-width: 100%; display: block; }
 button, input, select, textarea { font: inherit; color: inherit; }

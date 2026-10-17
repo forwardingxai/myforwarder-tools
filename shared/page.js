@@ -6,6 +6,10 @@
 // 2) [data-reveal] 요소를 뷰포트에 들어올 때 한 번 드러낸다(prefers-reduced-motion이면 즉시 표시).
 //    [data-reveal-words]는 단어 단위로 나눠 40ms 간격으로 드러낸다.
 // 3) .site-nav에 스크롤하면 .is-scrolled(그림자)를 붙인다.
+// 4) 화면 내 목차(.page-toc): 오른쪽 아래 떠 있는 패널. 실행 영역(.tool-run) + 하단 섹션을 보여 주고 현재 위치를 표시한다.
+//    넓은 화면(1760px 이상)은 펼친 채, 그보다 좁으면 결과 영역을 가리지 않게 알약 하나로 접은 채 시작한다.
+// 5) site.json의 연락(contact.links): 첫 링크가 오류 제보 링크([data-contact-link])의 주소가 되고,
+//    [data-contact-links] 자리에 모든 채널 버튼을 그린다.
 (() => {
   const ROOT = new URL('..', document.currentScript.src); // shared/의 상위 = 저장소 루트
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -74,6 +78,7 @@
   }
   // 한 번에 크게 스크롤하면 관찰자가 지나친 요소를 놓칠 수 있어, 이미 화면 위로 지나간 요소도 드러낸다.
   let ticking = false;
+  let tocUpdate = null; // buildToc가 채운다
   const nav = document.querySelector('.site-nav');
   window.addEventListener('scroll', () => {
     if (ticking) return;
@@ -81,6 +86,7 @@
     requestAnimationFrame(() => {
       ticking = false;
       nav?.classList.toggle('is-scrolled', window.scrollY > 8);
+      tocUpdate?.();
       document.querySelectorAll('[data-reveal]:not(.is-revealed), [data-reveal-words]:not(.is-revealed)').forEach((el) => {
         if (el.getBoundingClientRect().top < window.innerHeight) {
           el.classList.add('is-revealed');
@@ -91,9 +97,87 @@
   }, { passive: true });
   document.documentElement.classList.add('reveal-ready');
 
+  // 화면 내 목차
+  const TOC_KEY = 'mft:site:toc';
+  const LIST_SVG =
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg>';
+  const CHEVRON_SVG =
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
+  function buildToc(host) {
+    const entries = [];
+    const run = document.querySelector('.tool-run');
+    if (run) {
+      run.id ||= 'tool-run';
+      entries.push({ id: run.id, label: run.dataset.tocLabel || '도구 쓰기' });
+    }
+    host.querySelectorAll(':scope > section').forEach((sec, i) => {
+      const label = sec.dataset.tocLabel || sec.querySelector('h2')?.textContent.trim();
+      if (!label) return;
+      sec.id ||= `section-${pad2(i + 1)}`;
+      entries.push({ id: sec.id, label });
+    });
+    if (entries.length < 2) return;
+
+    const toc = document.createElement('nav');
+    toc.className = 'page-toc';
+    toc.setAttribute('aria-label', '이 페이지의 목차');
+    toc.innerHTML = `
+      <button class="page-toc__pill" type="button" aria-expanded="false" aria-controls="page-toc-panel" title="이 페이지의 목차">
+        ${LIST_SVG}<span class="page-toc__current"></span><span class="page-toc__count"></span>
+      </button>
+      <div class="page-toc__panel" id="page-toc-panel">
+        <div class="page-toc__head">
+          <span class="eyebrow">이 페이지</span>
+          <button class="btn-icon page-toc__close" type="button" aria-label="목차 접기">${CHEVRON_SVG}</button>
+        </div>
+        <ol class="page-toc__list">${entries.map((e) => `<li><a href="#${esc(e.id)}">${esc(e.label)}</a></li>`).join('')}</ol>
+      </div>`;
+    document.body.appendChild(toc);
+    document.documentElement.classList.add('has-toc');
+
+    const links = [...toc.querySelectorAll('.page-toc__list a')];
+    const pill = toc.querySelector('.page-toc__pill');
+    const current = toc.querySelector('.page-toc__current');
+    const count = toc.querySelector('.page-toc__count');
+    const wide = window.matchMedia('(min-width: 1760px)').matches;
+    let saved = null;
+    try { saved = localStorage.getItem(TOC_KEY); } catch { /* 저장 불가 환경 */ }
+    const setOpen = (open, remember) => {
+      toc.classList.toggle('is-open', open);
+      pill.setAttribute('aria-expanded', open);
+      if (remember) { try { localStorage.setItem(TOC_KEY, open ? 'open' : 'closed'); } catch { /* 저장 불가 환경 */ } }
+    };
+    setOpen(saved ? saved === 'open' : wide, false);
+    pill.addEventListener('click', () => setOpen(true, true));
+    toc.querySelector('.page-toc__close').addEventListener('click', () => setOpen(false, true));
+    // 좁은 화면에서는 항목을 고르면 패널을 접어 결과를 가리지 않는다
+    links.forEach((a) => a.addEventListener('click', () => { if (!wide) setOpen(false, false); }));
+
+    tocUpdate = () => {
+      const line = window.innerHeight * 0.35;
+      let idx = 0;
+      entries.forEach((e, i) => {
+        const el = document.getElementById(e.id);
+        if (el && el.getBoundingClientRect().top <= line) idx = i;
+      });
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) idx = entries.length - 1;
+      links.forEach((a, i) => {
+        a.classList.toggle('is-active', i === idx);
+        if (i === idx) a.setAttribute('aria-current', 'location');
+        else a.removeAttribute('aria-current');
+      });
+      current.textContent = entries[idx].label;
+      count.textContent = `${idx + 1}/${entries.length}`;
+    };
+    tocUpdate();
+    window.addEventListener('resize', tocUpdate, { passive: true });
+  }
+
   let sectionNo = 0;
-  const section = (title, body) =>
-    `<section class="section" data-reveal><div class="section__head"><span class="eyebrow">${pad2(++sectionNo)}</span><h2 class="heading-2">${esc(title)}</h2></div>${body}</section>`;
+  const section = (title, body) => {
+    const n = ++sectionNo;
+    return `<section class="section" id="section-${pad2(n)}" data-reveal><div class="section__head"><span class="eyebrow">${pad2(n)}</span><h2 class="heading-2">${esc(title)}</h2></div>${body}</section>`;
+  };
 
   function toolCard(t) {
     const thumb = t.thumb ? `<img src="${esc(new URL(t.thumb, ROOT))}" alt="" loading="lazy">` : '';
@@ -182,7 +266,7 @@
       </div>`));
     }
     if (cta.title && cta.primary?.href) {
-      out.push(`<section class="cta-band" data-reveal>
+      out.push(`<section class="cta-band" id="next-steps" data-toc-label="${esc(cta.eyebrow || '다음 걸음')}" data-reveal>
         ${cta.eyebrow ? `<span class="cta-band__eyebrow">${esc(cta.eyebrow)}</span>` : ''}
         <h2 class="display-l cta-band__title">${esc(cta.title)}</h2>
         ${cta.body ? `<p class="body-l cta-band__body">${esc(cta.body)}</p>` : ''}
@@ -195,11 +279,25 @@
     return out.join('');
   }
   let siteConfig = {};
+  const isMail = (href) => href.startsWith('mailto:');
+  const external = (href) => (isMail(href) ? '' : ' target="_blank" rel="noopener"');
   function applyContact(site = siteConfig) {
-    const href = site.contact?.href;
-    if (!href) return;
-    document.querySelectorAll('[data-contact-link]').forEach((a) => { a.href = href; a.hidden = false; });
-    document.querySelectorAll('[data-contact-label]').forEach((el) => { if (site.contact.label) el.textContent = site.contact.label; });
+    const links = (site.contact?.links || []).filter((l) => l.label && l.href);
+    if (!links.length) return;
+    const primary = links[0].href;
+    // 오류 제보 링크: 첫 채널로. 메일이면 도구별 제목(data-contact-subject)을 미리 채운다
+    document.querySelectorAll('[data-contact-link]').forEach((a) => {
+      const subject = a.dataset.contactSubject;
+      a.href = isMail(primary) && subject ? `${primary}?subject=${encodeURIComponent(subject)}` : primary;
+      if (!isMail(primary)) { a.target = '_blank'; a.rel = 'noopener'; }
+      a.hidden = false;
+    });
+    document.querySelectorAll('[data-contact-lead]').forEach((el) => { if (site.contact.lead) el.textContent = site.contact.lead; });
+    document.querySelectorAll('[data-contact-links]').forEach((box) => {
+      box.innerHTML = links
+        .map((l, i) => `<a class="btn${i === 0 ? ' btn-dark' : ''}" href="${esc(l.href)}"${external(l.href)}>${esc(l.label)}</a>`)
+        .join('');
+    });
   }
 
   function render(tool, all, site) {
@@ -256,6 +354,7 @@
         if (tool) {
           host.innerHTML = render(tool, all, site);
           if (tool.kit) hydrateKit(host, tool.kit);
+          buildToc(host);
           if (meta) meta.textContent = [`D${pad2(tool.day)}`, tool.date, tool.hours > 0 ? `${tool.hours}h` : ''].filter(Boolean).join(' · ');
         }
       } catch (e) {

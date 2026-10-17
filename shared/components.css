@@ -188,6 +188,44 @@
   font-family: var(--font-mono); font-size: 13px;
 }
 
+/* PageToc — 오른쪽 아래 떠 있는 화면 내 목차. 접힌 알약(현재 위치 · n/N) ↔ 펼친 패널 */
+.page-toc { position: fixed; right: var(--space-6); bottom: var(--space-6); z-index: 45; display: grid; justify-items: end; }
+.page-toc__pill {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  min-height: 40px; max-width: min(320px, calc(100vw - 32px));
+  padding: 0 var(--space-4) 0 var(--space-3);
+  border: 1px solid var(--line); border-radius: var(--radius-pill);
+  background: var(--card-raised); color: var(--ink); box-shadow: var(--card-hover);
+  font-size: 13px; font-weight: 500; cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out);
+}
+.page-toc__pill:hover { border-color: var(--ink-3); background: var(--card); }
+.page-toc__pill svg { width: 16px; height: 16px; color: var(--ink-2); flex: none; }
+.page-toc__current { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.page-toc__count { color: var(--ink-3); font-family: var(--font-mono); font-size: 12px; flex: none; }
+.page-toc__panel {
+  display: none; width: 248px; max-width: calc(100vw - 32px); max-height: min(60vh, 440px); overflow: auto;
+  padding: var(--space-3);
+  background: var(--card-raised); border-radius: var(--radius-md); box-shadow: var(--card-hover);
+}
+.page-toc.is-open .page-toc__panel { display: block; }
+.page-toc.is-open .page-toc__pill { display: none; }
+.page-toc__head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); padding: var(--space-1) 0 var(--space-2) var(--space-3); }
+.page-toc__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.page-toc__list a {
+  display: block; padding: 8px var(--space-3);
+  border-radius: var(--radius-pill);
+  color: var(--ink-2); font-size: 13px; line-height: 1.4; text-decoration: none;
+  transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+.page-toc__list a:hover { background: var(--card); color: var(--ink); }
+.page-toc__list a.is-active { background: var(--accent-soft); color: var(--ink); font-weight: 500; }
+@media (max-width: 768px) {
+  .page-toc { right: var(--space-4); bottom: var(--space-4); }
+  .has-toc .toast { bottom: 72px; } /* 접힌 목차 알약과 겹치지 않게 */
+}
+@media print { .page-toc { display: none; } }
+
 /* 만든 사람 */
 .creator-card {
   display: grid; gap: var(--space-4);

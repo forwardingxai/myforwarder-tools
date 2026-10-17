@@ -14,8 +14,20 @@
   .stat-band { margin-bottom: var(--space-12); }
 
   /* ── 입력 영역 ── */
+  /* 검색은 이 페이지에서 가장 많이 쓰는 입력이라 연한 강조면(--accent-soft) 위에 올려 눈에 띄게 한다.
+     색 규칙(네 곳)을 지키려고 테두리에는 액센트를 쓰지 않고, 포커스는 검정 2px 테두리로 강하게 표시한다. */
+  .search-field { padding: var(--space-4); background: var(--accent-soft); border-radius: var(--radius-md); }
+  .search-field .field__label { font-size: 16px; }
+  .search-field .caption { color: var(--ink-2); }
   .search-wrap { position: relative; }
-  .search-wrap .input { height: 56px; padding-left: 48px; padding-right: 48px; font-size: 18px; }
+  .search-wrap .input {
+    height: 56px; padding-left: 48px; padding-right: 48px; font-size: 18px;
+    border-color: transparent; box-shadow: var(--card-rest);
+    transition: border-color var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
+  }
+  .search-wrap .input:hover { border-color: var(--ink-3); }
+  .search-wrap .input:focus { border-color: var(--ink); box-shadow: 0 0 0 1px var(--ink); }
+  .search-wrap:focus-within .search-icon { color: var(--ink); }
   .search-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; color: var(--ink-3); pointer-events: none; }
   .filters { display: grid; gap: var(--space-6); }
   .filter-toggle { display: none; }
@@ -205,11 +217,11 @@
     <p class="caption stat-band__note" id="stat-note">관세청 UNI-PASS 공개 데이터</p>
   </section>
 
-  <section class="tool-run" aria-label="장치장 코드 조회">
+  <section class="tool-run" aria-label="장치장 코드 조회" data-toc-label="장치장 찾기">
     <!-- 입력 -->
     <div class="tool-run__input">
       <div class="field search-field">
-        <label class="field__label" for="q">검색어</label>
+        <label class="field__label" for="q">어떤 장치장을 찾으세요?</label>
         <div class="search-wrap">
           <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
           <input class="input" id="q" type="search" autocomplete="off" spellcheck="false" placeholder="장치장명, 코드, 초성(ㅂㅅㅅㅎ)" autofocus>
@@ -567,7 +579,7 @@
       <dt>전체</dt><dd>${fmtNum(m.count)}건</dd>
       <dt>범위</dt><dd>${esc(m.scope)}</dd>
       <dt>다음 갱신</dt><dd>${nextStr} 예정 (분기 1회)</dd>
-      <dt>오류 제보</dt><dd><a href="${REPORT_URL}" data-contact-link>코드가 다르거나 빠진 곳 알려 주기</a></dd>`;
+      <dt>오류 제보</dt><dd><a href="${REPORT_URL}" data-contact-link data-contact-subject="[장치장 코드 조회기] 코드 오류·누락 제보">코드가 다르거나 빠진 곳 알려 주기</a></dd>`;
     window.MFT?.applyContact?.();
   }
 
@@ -660,7 +672,7 @@
     if (!hasQuery) {
       host.innerHTML = '<div class="state"><p class="body">장치장명이나 코드를 입력하세요. 초성 검색도 됩니다.</p></div>';
     } else if (!total) {
-      host.innerHTML = `<div class="state"><p class="body">일치하는 장치장이 없습니다. 이름 일부만 입력해 보세요.</p><p class="caption" style="margin-top: 8px"><a href="${REPORT_URL}" data-contact-link>찾는 장치장이 없나요? 알려 주세요</a></p></div>`;
+      host.innerHTML = `<div class="state"><p class="body">일치하는 장치장이 없습니다. 이름 일부만 입력해 보세요.</p><p class="caption" style="margin-top: 8px"><a href="${REPORT_URL}" data-contact-link data-contact-subject="[장치장 코드 조회기] 찾는 장치장이 없어요">찾는 장치장이 없나요? 알려 주세요</a></p></div>`;
       window.MFT?.applyContact?.();
     } else {
       const visible = state.results.slice(0, state.shown);

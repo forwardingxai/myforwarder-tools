@@ -1,22 +1,26 @@
 {
-  "_note": "사이트 공통 설정. 빈 칸은 화면에 나오지 않는다(shared/page.js). 문구 초안은 docs/voice-guide.md 5절.",
+  "_note": "사이트 공통 설정. 빈 칸은 화면에 나오지 않는다(shared/page.js). 문구 기준은 docs/voice-guide.md. 출처: ai-class-freightforwarder 강의 랜딩(2026-10). 확인 대기: 활동명 '3주 과정', 강의 링크, 경력 연수.",
   "creator": {
-    "name": "",
-    "role": "",
-    "bio": "",
+    "name": "이준헌",
+    "role": "포워딩 × AI 3주 과정 강사 · 마이포워더 도구 제작",
+    "bio": "포워딩 현장에서 16년을 일했어요. 지금은 실무자가 AI로 직접 일을 줄이는 법을 가르치고, 그 과정에서 만든 도구를 여기에 하나씩 공개해요.",
     "links": [
-      {"label": "", "href": ""}
+      {"label": "강의 소개 보기", "href": "https://forwardingxai.vercel.app/landing"},
+      {"label": "오픈톡방 참여", "href": "https://open.kakao.com/o/gtEJl7Ei"}
     ]
   },
   "cta": {
-    "eyebrow": "",
-    "title": "",
-    "body": "",
-    "primary": {"label": "", "href": ""},
-    "secondary": {"label": "", "href": ""}
+    "eyebrow": "다음 걸음",
+    "title": "포워딩 실무에 AI를 붙이는 법, 처음부터 같이 해 봐요",
+    "body": "이런 도구를 처음부터 끝까지 AI로 만드는 과정을 3주 동안 한 단계씩 보여 드려요. 코딩을 몰라도 괜찮아요.",
+    "primary": {"label": "포워딩 × AI 3주 과정 보기", "href": "https://forwardingxai.vercel.app/landing"},
+    "secondary": {"label": "오픈톡방에서 물어보기", "href": "https://open.kakao.com/o/gtEJl7Ei"}
   },
   "contact": {
-    "label": "",
-    "href": ""
+    "lead": "도구 제안이나 오류 제보는 이메일이나 오픈톡방으로 보내 주세요. 실무에서 불편했던 일이라면 무엇이든 좋아요.",
+    "links": [
+      {"label": "이메일 보내기", "href": "mailto:forwardingxai@gmail.com"},
+      {"label": "오픈톡방 참여", "href": "https://open.kakao.com/o/gtEJl7Ei"}
+    ]
   }
 }
