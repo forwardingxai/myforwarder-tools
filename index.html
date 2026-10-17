@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>마이포워더 도구</title>
-<meta name="description" content="포워딩·SCM 실무자가 로그인 없이 바로 쓰는 업무 도구 모음. 1일 1개발.">
+<meta name="description" content="포워딩 실무에서 매일 반복하는 일을 AI로 하나씩 도구로 바꿔요. 로그인 없이 바로 쓰고, 만드는 방법까지 그대로 가져가세요.">
 <link rel="icon" href="data:,">
 <link rel="stylesheet" href="design-tokens.css">
 <link rel="stylesheet" href="shared/layout.css">
@@ -18,6 +18,7 @@
   .band__label { color: var(--on-dark-2); }
   .areas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-6); }
   .landing-section { display: grid; gap: var(--space-6); margin-top: var(--space-24); }
+  .landing-section:empty { display: none; }
   .empty { padding: var(--space-12) var(--space-6); text-align: center; color: var(--ink-2); background: var(--card); border-radius: var(--radius-md); }
   @media (max-width: 768px) {
     .hero .display-xl { font-size: 48px; }
@@ -35,28 +36,28 @@
       <span class="brand__mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 17V7l7 7 7-7v10"/></svg></span>
       <span class="label">마이포워더 도구</span>
     </a>
-    <a class="btn btn-sm" href="#tools">도구 보기</a>
+    <a class="btn btn-sm" href="#tools">도구 둘러보기</a>
   </div>
 </header>
 <main class="page">
   <section class="hero">
     <h1 class="display-xl" data-reveal-words>마이포워더 도구</h1>
-    <p class="body-l ink-2">포워딩·SCM 실무자가 로그인 없이 바로 쓰는 업무 도구 모음. 하루에 하나씩 만듭니다.</p>
+    <p class="body-l ink-2">포워딩 실무에서 매일 반복하는 일을 AI로 하나씩 도구로 바꾸고 있어요. 로그인 없이 바로 쓰고, 만드는 방법까지 그대로 가져가세요.</p>
     <div class="hero__actions">
-      <a class="btn btn-dark" href="#tools">도구 보기</a>
-      <a class="btn" href="#about">소개</a>
+      <a class="btn btn-dark" href="#tools">도구 둘러보기</a>
+      <a class="btn" href="#about">어떻게 만드나요?</a>
     </div>
   </section>
 
   <section class="band" data-reveal aria-label="숫자로 보기">
-    <div><p class="display-l band__num" id="n-tools">0</p><p class="body band__label">공개된 도구</p></div>
-    <div><p class="display-l band__num" id="n-day">D+0</p><p class="body band__label">1일 1개발</p></div>
+    <div><p class="display-l band__num" id="n-tools">0</p><p class="body band__label">지금 쓸 수 있는 도구</p></div>
+    <div><p class="display-l band__num" id="n-day">D+0</p><p class="body band__label">하루에 하나씩 만드는 중</p></div>
   </section>
 
   <section class="landing-section" data-reveal aria-label="영역">
     <div class="areas">
-      <div class="area-card" data-area="sales"><p class="display-l area-card__number" id="n-sales">0</p><h2 class="heading-2">영업</h2><p class="body area-card__desc">견적·운임·고객 응대에 쓰는 도구</p></div>
-      <div class="area-card" data-area="ops"><p class="display-l area-card__number" id="n-ops">0</p><h2 class="heading-2">운영</h2><p class="body area-card__desc">통관·선적·서류 처리에 쓰는 도구</p></div>
+      <div class="area-card" data-area="sales"><p class="display-l area-card__number" id="n-sales">0</p><h2 class="heading-2">영업</h2><p class="body area-card__desc">견적·운임 계산과 고객 응대를 더 빠르게</p></div>
+      <div class="area-card" data-area="ops"><p class="display-l area-card__number" id="n-ops">0</p><h2 class="heading-2">운영</h2><p class="body area-card__desc">통관·선적·서류 확인을 더 빠르게</p></div>
     </div>
   </section>
 
@@ -66,18 +67,21 @@
   </section>
 
   <section class="landing-section" id="about" data-reveal>
-    <h2 class="heading-2">소개</h2>
-    <p class="body ink-2">실무에서 반복되는 확인 작업을 도구로 바꿉니다. 각 도구 페이지 아래에 기능 목록과 만든 과정을 함께 공개합니다.</p>
+    <h2 class="heading-2">어떻게 만드나요?</h2>
+    <p class="body-l ink-2" style="max-width: 720px">코드는 AI가 쓰고, 저는 실무에서 무엇이 필요한지 설명해요. 도구마다 만든 과정과 AI에게 맡긴 단계, 직접 따라 만들 수 있는 키트까지 함께 열어 둬요. 써 보다가 "나도 만들 수 있겠는데?" 싶어지면, 바로 그 키트로 시작하면 돼요.</p>
   </section>
+
+  <div class="landing-section" data-site-funnel></div>
 
   <section class="landing-section" id="contact" data-reveal>
     <h2 class="heading-2">연락</h2>
-    <p class="body ink-2">오류 제보와 제안 창구는 준비 중입니다.</p>
+    <p class="body ink-2">도구 제안이나 오류 제보 창구를 곧 열어요. 실무에서 불편했던 일이라면 무엇이든 좋아요.</p>
+    <a class="btn btn-dark" data-contact-link data-contact-label href="#contact" hidden style="justify-self: start">제안·제보 보내기</a>
   </section>
 </main>
 <footer class="site-footer">
-  <span>마이포워더 도구 · 로그인 없이 바로 쓰는 포워딩·SCM 업무 도구</span>
-  <span>1일 1개발</span>
+  <span>마이포워더 도구 · 포워딩 실무의 반복 업무를 AI로 덜어 내요</span>
+  <span>하루에 하나씩</span>
 </footer>
 <script src="shared/page.js" defer></script>
 <script>
@@ -99,9 +103,9 @@
             <h3 class="heading-2">${esc(t.name)}</h3>
             <p class="body ink-2">${esc(t.summary)}</p>
             <p class="caption tool-card__meta">D${pad2(t.day)} · ${esc(t.date)}</p></a>`).join('')}</div>`
-        : '<p class="empty body">첫 도구를 검증하고 있습니다. 곧 공개합니다.</p>';
+        : '<p class="empty body">첫 도구를 마무리하고 있어요. 곧 열어 둘게요.</p>';
     })
-    .catch(() => { document.getElementById('grid').innerHTML = '<p class="empty body">도구 목록을 불러오지 못했습니다.</p>'; });
+    .catch(() => { document.getElementById('grid').innerHTML = '<p class="empty body">도구 목록을 불러오지 못했어요. 잠시 뒤 새로고침해 주세요.</p>'; });
 })();
 </script>
 </body>

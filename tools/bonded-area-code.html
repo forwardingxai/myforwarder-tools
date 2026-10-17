@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>장치장 코드 조회기 — 마이포워더 도구</title>
-<meta name="description" content="장치장명·코드·초성·약칭으로 보세구역(장치장) 부호를 찾아 관세사 전달용으로 바로 복사합니다.">
+<meta name="description" content="이름 몇 글자, 초성, 약칭만으로 전국 장치장 코드를 찾고 관세사에게 보낼 문구까지 바로 복사해요. 로그인 없이 쓰는 포워딩 실무 도구.">
 <link rel="icon" href="data:,">
 <link rel="stylesheet" href="../design-tokens.css">
 <link rel="stylesheet" href="../shared/layout.css">
@@ -195,7 +195,7 @@
     </a>
     <div class="tool-header__tags"><span class="tag tag-area">운영</span><span class="tag">공통</span></div>
     <h1 class="heading-1 tool-title" data-reveal-words>장치장 코드 조회기</h1>
-    <p class="body-l ink-2 tool-header__summary">장치장명 일부, 코드, 초성, 약칭으로 보세구역 부호를 찾고 관세사에게 보낼 문구를 한 번에 복사합니다.</p>
+    <p class="body-l ink-2 tool-header__summary">관세사가 "장치장 코드가 뭐예요?" 하고 물으면, 이름 몇 글자만 입력하세요. 보낼 문구까지 한 번에 복사돼요.</p>
   </header>
 
   <section class="stat-band" data-reveal aria-label="데이터 요약">
@@ -218,7 +218,7 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
           </button>
         </div>
-        <p class="caption ink-3">약칭(HPNT 등)과 코드 일부로도 찾습니다.</p>
+        <p class="caption ink-3">HPNT 같은 약칭이나 코드 몇 자리로도 찾아요.</p>
       </div>
 
       <button class="btn filter-toggle" type="button" id="filter-toggle" aria-expanded="false" aria-controls="filters">
@@ -257,7 +257,7 @@
       <div class="card-flat data-panel" id="data-panel">
         <span class="label">데이터 안내</span>
         <dl id="data-info"><dt>상태</dt><dd>불러오는 중</dd></dl>
-        <p class="caption ink-3">구분은 장치장명·부호 패턴으로 추정한 값이라 "추정"으로 표시합니다. 지역은 관할세관 기준입니다.</p>
+        <p class="caption ink-3">구분은 장치장 이름과 코드 패턴으로 짐작한 값이라 "추정"을 붙였어요. 지역은 관할세관 기준이에요.</p>
       </div>
     </div>
 
@@ -281,7 +281,7 @@
         </div>
         <div class="copy-bar">
           <div class="copy-bar__left">
-            <label><input type="checkbox" id="select-page"> <span>보이는 항목 선택</span></label>
+            <label><input type="checkbox" id="select-page"> <span>화면에 보이는 항목 모두 선택</span></label>
             <span id="selected-info">선택 0건</span>
             <button class="link-btn" type="button" id="clear-selection" hidden>선택 해제</button>
           </div>
@@ -297,7 +297,7 @@
         </div>
       </div>
       <div id="results-host">
-        <div class="state"><p class="body">데이터를 불러오는 중입니다.</p></div>
+        <div class="state"><p class="body">전국 장치장 데이터를 불러오고 있어요.</p></div>
       </div>
     </div>
   </section>
@@ -305,8 +305,8 @@
   <div data-tool-sections data-slug="bonded-area-code"></div>
 </main>
 <footer class="site-footer">
-  <span>마이포워더 도구 · 로그인 없이 바로 쓰는 포워딩·SCM 업무 도구</span>
-  <span>데이터: 관세청 UNI-PASS 공개 API</span>
+  <span>마이포워더 도구 · 포워딩 실무의 반복 업무를 AI로 덜어 내요</span>
+  <span>데이터 출처: 관세청 UNI-PASS</span>
 </footer>
 
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
@@ -472,7 +472,7 @@
       list.forEach((it) => pushRecent(it.code));
       toast('복사됨 — 관세사에게 붙여넣으세요');
     } else {
-      toast('복사하지 못했습니다. 브라우저 권한을 확인하세요.');
+      toast('복사하지 못했어요. 브라우저에서 클립보드 권한을 허용해 주세요.');
     }
   }
 
@@ -491,12 +491,12 @@
   let memoTimer = null;
   function saveMemo(code, text, statusEl) {
     clearTimeout(memoTimer);
-    statusEl.textContent = '입력 중';
+    statusEl.textContent = '저장하는 중…';
     memoTimer = setTimeout(() => {
       const v = text.trim();
       if (v) state.memos[code] = v; else delete state.memos[code];
       store.set('memos', state.memos);
-      statusEl.textContent = v ? '저장됨' : '메모 없음';
+      statusEl.textContent = v ? '저장했어요' : '메모를 지웠어요';
     }, 400);
   }
 
@@ -567,7 +567,8 @@
       <dt>전체</dt><dd>${fmtNum(m.count)}건</dd>
       <dt>범위</dt><dd>${esc(m.scope)}</dd>
       <dt>다음 갱신</dt><dd>${nextStr} 예정 (분기 1회)</dd>
-      <dt>오류 제보</dt><dd><a href="${REPORT_URL}">코드가 다르거나 빠진 장치장 알리기</a></dd>`;
+      <dt>오류 제보</dt><dd><a href="${REPORT_URL}" data-contact-link>코드가 다르거나 빠진 곳 알려 주기</a></dd>`;
+    window.MFT?.applyContact?.();
   }
 
   function renderSaved() {
@@ -582,7 +583,7 @@
     $('#saved').innerHTML = list.length
       ? `<ul class="saved-list">${list.map((it) =>
           `<li><button type="button" data-open="${esc(it.code)}"><span class="name">${esc(it.name)}</span><span class="code mono">${esc(it.code)}</span></button></li>`).join('')}</ul>`
-      : `<p class="saved-empty">${state.tab === 'fav' ? '별을 누른 장치장이 여기에 모입니다.' : '복사하거나 펼쳐 본 장치장이 최근 10건까지 남습니다.'}</p>`;
+      : `<p class="saved-empty" data-empty>${state.tab === 'fav' ? '자주 찾는 장치장에 별을 눌러 두세요. 여기에 모아 둘게요.' : '펼쳐 보거나 복사한 장치장이 최근 10곳까지 남아요.'}</p>`;
   }
 
   function tagsHtml(it) {
@@ -597,20 +598,20 @@
     const memo = state.memos[it.code] || '';
     return `<div class="detail" data-detail>
       <dl>
-        <dt>주소</dt><dd>${esc(it.address || '원본에 주소 없음')}</dd>
+        <dt>주소</dt><dd>${esc(it.address || '원본 데이터에 주소가 없어요')}</dd>
         <dt>약칭</dt><dd>${it.aliases.length ? esc(it.aliases.join(', ')) : '없음'}</dd>
         <dt>세관</dt><dd>${esc(customsLabel(it))}</dd>
         <dt>지역</dt><dd>${esc(it.region)}</dd>
         <dt>구분</dt><dd>${esc(typeLabel(it.type))} <span class="ink-3">(추정 · ${esc(BASIS_LABEL[it.typeBasis] || '')})</span></dd>
       </dl>
       <div class="field">
-        <label class="field__label" for="memo-${esc(it.code)}">내 메모 <span class="caption ink-3">이 브라우저에만 저장</span></label>
-        <textarea class="textarea" id="memo-${esc(it.code)}" data-memo placeholder="예: 반입 마감 17시, 담당 창구 2번">${esc(memo)}</textarea>
-        <span class="memo-status" data-memo-status>${memo ? '저장됨' : ''}</span>
+        <label class="field__label" for="memo-${esc(it.code)}">내 메모 <span class="caption ink-3">이 브라우저에만 저장돼요</span></label>
+        <textarea class="textarea" id="memo-${esc(it.code)}" data-memo placeholder="예: 반입 마감 17시, 2번 창구">${esc(memo)}</textarea>
+        <span class="memo-status" data-memo-status>${memo ? '저장했어요' : ''}</span>
       </div>
       <div class="detail__copies">
-        <button class="btn btn-sm" type="button" data-copy-format="line">${ICON.copy}한 줄 복사</button>
-        <button class="btn btn-sm" type="button" data-copy-format="table">${ICON.copy}표 복사</button>
+        <button class="btn btn-sm" type="button" data-copy-format="line">${ICON.copy}한 줄로 복사</button>
+        <button class="btn btn-sm" type="button" data-copy-format="table">${ICON.copy}표로 복사</button>
         <button class="btn btn-sm" type="button" data-copy-format="code">${ICON.copy}코드만 복사</button>
       </div>
     </div>`;
@@ -621,7 +622,7 @@
     const open = state.expanded === it.code;
     const nameHtml = m.field === 'name' ? highlight(it.name, state.qKey, state.cho) : esc(it.name);
     const codeHtml = m.field === 'code' ? highlightCode(it.code, state.qKey) : esc(it.code);
-    const aliasHit = m.field === 'alias' ? `<span class="alias-hit">약칭 <mark>${esc(m.alias)}</mark> 일치</span>` : '';
+    const aliasHit = m.field === 'alias' ? `<span class="alias-hit">약칭 <mark>${esc(m.alias)}</mark>로 찾음</span>` : '';
     const check = `<input type="checkbox" data-act="select" ${sel ? 'checked' : ''} aria-label="${esc(it.name)} 선택">`;
     const toggle = `<button type="button" data-act="toggle" aria-expanded="${open}">${nameHtml || '(이름 없음)'}</button>`;
     const cls = `item${sel ? ' is-selected' : ''}${open ? ' is-open' : ''}`;
@@ -659,7 +660,8 @@
     if (!hasQuery) {
       host.innerHTML = '<div class="state"><p class="body">장치장명이나 코드를 입력하세요. 초성 검색도 됩니다.</p></div>';
     } else if (!total) {
-      host.innerHTML = `<div class="state"><p class="body">일치하는 장치장이 없습니다. 이름 일부만 입력해 보세요.</p><p class="caption" style="margin-top: 8px"><a href="${REPORT_URL}">찾는 장치장이 없나요? 오류 제보</a></p></div>`;
+      host.innerHTML = `<div class="state"><p class="body">일치하는 장치장이 없습니다. 이름 일부만 입력해 보세요.</p><p class="caption" style="margin-top: 8px"><a href="${REPORT_URL}" data-contact-link>찾는 장치장이 없나요? 알려 주세요</a></p></div>`;
+      window.MFT?.applyContact?.();
     } else {
       const visible = state.results.slice(0, state.shown);
       const more = total - visible.length;
@@ -828,7 +830,7 @@
       $('#stat-count').textContent = fmtNum(meta.count);
       $('#stat-customs').textContent = fmtNum(new Set(items.map((it) => it.customs)).size);
       $('#stat-types').textContent = fmtNum(new Set(items.map((it) => it.type)).size);
-      $('#stat-note').textContent = `기준일 ${meta.updatedAt} · 관세청 UNI-PASS 공개 API · 분기 1회 갱신`;
+      $('#stat-note').textContent = `${meta.updatedAt} 기준 · 관세청 UNI-PASS 공개 데이터 · 분기마다 새로 받아요`;
       renderSaved();
       state.q = $('#q').value;
       run();
@@ -837,7 +839,7 @@
     .catch((err) => {
       console.error(err);
       $('#data-info').innerHTML = '<dt>상태</dt><dd>불러오기 실패</dd>';
-      host.innerHTML = '<div class="state"><p class="body">데이터를 불러오지 못했습니다. 로컬 서버(포트 5510)로 열었는지 확인하세요.</p></div>';
+      host.innerHTML = '<div class="state"><p class="body">데이터를 불러오지 못했어요. 잠시 뒤 새로고침해 주세요.</p></div>';
     });
 })();
 </script>

@@ -115,33 +115,33 @@
   function kitSection(kit) {
     const promptCard = kit.prompt ? `<article class="kit-card kit-card--wide">
         <span class="eyebrow">A · 10분 · Claude 채팅</span>
-        <h3 class="heading-2">AI에게 바로 시키기</h3>
-        <p class="body ink-2">이 프롬프트를 Claude 채팅에 붙여넣으면 HTML 파일 하나로 같은 도구가 만들어집니다. 데이터는 옆의 JSON을 받아 화면에서 불러오면 됩니다.</p>
-        <pre class="kit-prompt" tabindex="0" data-kit-prompt>프롬프트를 불러오는 중입니다.</pre>
+        <h3 class="heading-2">프롬프트 하나로 만들기</h3>
+        <p class="body ink-2">아래 글을 Claude 채팅에 그대로 붙여넣으세요. 파일 하나짜리 같은 도구가 완성돼요. 데이터는 옆에서 JSON을 받아 화면에서 불러오면 끝이에요.</p>
+        <pre class="kit-prompt" tabindex="0" data-kit-prompt>프롬프트를 불러오고 있어요.</pre>
         <div class="kit-actions"><button class="btn btn-dark" type="button" data-kit-copy="prompt">${COPY_SVG}프롬프트 복사</button></div>
       </article>` : '';
     const guideCard = kit.guide ? `<article class="kit-card">
-        <span class="eyebrow">B · 1~2시간 · AI 코딩 도구</span>
-        <h3 class="heading-2">만들기 키트</h3>
-        <p class="body ink-2">Claude Code·Cursor 같은 도구의 작업 폴더에 넣고 "kit 파일을 읽고 만들어 줘"라고 요청하세요. 데이터 신청부터 직접 갱신까지 혼자 할 수 있습니다.</p>
-        <ul class="kit-list body"><li>UNI-PASS Open API 신청·호출 방법</li><li>필드·구분 추정·검색 규칙</li><li>단계별 프롬프트 6개</li><li>완성 확인 5가지</li></ul>
-        <div class="kit-actions"><a class="btn btn-dark" href="${esc(abs(kit.guide))}" download>${DOWN_SVG}키트 내려받기 (.md)</a><a class="btn" href="${esc(abs(kit.guide))}" target="_blank" rel="noopener">미리 보기</a></div>
+        <span class="eyebrow">B · 1~2시간 · Claude Code·Cursor</span>
+        <h3 class="heading-2">만들기 키트로 제대로 만들기</h3>
+        <p class="body ink-2">데이터 신청부터 수집, 화면, 검증까지 제가 거친 순서를 파일 하나에 담았어요. AI 코딩 도구에 넣고 "키트대로 만들어 줘"라고만 하면 돼요.</p>
+        <ul class="kit-list body"><li>UNI-PASS API 신청부터 호출까지</li><li>직접 부딪혀 보고 찾은 함정과 해결법</li><li>단계별 프롬프트 6개</li><li>완성을 확인하는 체크리스트 5가지</li></ul>
+        <div class="kit-actions"><a class="btn btn-dark" href="${esc(abs(kit.guide))}" download>${DOWN_SVG}키트 받기 (.md)</a><a class="btn" href="${esc(abs(kit.guide))}" target="_blank" rel="noopener">미리 보기</a></div>
       </article>` : '';
     const dataCard = kit.data?.length ? `<article class="kit-card">
         <span class="eyebrow">바로 쓰기</span>
-        <h3 class="heading-2">데이터 그대로 쓰기</h3>
-        <p class="body ink-2">만들기보다 쓰는 게 먼저라면 정리된 데이터를 받아 엑셀이나 내 도구에 바로 넣으세요. 출처(관세청 UNI-PASS)와 기준일을 함께 적어 주세요.</p>
+        <h3 class="heading-2">데이터만 가져가기</h3>
+        <p class="body ink-2">만들 시간이 없다면 정리된 데이터부터 받아 가세요. 엑셀에서 바로 열려요. 쓰실 때 출처(관세청 UNI-PASS)와 기준일은 꼭 함께 적어 주세요.</p>
         <ul class="kit-data">${kit.data.map((d) => `<li><div><span class="label">${esc(d.label)}</span><span class="caption ink-3">${esc(d.note || '')}</span></div><a class="btn btn-sm" href="${esc(abs(d.href))}" download>${DOWN_SVG}받기</a></li>`).join('')}</ul>
       </article>` : '';
     const ideas = kit.ideas?.length ? `<div class="kit-ideas">
-        <div class="section__head"><span class="eyebrow">C · 응용</span><h3 class="heading-2">내 것으로 바꿔 보기</h3></div>
+        <div class="section__head"><span class="eyebrow">C · 응용</span><h3 class="heading-2">내 업무에 맞게 바꿔 보기</h3><p class="body ink-2">프롬프트 몇 줄만 바꿔도 전혀 다른 도구가 돼요. 하나 골라 그대로 붙여넣어 보세요.</p></div>
         <div class="idea-grid">${kit.ideas.map((it, i) => `<article class="idea-card">
           <h4 class="label">${esc(it.title)}</h4>
           <p class="caption ink-2 idea-card__prompt">${esc(fillUrls(it.prompt, kit))}</p>
           <button class="btn btn-sm" type="button" data-kit-copy="idea" data-idx="${i}">${COPY_SVG}프롬프트 복사</button>
         </article>`).join('')}</div>
       </div>` : '';
-    return section('직접 만들어 보기', `<p class="body-l ink-2 kit-lead">이 도구는 누구나 AI와 함께 다시 만들어 내 것으로 쓸 수 있습니다. 쓰는 것부터 시작해도, 처음부터 만들어 봐도 좋습니다.</p>
+    return section('나도 만들어 보기', `<p class="body-l ink-2 kit-lead">코딩을 몰라도 괜찮아요. 이 도구도 AI에게 말로 설명해서 만들었거든요. 만든 방법을 그대로 열어 둘게요. 가져다 써도 좋고, 내 업무에 맞게 고쳐 봐도 좋아요.</p>
       <div class="kit-grid">${promptCard}${guideCard}${dataCard}</div>${ideas}`);
   }
   async function hydrateKit(host, kit) {
@@ -154,7 +154,7 @@
         promptText = fillUrls(await res.text(), kit);
         pre.textContent = promptText;
       } catch (e) {
-        pre.textContent = '프롬프트를 불러오지 못했습니다.';
+        pre.textContent = '프롬프트를 불러오지 못했어요. 잠시 뒤 새로고침해 주세요.';
         console.warn('키트 프롬프트를 읽지 못했습니다:', e);
       }
     }
@@ -163,14 +163,49 @@
       if (!btn) return;
       const text = btn.dataset.kitCopy === 'prompt' ? promptText : fillUrls(kit.ideas[Number(btn.dataset.idx)].prompt, kit);
       if (!text) return;
-      toast((await copyText(text)) ? '프롬프트를 복사했습니다 — AI 채팅에 붙여넣으세요' : '복사하지 못했습니다. 직접 선택해 복사하세요.');
+      toast((await copyText(text)) ? '프롬프트를 복사했어요. AI 채팅창에 붙여넣으세요' : '복사하지 못했어요. 글을 직접 선택해 복사해 주세요.');
     });
   }
 
-  function render(tool, all) {
+  // 만든 사람·다음 걸음(site.json). 칸이 비어 있으면 그리지 않는다 — 지어낸 소개나 빈 링크를 내보내지 않기 위해.
+  function funnelHtml(site = {}) {
+    const c = site.creator || {};
+    const cta = site.cta || {};
+    const out = [];
+    if (c.name) {
+      const links = (c.links || []).filter((l) => l.label && l.href)
+        .map((l) => `<a class="btn btn-sm" href="${esc(l.href)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join('');
+      out.push(section('만든 사람', `<div class="creator-card">
+        <div class="creator-card__head"><h3 class="heading-2">${esc(c.name)}</h3>${c.role ? `<p class="body ink-2">${esc(c.role)}</p>` : ''}</div>
+        ${c.bio ? `<p class="body">${esc(c.bio)}</p>` : ''}
+        ${links ? `<div class="kit-actions">${links}</div>` : ''}
+      </div>`));
+    }
+    if (cta.title && cta.primary?.href) {
+      out.push(`<section class="cta-band" data-reveal>
+        ${cta.eyebrow ? `<span class="cta-band__eyebrow">${esc(cta.eyebrow)}</span>` : ''}
+        <h2 class="display-l cta-band__title">${esc(cta.title)}</h2>
+        ${cta.body ? `<p class="body-l cta-band__body">${esc(cta.body)}</p>` : ''}
+        <div class="cta-band__actions">
+          <a class="btn cta-band__primary" href="${esc(cta.primary.href)}">${esc(cta.primary.label || '자세히 보기')}</a>
+          ${cta.secondary?.href ? `<a class="btn cta-band__secondary" href="${esc(cta.secondary.href)}">${esc(cta.secondary.label || '더 알아보기')}</a>` : ''}
+        </div>
+      </section>`);
+    }
+    return out.join('');
+  }
+  let siteConfig = {};
+  function applyContact(site = siteConfig) {
+    const href = site.contact?.href;
+    if (!href) return;
+    document.querySelectorAll('[data-contact-link]').forEach((a) => { a.href = href; a.hidden = false; });
+    document.querySelectorAll('[data-contact-label]').forEach((el) => { if (site.contact.label) el.textContent = site.contact.label; });
+  }
+
+  function render(tool, all, site) {
     const parts = [];
     if (tool.features?.length) {
-      parts.push(section('기능 목록', `<ol class="feature-list">${tool.features
+      parts.push(section('할 수 있는 일', `<ol class="feature-list">${tool.features
         .map((f, i) => `<li><span class="feature-list__no">${pad2(i + 1)}</span><span class="body">${esc(f)}</span></li>`)
         .join('')}</ol>`));
     }
@@ -180,12 +215,14 @@
         .join('')}</ol>`));
     }
     if (tool.promptStructure?.length) {
-      const hint = tool.kit?.guide ? ' 단계별로 따라 할 수 있는 프롬프트는 아래 "직접 만들어 보기"의 만들기 키트에 있습니다.' : '';
-      parts.push(section('프롬프트 구조', `<p class="body ink-2">AI에게 이 ${tool.promptStructure.length}단계로 나눠 요청해 만들었습니다.${hint}</p><div class="prompt-card">${tool.promptStructure
+      const n = tool.promptStructure.length;
+      const hint = tool.kit?.guide ? ' 단계마다 쓴 프롬프트는 아래 만들기 키트에 그대로 담았어요.' : '';
+      parts.push(section(`AI에게 맡긴 ${n}단계`, `<p class="body ink-2">한 번에 다 시키지 않고, ${n}단계로 나눠 AI와 주고받으며 만들었어요.${hint}</p><div class="prompt-card">${tool.promptStructure
         .map((p, i) => `<div class="prompt-step"><span class="prompt-step__no">${pad2(i + 1)}</span><span class="body prompt-step__title">${esc(p.title)}</span></div>`)
         .join('')}</div>`));
     }
     if (tool.kit) parts.push(kitSection(tool.kit));
+    parts.push(funnelHtml(site));
     // 관련 도구: related가 비어 있으면 같은 영역 최신 3개(live만, 자기 자신 제외)
     let related = (tool.related || []).map((s) => all.find((t) => t.slug === s)).filter(Boolean);
     if (!related.length) {
@@ -198,9 +235,17 @@
     return parts.join('');
   }
 
+  const loadSite = () =>
+    fetch(new URL('site.json', ROOT), { cache: 'no-cache' }).then((r) => (r.ok ? r.json() : {})).catch(() => ({}));
+
   async function init() {
     const host = document.querySelector('[data-tool-sections]');
     const meta = document.querySelector('[data-tool-meta]');
+    const funnelHost = document.querySelector('[data-site-funnel]');
+    const site = await loadSite();
+    siteConfig = site;
+    applyContact(site);
+    if (funnelHost) funnelHost.innerHTML = funnelHtml(site);
     if (host) {
       host.classList.add('tool-sections');
       try {
@@ -209,7 +254,7 @@
         const all = await res.json();
         const tool = all.find((t) => t.slug === host.dataset.slug);
         if (tool) {
-          host.innerHTML = render(tool, all);
+          host.innerHTML = render(tool, all, site);
           if (tool.kit) hydrateKit(host, tool.kit);
           if (meta) meta.textContent = [`D${pad2(tool.day)}`, tool.date, tool.hours > 0 ? `${tool.hours}h` : ''].filter(Boolean).join(' · ');
         }
@@ -220,7 +265,8 @@
     reveal();
   }
 
-  window.MFT = { reveal };
+  // 도구 화면이 나중에 그린 오류 제보 링크에도 연락 주소를 붙일 수 있게 열어 둔다
+  window.MFT = { reveal, applyContact: () => applyContact() };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 })();

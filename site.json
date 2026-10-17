@@ -1,0 +1,22 @@
+{
+  "_note": "사이트 공통 설정. 빈 칸은 화면에 나오지 않는다(shared/page.js). 문구 초안은 docs/voice-guide.md 5절.",
+  "creator": {
+    "name": "",
+    "role": "",
+    "bio": "",
+    "links": [
+      {"label": "", "href": ""}
+    ]
+  },
+  "cta": {
+    "eyebrow": "",
+    "title": "",
+    "body": "",
+    "primary": {"label": "", "href": ""},
+    "secondary": {"label": "", "href": ""}
+  },
+  "contact": {
+    "label": "",
+    "href": ""
+  }
+}
