@@ -4,6 +4,13 @@
 
 ---
 
+## 2026-10-19 · VS Code · D01 배포 준비 완료
+
+- 완료한 일: tools.json status live(날짜 2026-10-19, 썸네일, history "배포" 덧붙임). PRD 메타(live·URL)와 콘텐츠 메모(막힌 곳·배운 것) 작성. 필터 이름 "구분(추정)". 썸네일 thumbs/bonded-area-code.png(16:10), 공유 이미지 bonded-area-code-og.png·site-og.png(1200×630), 두 페이지에 og 태그·canonical·M 파비콘. Vercel Web Analytics(배포 사이트에서만), LICENSE(코드 MIT·키트/문서 CC BY 4.0·데이터 출처 표시), README 재작성, .vercelignore(prd·docs·scripts·raw·CLAUDE.md·README 제외). 커밋 작성자 전체를 이준헌 <forwardingxai@gmail.com>으로 변경(날짜 유지). 랜딩에 도구 카드 표시 확인, 검증 6/6, 콘솔 오류 0
+- 결정한 것: 사이트 주소 myforwarder-tools.vercel.app. 소요시간은 이번엔 표시하지 않고 D02부터 실측. 버튼 클릭 측정은 Vercel 무료 범위 밖이라 보류
+- 막힌 것: 없음
+- 다음 할 일: GitHub 저장소 만들기(사용자) → push → Vercel 연결·배포 → Web Analytics 켜기 → 배포 주소에서 검증 재실행
+
 ## 2026-10-19 · VS Code · D01 퍼널: 카카오톡 문의 버튼 회색 강조
 
 - 완료한 일: 만든 사람 카드의 "카카오톡으로 문의하기"를 진한 회색 채움(.btn-gray, 흰 글자 대비 4.7:1) + 말풍선 아이콘으로 강조. site.json 링크에 style·icon 선택 항목 추가(page.js). 경력 표기 "15년 넘게"로 변경(2026-10-17 커밋). 콘솔 오류 0

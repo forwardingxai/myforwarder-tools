@@ -1,0 +1,9 @@
+# 웹사이트 배포에서 뺄 것 — 저장소(GitHub)에는 "만든 과정 공개"로 남기고, 사이트에는 도구·데이터·키트만 올린다
+/prd
+/docs
+/scripts
+/raw
+/CLAUDE.md
+/README.md
+.env
+.env.*

@@ -4,7 +4,7 @@
     "name": "장치장 코드 조회기",
     "area": "ops",
     "day": 1,
-    "date": "2026-10-17",
+    "date": "2026-10-19",
     "stage": "공통",
     "summary": "이름 몇 글자로 장치장 코드를 찾고, 관세사에게 보낼 문구까지 바로 복사해요.",
     "features": [
@@ -17,7 +17,8 @@
       {"date": "2026-10-15", "step": "기획", "note": "입력 3개(검색어·지역·구분)와 관세사 전달용 복사로 범위 확정"},
       {"date": "2026-10-16", "step": "데이터", "note": "UNI-PASS API005·API019 명세 확인, 시험 호출로 세관별 수집 방식 확정"},
       {"date": "2026-10-17", "step": "데이터", "note": "전국 관할세관 50곳 3,426건 수집·정제, 구분 11종 추정 규칙"},
-      {"date": "2026-10-17", "step": "구현", "note": "Claude Code, 단일 HTML"}
+      {"date": "2026-10-17", "step": "구현", "note": "Claude Code, 단일 HTML"},
+      {"date": "2026-10-19", "step": "배포", "note": "myforwarder-tools.vercel.app/tools/bonded-area-code.html"}
     ],
     "promptStructure": [
       {"title": "역할 지정"},
@@ -42,8 +43,8 @@
     },
     "toolsUsed": ["Claude 채팅(기획)", "Claude Code", "UNI-PASS Open API"],
     "hours": 0,
-    "status": "draft",
-    "thumb": "",
+    "status": "live",
+    "thumb": "thumbs/bonded-area-code.png",
     "related": []
   }
 ]
