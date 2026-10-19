@@ -56,6 +56,7 @@
 | `history` | object[] | 시간순. `step`은 `기획 / 데이터 / 구현 / 수정 / 배포` 중 하나 |
 | `promptStructure` | object[] | 5~7개. `title`만 쓴다(2026-10-17부터 자물쇠·`open` 없음). 작업 프롬프트 전문은 저장소 밖(`prompts/`, 비공개)에 둔다 |
 | `kit` | object | 선택. 도구 페이지 "직접 만들어 보기" 섹션. `prompt`(Claude 채팅용 시작 프롬프트 .txt) · `guide`(AI 코딩 도구용 만들기 키트 .md) · `data`(`label`·`note`·`href` 내려받기 목록) · `ideas`(`title`·`prompt` 응용 프롬프트). 글 안의 `{{DATA_URL}}`은 `data` 중 첫 JSON의 실제 주소로 바뀐다. 키트는 공개용으로 새로 쓴 글이며 키·사내 데이터를 넣지 않는다 |
+| `share` | object | 공유 이미지(1200×630) 문구. `title`(2줄 배열) · `sub`(2줄 배열) · `who` · `question`(한 줄) · `answer`(짧은 큰 값) · `answerNote` · 선택 `tag`·`answerStyle`. `npm run share-image -- {slug}`가 `thumbs/{slug}-og.png`로 만든다. 규칙: docs/share-image-guide.md |
 | `toolsUsed` | string[] | 뱃지로 표시 |
 | `hours` | number | 기획+구현 합계. 숫자 밴드 "누적 절약 시간"의 근거는 따로 계산하지 않고 `hours`만 노출 |
 | `status` | `"draft"` \| `"live"` \| `"hold"` | `live`만 랜딩에 노출. `draft`는 인덱스에는 있되 숨김 |

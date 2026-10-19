@@ -4,6 +4,13 @@
 
 ---
 
+## 2026-10-19 · VS Code · 공유 이미지 스타일 확정·틀화
+
+- 완료한 일: 랜딩 카드 썸네일을 카드 크기에서도 읽히는 전용 장면(HPNT → 03077011)으로 교체. 공유 이미지 시안 A·B·C를 HTML 미리보기(raw/preview, 커밋 제외)로 보여 주고 C″안(C 배치 + 검은 바탕 + 왼쪽 도구 이름·한 줄 설명) 확정. 이를 공통 틀 scripts/share-image.html + scripts/make-share-image.mjs(npm run share-image -- {slug}, 이 PC Edge로 촬영, 자체 서버)로 만들고 tools.json `share` 칸에서 문구를 읽게 함. 영역별 색 자동(ops 코발트·sales 라임 — 가짜 영업 도구로 확인). 넘침·질문 두 줄 경고. docs/share-image-guide.md, CLAUDE.md 9번 규칙, tools-index-schema `share`, .vercelignore에 package 파일 추가. 검증 6/6
+- 결정한 것: 모든 도구 공유 이미지는 같은 배치·스타일, 색만 영역별. 질문은 한 줄(약 16자), 답은 실제 데이터
+- 막힌 것: 없음
+- 다음 할 일: GitHub 저장소 만들기(사용자) → push → Vercel 배포
+
 ## 2026-10-19 · VS Code · D01 배포 준비 완료
 
 - 완료한 일: tools.json status live(날짜 2026-10-19, 썸네일, history "배포" 덧붙임). PRD 메타(live·URL)와 콘텐츠 메모(막힌 곳·배운 것) 작성. 필터 이름 "구분(추정)". 썸네일 thumbs/bonded-area-code.png(16:10), 공유 이미지 bonded-area-code-og.png·site-og.png(1200×630), 두 페이지에 og 태그·canonical·M 파비콘. Vercel Web Analytics(배포 사이트에서만), LICENSE(코드 MIT·키트/문서 CC BY 4.0·데이터 출처 표시), README 재작성, .vercelignore(prd·docs·scripts·raw·CLAUDE.md·README 제외). 커밋 작성자 전체를 이준헌 <forwardingxai@gmail.com>으로 변경(날짜 유지). 랜딩에 도구 카드 표시 확인, 검증 6/6, 콘솔 오류 0

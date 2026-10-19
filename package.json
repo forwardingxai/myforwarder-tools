@@ -1,0 +1,12 @@
+{
+  "name": "myforwarder-tools",
+  "private": true,
+  "description": "포워딩 실무를 AI로 덜어 내는 도구 모음 — 개발용 스크립트만 쓴다(사이트는 정적 HTML)",
+  "type": "module",
+  "scripts": {
+    "share-image": "node scripts/make-share-image.mjs"
+  },
+  "devDependencies": {
+    "playwright-core": "1.49.1"
+  }
+}
