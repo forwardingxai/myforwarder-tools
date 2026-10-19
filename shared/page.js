@@ -10,6 +10,14 @@
 //    펼친 채 시작한다. 768px 이하는 화면을 가리지 않게 알약 하나로 접은 채 시작한다. 접기·펼치기는 기억한다.
 // 5) site.json의 연락(contact.links): 첫 링크가 오류 제보 링크([data-contact-link])의 주소가 되고,
 //    [data-contact-links] 자리에 모든 채널 버튼을 그린다.
+// 6) 방문 분석: 배포된 사이트에서만 Vercel Web Analytics(같은 도메인 /_vercel/insights)를 붙인다. 로컬 미리보기에서는 불러오지 않는다.
+(() => {
+  if (!/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) {
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    const s = Object.assign(document.createElement('script'), { src: '/_vercel/insights/script.js', defer: true });
+    document.head.appendChild(s);
+  }
+})();
 (() => {
   const ROOT = new URL('..', document.currentScript.src); // shared/의 상위 = 저장소 루트
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
