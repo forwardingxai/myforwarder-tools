@@ -20,6 +20,8 @@
   const AREA_LABEL = { sales: '영업', ops: '운영' };
   const COPY_SVG =
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>';
+  const CHAT_SVG =
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 4c4.97 0 9 3.13 9 7s-4.03 7-9 7c-.9 0-1.77-.1-2.6-.3L5 20l1.2-3.6C4.2 15.1 3 13.2 3 11c0-3.87 4.03-7 9-7z"/></svg>';
   const DOWN_SVG =
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 4v12M6 10l6 6 6-6M5 20h14"/></svg>';
 
@@ -258,8 +260,9 @@
     const cta = site.cta || {};
     const out = [];
     if (c.name) {
+      // 링크별 선택 항목: style("gray" → .btn-gray 강조), icon("chat" → 말풍선)
       const links = (c.links || []).filter((l) => l.label && l.href)
-        .map((l) => `<a class="btn btn-sm" href="${esc(l.href)}"${external(l.href)}>${esc(l.label)}</a>`).join('');
+        .map((l) => `<a class="btn btn-sm${l.style ? ` btn-${esc(l.style)}` : ''}" href="${esc(l.href)}"${external(l.href)}>${l.icon === 'chat' ? CHAT_SVG : ''}${esc(l.label)}</a>`).join('');
       out.push(section('만든 사람', `<div class="creator-card">
         <div class="creator-card__head"><h3 class="heading-2">${esc(c.name)}</h3>${c.role ? `<p class="body ink-2">${esc(c.role)}</p>` : ''}</div>
         ${c.bio ? `<p class="body">${esc(c.bio)}</p>` : ''}
