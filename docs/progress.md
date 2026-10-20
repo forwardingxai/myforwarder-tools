@@ -4,6 +4,13 @@
 
 ---
 
+## 2026-10-20 · VS Code · D01 배포 완료
+
+- 완료한 일: Vercel(forwardingxai, Hobby) 프로젝트 myforwarder-tools를 GitHub 저장소에 연결해 배포 — https://myforwarder-tools.vercel.app. 실제 주소에서 PRD 검증 5건 6/6 통과, 필요한 파일 200·배포 제외 파일(prd·docs·scripts·CLAUDE.md·README·package.json·.env·raw) 404 확인, 데이터 JSON 압축 전송 104KB, og 태그 정상
+- 결정한 것: main에 push하면 자동 배포. 다음 도구부터는 같은 저장소·같은 Vercel 프로젝트에 tools/{slug}.html로 추가
+- 막힌 것: Vercel Web Analytics 아직 꺼짐 → 배포 페이지에서 /_vercel/insights/script.js 404(콘솔 오류 2건). 대시보드에서 켜면 해결
+- 다음 할 일: Analytics 켜기(사용자) → 카카오톡에 링크 붙여 공유 미리보기 확인 → D02(국내 부대비용 조회) PRD부터 시작, 시간 실측
+
 ## 2026-10-20 · VS Code · GitHub 공개 저장소 연결
 
 - 완료한 일: 랜딩 카드 썸네일도 검정 공유 이미지 스타일로 통일(npm run share-image 한 번에 두 장). 도구용 GitHub 계정 forwardingxai-web → forwardingxai 이름 변경(사용자), 빈 공개 저장소 forwardingxai/myforwarder-tools에 연결·push(커밋 27개, 모두 forwardingxai 프로필 연결). 공개 전 Pretendard 글꼴 라이선스(OFL 1.1) 동봉. .env·raw·연계가이드 PDF·node_modules 미포함 확인
