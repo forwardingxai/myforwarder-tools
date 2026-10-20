@@ -4,6 +4,13 @@
 
 ---
 
+## 2026-10-20 · VS Code · GitHub 공개 저장소 연결
+
+- 완료한 일: 랜딩 카드 썸네일도 검정 공유 이미지 스타일로 통일(npm run share-image 한 번에 두 장). 도구용 GitHub 계정 forwardingxai-web → forwardingxai 이름 변경(사용자), 빈 공개 저장소 forwardingxai/myforwarder-tools에 연결·push(커밋 27개, 모두 forwardingxai 프로필 연결). 공개 전 Pretendard 글꼴 라이선스(OFL 1.1) 동봉. .env·raw·연계가이드 PDF·node_modules 미포함 확인
+- 결정한 것: 강의안(elun 계정)과 도구(forwardingxai 계정) 분리, 강의안 이전은 기수 운영이 없는 때로 미룸. 커밋 이메일은 공개(이미 사이트 문의 이메일) — GitHub "Block command line pushes that expose my email" 끔
+- 막힌 것: 첫 push가 GitHub 이메일 보호(GH007)로 거절 → 설정 해제 후 성공
+- 다음 할 일: Vercel 계정(forwardingxai) 만들기 → 저장소 가져오기·배포(myforwarder-tools.vercel.app) → Web Analytics 켜기 → 배포 주소에서 검증·공유 미리보기 확인
+
 ## 2026-10-19 · VS Code · 공유 이미지 스타일 확정·틀화
 
 - 완료한 일: 랜딩 카드 썸네일을 카드 크기에서도 읽히는 전용 장면(HPNT → 03077011)으로 교체. 공유 이미지 시안 A·B·C를 HTML 미리보기(raw/preview, 커밋 제외)로 보여 주고 C″안(C 배치 + 검은 바탕 + 왼쪽 도구 이름·한 줄 설명) 확정. 이를 공통 틀 scripts/share-image.html + scripts/make-share-image.mjs(npm run share-image -- {slug}, 이 PC Edge로 촬영, 자체 서버)로 만들고 tools.json `share` 칸에서 문구를 읽게 함. 영역별 색 자동(ops 코발트·sales 라임 — 가짜 영업 도구로 확인). 넘침·질문 두 줄 경고. docs/share-image-guide.md, CLAUDE.md 9번 규칙, tools-index-schema `share`, .vercelignore에 package 파일 추가. 검증 6/6
