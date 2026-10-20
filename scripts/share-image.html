@@ -3,7 +3,9 @@
 <head>
 <meta charset="utf-8">
 <title>공유 이미지 틀</title>
-<!-- 도구 공유 이미지(1200×630) 공통 틀. 사용: scripts/share-image.html?slug={slug}
+<!-- 도구 공유 이미지(1200×630)·랜딩 카드 썸네일(1280×800) 공통 틀.
+     사용: scripts/share-image.html?slug={slug}            → 공유 이미지(왼쪽 도구 이름 + 오른쪽 질문→답)
+           scripts/share-image.html?slug={slug}&format=card → 카드 썸네일(질문→답 장면만 크게, 이름은 카드 아래에 이미 있음)
      문구는 tools.json의 share 칸에서, 색은 area(ops 코발트 / sales 라임)에서 정한다.
      스타일 규칙: docs/share-image-guide.md · 이미지 만들기: npm run share-image -- {slug} -->
 <link rel="stylesheet" href="../design-tokens.css">
@@ -32,6 +34,17 @@
   .answer .value { font-family: var(--font-mono); font-size: 92px; line-height: 1; letter-spacing: 0.01em; color: var(--accent); white-space: nowrap; }
   .answer .value.text { font-family: var(--font-sans); font-weight: 500; letter-spacing: -0.03em; }
   .answer .note { font-size: 24px; font-weight: 500; color: var(--on-dark-2); }
+
+  /* 카드 썸네일(1280×800): 랜딩 카드에서 가로 약 340px로 줄어 보이므로 대화 장면만 크게 */
+  .card-mode, .card-mode body { width: 1280px; height: 800px; }
+  .card-mode .art { width: 1280px; height: 800px; padding: 72px 88px; grid-template-columns: 1fr; }
+  .card-mode .left { display: none; }
+  .card-mode .right { gap: 30px; }
+  .card-mode .who { font-size: 34px; margin-bottom: -12px; }
+  .card-mode .bubble { font-size: 64px; padding: 30px 48px; border-radius: 44px 44px 44px 12px; border-width: 3px; }
+  .card-mode .answer { padding: 40px 56px; border-radius: 44px 44px 12px 44px; gap: 14px; }
+  .card-mode .answer .value { font-size: 190px; }
+  .card-mode .answer .note { font-size: 40px; }
 </style>
 </head>
 <body>
@@ -55,7 +68,9 @@
   </div>
 <script>
 (async () => {
-  const slug = new URLSearchParams(location.search).get('slug');
+  const params = new URLSearchParams(location.search);
+  const slug = params.get('slug');
+  if (params.get('format') === 'card') document.documentElement.classList.add('card-mode');
   const tools = await (await fetch('../tools.json', { cache: 'no-cache' })).json();
   const t = tools.find((x) => x.slug === slug);
   if (!t || !t.share) { document.body.dataset.error = `tools.json에 ${slug}의 share 칸이 없어요`; return; }
@@ -85,7 +100,8 @@
   document.body.dataset.ready = over ? 'overflow' : 'ok';
   // 질문은 한 줄이어야 스타일이 산다 — 두 줄 이상이면 경고
   const q = document.getElementById('question');
-  const lines = Math.round((q.getBoundingClientRect().height - 44 - 4) / (parseFloat(getComputedStyle(q).lineHeight) || 49));
+  const qs = getComputedStyle(q);
+  const lines = Math.round((q.getBoundingClientRect().height - parseFloat(qs.paddingTop) - parseFloat(qs.paddingBottom) - 2 * parseFloat(qs.borderTopWidth)) / (parseFloat(qs.lineHeight) || 49));
   if (lines > 1) document.body.dataset.warn = `질문이 ${lines}줄이에요. 한 줄(약 16자)로 줄여 주세요`;
 })();
 </script>

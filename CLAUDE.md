@@ -33,7 +33,7 @@
 6. `tools.json`에 항목을 추가/갱신한다(스키마 준수). `history`는 덧붙이기만.
 7. 완료 보고에 포함: 파일 목록, 검증 결과, 소요시간, 막힌 곳 한 줄(콘텐츠 메모용).
 8. "직접 만들어 보기" 키트를 함께 만든다: `kits/{slug}.prompt.txt`(채팅에 붙여넣으면 HTML 한 파일로 만들어지는 시작 프롬프트), `kits/{slug}.md`(데이터 얻는 법·규칙·단계별 프롬프트·완성 확인), 공개 가능한 데이터 내려받기, 응용 프롬프트 2~3개. `tools.json`의 `kit`에 연결한다.
-9. 공유 이미지는 D01에서 확정한 스타일(검정 바탕 · 왼쪽 도구 이름 · 오른쪽 실무 질문 → 답)로만 만든다. `tools.json`의 `share`를 쓰고 `npm run share-image -- {slug}`로 `thumbs/{slug}-og.png`를 만든 뒤, 도구 HTML에 og 태그를 넣는다. 색은 `area`가 정한다. 규칙 전문은 docs/share-image-guide.md.
+9. 공유 이미지는 D01에서 확정한 스타일(검정 바탕 · 왼쪽 도구 이름 · 오른쪽 실무 질문 → 답)로만 만든다. `tools.json`의 `share`를 쓰고 `npm run share-image -- {slug}`로 `thumbs/{slug}-og.png`(공유 이미지)와 `thumbs/{slug}.png`(랜딩 카드 썸네일, 같은 스타일)를 함께 만든 뒤, 도구 HTML에 og 태그를 넣는다. 색은 `area`가 정한다. 규칙 전문은 docs/share-image-guide.md.
 
 ## 디자인 규칙 (요약 — 전문은 docs/design-system-README.md)
 

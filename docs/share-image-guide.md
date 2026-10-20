@@ -1,7 +1,7 @@
 # 공유 이미지 가이드 — 마이포워더 도구
 
 > 2026-10-19 확정(D01 장치장 코드 조회기 C″안). 모든 도구의 카카오톡·링크드인 공유 이미지를 이 스타일로 만든다.
-> 틀: `scripts/share-image.html` · 만들기: `npm run share-image -- {slug}` → `thumbs/{slug}-og.png`
+> 틀: `scripts/share-image.html` · 만들기: `npm run share-image -- {slug}` → `thumbs/{slug}-og.png`(공유 이미지) + `thumbs/{slug}.png`(랜딩 카드 썸네일)
 
 ## 1. 왜 이 스타일인가
 
@@ -68,6 +68,10 @@
 3. `thumbs/{slug}-og.png`를 열어 확인한다. 카카오톡 크기(가로 300px)로 줄여도 제목과 답이 읽히는지 본다.
 4. 도구 HTML의 `<head>`에 공유 정보를 넣는다(D01 `tools/bonded-area-code.html` 참고): `og:title`, `og:description`, `og:url`, `og:image`(= `https://myforwarder-tools.vercel.app/thumbs/{slug}-og.png`), `og:image:width` 1200, `og:image:height` 630, `twitter:card` summary_large_image.
 
-## 7. 랜딩 카드 썸네일과의 관계
+## 7. 랜딩 카드 썸네일 (2026-10-20 같은 스타일로 통일)
 
-랜딩 카드 썸네일(`thumbs/{slug}.png`, 16:10)은 흰 바탕에 도구의 핵심 결과를 크게 보여 주는 별도 장면이다(D01: HPNT 검색 → 03077011 카드). 공유 이미지와 같은 값(`answer`)을 쓰면 링크로 들어온 사람이 같은 장면을 다시 만나 흐름이 이어진다.
+같은 명령이 랜딩 카드 썸네일 `thumbs/{slug}.png`(1280×800, 16:10)도 함께 만든다. 같은 `share` 문구를 쓴다.
+
+- 랜딩 카드에서는 가로 약 340px로 줄어 보이므로 **오른쪽 대화 장면(누가 묻는지 → 질문 → 답)만 크게** 담는다.
+- 도구 이름·설명은 카드 아래에 이미 나오므로 썸네일에서는 뺀다.
+- 바탕·말풍선·답 카드·색 규칙은 공유 이미지와 같다. 랜딩·공유 미리보기·도구 화면이 한 결로 이어진다.
