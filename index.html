@@ -23,19 +23,29 @@
   .hero { display: grid; gap: var(--space-6); padding: var(--space-16) 0 var(--space-12); }
   .hero .body-l { max-width: 640px; }
   .hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-3); }
-  .band { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-6); padding: var(--space-12); background: var(--bg-dark); color: var(--on-dark); border-radius: var(--radius-md); }
-  .band__num { color: var(--accent-sales); }
-  .band__label { color: var(--on-dark-2); }
-  .areas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-6); }
+  /* 현황 한 줄 — 도구 카드(검정 썸네일)가 주인공이 되도록 연한 회색·작은 숫자로 */
+  .stats {
+    display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3) 0;
+    padding: var(--space-3) var(--space-2);
+    background: color-mix(in srgb, var(--ink) 4%, var(--bg));
+    border-radius: var(--radius-md);
+  }
+  .stat { display: flex; align-items: center; gap: var(--space-2); padding: 0 var(--space-4); }
+  .stat + .stat { border-left: 1px solid var(--line); }
+  .stat b { font-size: 22px; font-weight: 500; letter-spacing: -0.02em; line-height: 1; font-variant-numeric: tabular-nums; }
+  .stat > span:not(.tag) { font-size: 14px; color: var(--ink-2); }
+  .stat .tag { padding: 4px 10px; font-size: 12px; }
+  .tools-head { display: grid; gap: var(--space-4); }
   .landing-section { display: grid; gap: var(--space-6); margin-top: var(--space-24); }
+  #tools { margin-top: var(--space-8); }
   .landing-section:empty { display: none; }
   .empty { padding: var(--space-12) var(--space-6); text-align: center; color: var(--ink-2); background: var(--card); border-radius: var(--radius-md); }
   @media (max-width: 768px) {
     .hero .display-xl { font-size: 48px; }
-    .band, .areas { grid-template-columns: minmax(0, 1fr); padding: var(--space-8); }
-    .areas { padding: 0; }
-    .band .display-l { font-size: 44px; }
+    .stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); padding: var(--space-3) 0; }
+    .stat:nth-child(3) { border-left: 0; }
     .landing-section { margin-top: var(--space-16); }
+    #tools { margin-top: var(--space-4); }
   }
 </style>
 </head>
@@ -60,20 +70,16 @@
     </div>
   </section>
 
-  <section class="band" data-reveal aria-label="숫자로 보기">
-    <div><p class="display-l band__num" id="n-tools">0</p><p class="body band__label">지금 쓸 수 있는 도구</p></div>
-    <div><p class="display-l band__num" id="n-day">D+0</p><p class="body band__label">하루에 하나씩 만드는 중</p></div>
-  </section>
-
-  <section class="landing-section" data-reveal aria-label="영역">
-    <div class="areas">
-      <div class="area-card" data-area="sales"><p class="display-l area-card__number" id="n-sales">0</p><h2 class="heading-2">영업</h2><p class="body area-card__desc">견적·운임 계산과 고객 응대를 더 빠르게</p></div>
-      <div class="area-card" data-area="ops"><p class="display-l area-card__number" id="n-ops">0</p><h2 class="heading-2">운영</h2><p class="body area-card__desc">통관·선적·서류 확인을 더 빠르게</p></div>
-    </div>
-  </section>
-
   <section class="landing-section" id="tools" data-reveal>
-    <h2 class="heading-2">도구</h2>
+    <div class="tools-head">
+      <h2 class="heading-2">도구</h2>
+      <div class="stats" aria-label="현황">
+        <div class="stat"><b id="n-tools">0</b><span>지금 쓸 수 있는 도구</span></div>
+        <div class="stat"><b id="n-day">D+0</b><span>하루에 하나씩</span></div>
+        <div class="stat" title="통관·선적·서류 확인을 더 빠르게"><span class="tag tag-area" data-area="ops">운영</span><b id="n-ops">0</b></div>
+        <div class="stat" title="견적·운임 계산과 고객 응대를 더 빠르게"><span class="tag tag-area" data-area="sales">영업</span><b id="n-sales">0</b></div>
+      </div>
+    </div>
     <div id="grid"></div>
   </section>
 

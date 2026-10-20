@@ -238,11 +238,12 @@
 .page-toc__list a.is-active { color: var(--ink-2); font-weight: 500; border-left-color: var(--ink-3); }
 @media (max-width: 768px) {
   .page-toc { right: var(--space-4); bottom: var(--space-4); }
-  /* 모바일: 펼치면 흰 카드로 또렷하게(투명하면 뒤 화면과 겹쳐 누르기 어려움). 바깥을 누르면 닫힌다(page.js) */
+  /* 모바일: 펼치면 옅은 회색 카드로 떠 보이게(흰색은 바탕과 구분이 약함). 바깥을 누르면 닫힌다(page.js) */
+  .page-toc__pill { background: color-mix(in srgb, var(--ink) 6%, var(--bg)); border-color: var(--line); }
   .page-toc__panel {
     width: min(280px, calc(100vw - 32px));
     padding: var(--space-3);
-    background: var(--card-raised);
+    background: color-mix(in srgb, var(--ink) 6%, var(--bg));
     border: 1px solid var(--line);
     border-radius: var(--radius-md);
     box-shadow: var(--card-hover);
@@ -250,7 +251,7 @@
   .page-toc__head .eyebrow { color: var(--ink-2); }
   .page-toc__list { border-left: 0; gap: 2px; }
   .page-toc__list a { margin-left: 0; border-left: 0; padding: 10px var(--space-3); border-radius: var(--radius-sm); font-size: 15px; color: var(--ink-2); }
-  .page-toc__list a.is-active { background: var(--accent-soft); color: var(--ink); }
+  .page-toc__list a.is-active { background: var(--card-raised); color: var(--ink); box-shadow: var(--card-rest); }
   .has-toc .toast { bottom: 72px; } /* 접힌 목차 알약과 겹치지 않게 */
 }
 @media print { .page-toc { display: none; } }
