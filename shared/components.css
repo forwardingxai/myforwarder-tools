@@ -28,6 +28,9 @@
 .btn-sm { min-height: 32px; padding: 0 var(--space-3); font-size: 13px; }
 .btn-dark { background: var(--ink); color: var(--bg); border-color: var(--ink); }
 .btn-dark:hover { background: var(--ink-2); border-color: var(--ink-2); }
+/* 공유 버튼 자리(page.js가 "링크 복사"·"공유하기"를 채움) */
+.share-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
+.share-actions:empty { display: none; }
 /* 회색 강조 버튼 — 액센트 없이 보조 버튼 중 하나를 부각할 때(흰 글자 대비 4.7:1) */
 .btn-gray { background: var(--ink-2); color: var(--bg); border-color: var(--ink-2); }
 .btn-gray:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }

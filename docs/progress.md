@@ -4,6 +4,13 @@
 
 ---
 
+## 2026-10-20 · VS Code · D01 마무리: 공유 버튼
+
+- 완료한 일: Vercel Web Analytics 켬(사용자). 카카오톡 공유 미리보기(랜딩·도구) 정상 확인(사용자). 랜딩·도구 페이지에 "링크 복사"·"공유하기" 버튼 추가 — shared/page.js가 [data-share] 자리에 그림, 정식 주소(canonical) 사용, 공유하기는 navigator.share 지원 브라우저에서만. 로컬 검증 6/6, 콘솔 오류 0
+- 결정한 것: 카카오 SDK "카카오톡으로 공유" 전용 버튼은 보류(카카오 개발자 앱 등록·JavaScript 키·외부 스크립트 예외 필요) — 휴대폰 공유창에서 카카오톡 선택으로 대체
+- 막힌 것: 없음
+- 다음 할 일: 배포 반영 확인 → D01 마무리 → D02
+
 ## 2026-10-20 · VS Code · D01 배포 완료
 
 - 완료한 일: Vercel(forwardingxai, Hobby) 프로젝트 myforwarder-tools를 GitHub 저장소에 연결해 배포 — https://myforwarder-tools.vercel.app. 실제 주소에서 PRD 검증 5건 6/6 통과, 필요한 파일 200·배포 제외 파일(prd·docs·scripts·CLAUDE.md·README·package.json·.env·raw) 404 확인, 데이터 JSON 압축 전송 104KB, og 태그 정상

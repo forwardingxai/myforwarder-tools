@@ -10,6 +10,8 @@
 //    펼친 채 시작한다. 768px 이하는 화면을 가리지 않게 알약 하나로 접은 채 시작한다. 접기·펼치기는 기억한다.
 // 5) site.json의 연락(contact.links): 첫 링크가 오류 제보 링크([data-contact-link])의 주소가 되고,
 //    [data-contact-links] 자리에 모든 채널 버튼을 그린다.
+// 7) 공유 버튼([data-share] 자리): "링크 복사"(정식 주소 = canonical) + "공유하기"(휴대폰 기본 공유창 → 카카오톡 등).
+//    공유하기는 navigator.share를 지원하는 브라우저에서만 보인다. 외부 스크립트·키 없이 동작.
 // 6) 방문 분석: 배포된 사이트에서만 Vercel Web Analytics(같은 도메인 /_vercel/insights)를 붙인다. 로컬 미리보기에서는 불러오지 않는다.
 (() => {
   if (!/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) {
@@ -30,6 +32,10 @@
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>';
   const CHAT_SVG =
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 4c4.97 0 9 3.13 9 7s-4.03 7-9 7c-.9 0-1.77-.1-2.6-.3L5 20l1.2-3.6C4.2 15.1 3 13.2 3 11c0-3.87 4.03-7 9-7z"/></svg>';
+  const LINK_SVG =
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1 1"/><path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1-1"/></svg>';
+  const SHARE_SVG =
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3M7 8l5-5 5 5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>';
   const DOWN_SVG =
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 4v12M6 10l6 6 6-6M5 20h14"/></svg>';
 
@@ -55,6 +61,30 @@
       document.body.appendChild(ta); ta.select();
       const ok = document.execCommand('copy'); ta.remove(); return ok;
     }
+  }
+
+  // 공유 버튼 — 정식 주소(canonical)를 쓴다. 로컬 미리보기에서도 배포 주소가 복사된다
+  function renderShare() {
+    const hosts = document.querySelectorAll('[data-share]');
+    if (!hosts.length) return;
+    const meta = (p) => document.querySelector(`meta[property="${p}"]`)?.content;
+    const url = document.querySelector('link[rel="canonical"]')?.href || location.href.split('#')[0];
+    const data = { title: meta('og:title') || document.title, text: meta('og:description') || '', url };
+    const canShare = typeof navigator.share === 'function';
+    hosts.forEach((host) => {
+      host.innerHTML = `<button class="btn btn-sm" type="button" data-share-act="copy">${LINK_SVG}링크 복사</button>${
+        canShare ? `<button class="btn btn-sm" type="button" data-share-act="share">${SHARE_SVG}공유하기</button>` : ''}`;
+      host.addEventListener('click', async (e) => {
+        const act = e.target.closest('[data-share-act]')?.dataset.shareAct;
+        if (act === 'copy') {
+          toast((await copyText(url)) ? '링크를 복사했어요. 카카오톡에 붙여넣으세요' : '복사하지 못했어요. 주소창의 링크를 복사해 주세요.');
+        } else if (act === 'share') {
+          try { await navigator.share(data); } catch (err) {
+            if (err?.name !== 'AbortError') toast((await copyText(url)) ? '공유창을 열지 못해 링크를 복사했어요' : '공유하지 못했어요');
+          }
+        }
+      });
+    });
   }
 
   // 헤드라인을 단어 단위 span으로 나눈다(텍스트만 있는 요소 전제)
@@ -353,6 +383,7 @@
     const host = document.querySelector('[data-tool-sections]');
     const meta = document.querySelector('[data-tool-meta]');
     const funnelHost = document.querySelector('[data-site-funnel]');
+    renderShare();
     const site = await loadSite();
     siteConfig = site;
     applyContact(site);
