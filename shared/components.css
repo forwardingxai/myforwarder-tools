@@ -28,7 +28,10 @@
 .btn-sm { min-height: 32px; padding: 0 var(--space-3); font-size: 13px; }
 .btn-dark { background: var(--ink); color: var(--bg); border-color: var(--ink); }
 .btn-dark:hover { background: var(--ink-2); border-color: var(--ink-2); }
-/* 공유 버튼 자리(page.js가 "링크 복사"·"공유하기"를 채움) */
+/* 연한 회색 버튼 — 보조 동작(공유 등)을 흰 바탕 위에서 잘 보이게 */
+.btn-soft { background: color-mix(in srgb, var(--ink) 8%, var(--bg)); border-color: transparent; color: var(--ink); }
+.btn-soft:hover { background: color-mix(in srgb, var(--ink) 14%, var(--bg)); border-color: transparent; }
+/* 공유 버튼 자리(page.js가 "카카오톡 공유"·"링크 복사"·"공유하기"를 채움) */
 .share-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
 .share-actions:empty { display: none; }
 /* 회색 강조 버튼 — 액센트 없이 보조 버튼 중 하나를 부각할 때(흰 글자 대비 4.7:1) */
@@ -235,6 +238,19 @@
 .page-toc__list a.is-active { color: var(--ink-2); font-weight: 500; border-left-color: var(--ink-3); }
 @media (max-width: 768px) {
   .page-toc { right: var(--space-4); bottom: var(--space-4); }
+  /* 모바일: 펼치면 흰 카드로 또렷하게(투명하면 뒤 화면과 겹쳐 누르기 어려움). 바깥을 누르면 닫힌다(page.js) */
+  .page-toc__panel {
+    width: min(280px, calc(100vw - 32px));
+    padding: var(--space-3);
+    background: var(--card-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    box-shadow: var(--card-hover);
+  }
+  .page-toc__head .eyebrow { color: var(--ink-2); }
+  .page-toc__list { border-left: 0; gap: 2px; }
+  .page-toc__list a { margin-left: 0; border-left: 0; padding: 10px var(--space-3); border-radius: var(--radius-sm); font-size: 15px; color: var(--ink-2); }
+  .page-toc__list a.is-active { background: var(--accent-soft); color: var(--ink); }
   .has-toc .toast { bottom: 72px; } /* 접힌 목차 알약과 겹치지 않게 */
 }
 @media print { .page-toc { display: none; } }

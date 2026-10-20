@@ -19,6 +19,10 @@
       {"label": "KIFFA 교육 일정 보기", "href": "https://www.kiffa.or.kr/bbs/board.php?tbl=bbs33&mode=VIEW&category=3&num=482"}
     ]
   },
+  "kakao": {
+    "_note": "카카오 개발자 앱의 JavaScript 키(공개용 키, 등록한 도메인에서만 동작). 비어 있으면 '카카오톡 공유' 버튼을 숨긴다",
+    "jsKey": ""
+  },
   "contact": {
     "lead": "도구 제안이나 오류 제보, 강의·사내 교육 문의는 카카오톡이나 이메일로 편하게 보내 주세요. 실무에서 불편했던 일이라면 무엇이든 좋아요.",
     "links": [

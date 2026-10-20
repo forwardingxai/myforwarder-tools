@@ -10,8 +10,9 @@
 //    펼친 채 시작한다. 768px 이하는 화면을 가리지 않게 알약 하나로 접은 채 시작한다. 접기·펼치기는 기억한다.
 // 5) site.json의 연락(contact.links): 첫 링크가 오류 제보 링크([data-contact-link])의 주소가 되고,
 //    [data-contact-links] 자리에 모든 채널 버튼을 그린다.
-// 7) 공유 버튼([data-share] 자리): "링크 복사"(정식 주소 = canonical) + "공유하기"(휴대폰 기본 공유창 → 카카오톡 등).
-//    공유하기는 navigator.share를 지원하는 브라우저에서만 보인다. 외부 스크립트·키 없이 동작.
+// 7) 공유 버튼([data-share] 자리): "링크 복사"(정식 주소 = canonical) + "공유하기"(기기 공유창 → 카카오톡 등)
+//    + "카카오톡 공유"(site.json의 kakao.jsKey가 있을 때만. 누를 때 카카오 SDK를 불러와 Kakao.Share.sendScrap).
+//    공유하기는 navigator.share를 지원하는 브라우저에서만 보인다.
 // 6) 방문 분석: 배포된 사이트에서만 Vercel Web Analytics(같은 도메인 /_vercel/insights)를 붙인다. 로컬 미리보기에서는 불러오지 않는다.
 (() => {
   if (!/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) {
@@ -63,17 +64,39 @@
     }
   }
 
+  // 카카오 JavaScript SDK — 버전과 무결성 값(SRI)을 고정한다. 바꿀 때는 developers.kakao.com 다운로드 페이지에서 확인
+  const KAKAO_SDK = {
+    src: 'https://t1.kakaocdn.net/kakao_js_sdk/2.8.3/kakao.min.js',
+    integrity: 'sha384-oroumrnFVE0xtgqyDZJARgERibXg2C28380uaUZz2kHDS5CR7tu20eGiOU6GkTpy',
+  };
+  let kakaoReady = null;
+  function loadKakao(jsKey) {
+    kakaoReady ||= new Promise((resolve, reject) => {
+      const s = Object.assign(document.createElement('script'), { src: KAKAO_SDK.src, integrity: KAKAO_SDK.integrity, crossOrigin: 'anonymous' });
+      s.onload = () => {
+        try { if (!window.Kakao.isInitialized()) window.Kakao.init(jsKey); resolve(window.Kakao); } catch (err) { reject(err); }
+      };
+      s.onerror = () => reject(new Error('카카오 SDK를 불러오지 못했어요'));
+      document.head.appendChild(s);
+    });
+    return kakaoReady;
+  }
+
   // 공유 버튼 — 정식 주소(canonical)를 쓴다. 로컬 미리보기에서도 배포 주소가 복사된다
-  function renderShare() {
+  function renderShare(site = {}) {
     const hosts = document.querySelectorAll('[data-share]');
     if (!hosts.length) return;
     const meta = (p) => document.querySelector(`meta[property="${p}"]`)?.content;
     const url = document.querySelector('link[rel="canonical"]')?.href || location.href.split('#')[0];
     const data = { title: meta('og:title') || document.title, text: meta('og:description') || '', url };
     const canShare = typeof navigator.share === 'function';
+    const kakaoKey = site.kakao?.jsKey;
     hosts.forEach((host) => {
-      host.innerHTML = `<button class="btn btn-sm" type="button" data-share-act="copy">${LINK_SVG}링크 복사</button>${
-        canShare ? `<button class="btn btn-sm" type="button" data-share-act="share">${SHARE_SVG}공유하기</button>` : ''}`;
+      host.innerHTML = [
+        kakaoKey ? `<button class="btn btn-sm btn-soft" type="button" data-share-act="kakao">${CHAT_SVG}카카오톡 공유</button>` : '',
+        `<button class="btn btn-sm btn-soft" type="button" data-share-act="copy">${LINK_SVG}링크 복사</button>`,
+        canShare ? `<button class="btn btn-sm btn-soft" type="button" data-share-act="share">${SHARE_SVG}공유하기</button>` : '',
+      ].join('');
       host.addEventListener('click', async (e) => {
         const act = e.target.closest('[data-share-act]')?.dataset.shareAct;
         if (act === 'copy') {
@@ -81,6 +104,14 @@
         } else if (act === 'share') {
           try { await navigator.share(data); } catch (err) {
             if (err?.name !== 'AbortError') toast((await copyText(url)) ? '공유창을 열지 못해 링크를 복사했어요' : '공유하지 못했어요');
+          }
+        } else if (act === 'kakao') {
+          try {
+            const Kakao = await loadKakao(kakaoKey);
+            Kakao.Share.sendScrap({ requestUrl: url });
+          } catch (err) {
+            console.warn('카카오톡 공유 실패:', err);
+            toast((await copyText(url)) ? '카카오톡을 열지 못해 링크를 복사했어요. 카카오톡에 붙여넣으세요' : '카카오톡 공유를 하지 못했어요');
           }
         }
       });
@@ -191,8 +222,14 @@
     setOpen(mobile ? false : saved !== 'closed', false);
     pill.addEventListener('click', () => setOpen(true, !mobile));
     toc.querySelector('.page-toc__close').addEventListener('click', () => setOpen(false, !mobile));
-    // 모바일은 항목을 고르면 패널을 접어 결과를 가리지 않는다
+    // 모바일은 항목을 고르거나, 바깥을 누르거나, Esc를 누르면 패널을 접어 화면을 가리지 않는다
     links.forEach((a) => a.addEventListener('click', () => { if (mobile) setOpen(false, false); }));
+    if (mobile) {
+      document.addEventListener('click', (e) => {
+        if (toc.classList.contains('is-open') && !toc.contains(e.target)) setOpen(false, false);
+      });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false, false); });
+    }
 
     tocUpdate = () => {
       const line = window.innerHeight * 0.35;
@@ -383,9 +420,9 @@
     const host = document.querySelector('[data-tool-sections]');
     const meta = document.querySelector('[data-tool-meta]');
     const funnelHost = document.querySelector('[data-site-funnel]');
-    renderShare();
     const site = await loadSite();
     siteConfig = site;
+    renderShare(site);
     applyContact(site);
     if (funnelHost) funnelHost.innerHTML = funnelHtml(site);
     if (host) {
