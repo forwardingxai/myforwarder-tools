@@ -26,5 +26,7 @@ SOFTWARE.
 
 - kits/ 의 만들기 키트와 프롬프트, docs/ 의 글은 CC BY 4.0(https://creativecommons.org/licenses/by/4.0/deed.ko)으로
   공개합니다. 출처("이준헌 · 마이포워더 도구")를 밝히면 고쳐 쓰거나 강의·사내 교육에 써도 됩니다.
+- shared/fonts/ 의 Pretendard 글꼴은 길형진(orioncactus)의 저작물로 SIL Open Font License 1.1을 따릅니다
+  (shared/fonts/OFL.txt). 이 저장소의 MIT 라이선스는 글꼴에 적용되지 않습니다.
 - data/ 의 장치장 데이터는 관세청 UNI-PASS Open API에서 받아 정리한 것입니다. 원 데이터의 권리와 이용 조건은
   관세청에 있으며, 쓰실 때 "출처: 관세청 UNI-PASS"와 기준일을 함께 적어 주세요.

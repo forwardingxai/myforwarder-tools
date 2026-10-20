@@ -40,5 +40,6 @@ python -m http.server 5510 --bind 127.0.0.1
 - 코드: MIT
 - 만들기 키트·문서(kits/, docs/): CC BY 4.0 — 출처("이준헌 · 마이포워더 도구")를 밝히면 고쳐 쓰거나 강의·사내 교육에 써도 돼요
 - 데이터(data/): 원 데이터의 권리는 관세청에 있어요. 쓰실 때 "출처: 관세청 UNI-PASS"와 기준일을 적어 주세요
+- 글꼴(shared/fonts/): Pretendard · SIL Open Font License 1.1 ([OFL.txt](shared/fonts/OFL.txt))
 
 자세한 내용은 [LICENSE](LICENSE)를 보세요.
