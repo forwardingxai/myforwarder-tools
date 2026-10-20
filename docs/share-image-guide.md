@@ -68,6 +68,10 @@
 3. `thumbs/{slug}-og.png`를 열어 확인한다. 카카오톡 크기(가로 300px)로 줄여도 제목과 답이 읽히는지 본다.
 4. 도구 HTML의 `<head>`에 공유 정보를 넣는다(D01 `tools/bonded-area-code.html` 참고): `og:title`, `og:description`, `og:url`, `og:image`(= `https://myforwarder-tools.vercel.app/thumbs/{slug}-og.png`), `og:image:width` 1200, `og:image:height` 630, `twitter:card` summary_large_image.
 
+## 6-1. 랜딩(사이트) 공유 이미지
+
+`site.json`의 `share` 칸(같은 항목 + `area`)을 쓰고 `npm run share-image -- site` → `thumbs/site-og.png`. 사이트 이미지는 라임(`area: "sales"`)으로 도구 이미지와 구분한다. 도구 개수·날짜처럼 시간이 지나면 틀리는 값은 넣지 않는다.
+
 ## 7. 랜딩 카드 썸네일 (2026-10-20 같은 스타일로 통일)
 
 같은 명령이 랜딩 카드 썸네일 `thumbs/{slug}.png`(1280×800, 16:10)도 함께 만든다. 같은 `share` 문구를 쓴다.

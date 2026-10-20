@@ -2,6 +2,7 @@
 //   → thumbs/{slug}-og.png, thumbs/{slug}.png
 //
 // 사용: npm run share-image -- bonded-area-code
+//       npm run share-image -- site   (랜딩 공유 이미지 thumbs/site-og.png, 문구는 site.json의 share)
 //   (처음 한 번 npm install 필요. 이 PC의 Microsoft Edge로 찍는다 — 브라우저를 새로 내려받지 않음)
 //
 // - 문구: tools.json의 share 칸 / 색: area(ops 코발트·sales 라임) / 틀: scripts/share-image.html
@@ -18,10 +19,12 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const slug = process.argv[2];
 if (!slug) { console.error('사용: npm run share-image -- {slug}'); process.exit(1); }
 
-const OUTPUTS = [
-  { format: 'og', size: { width: 1200, height: 630 }, file: `${slug}-og.png`, label: '공유 이미지' },
-  { format: 'card', size: { width: 1280, height: 800 }, file: `${slug}.png`, label: '랜딩 카드 썸네일' },
-];
+const OUTPUTS = slug === 'site'
+  ? [{ format: 'og', size: { width: 1200, height: 630 }, file: 'site-og.png', label: '랜딩 공유 이미지' }]
+  : [
+      { format: 'og', size: { width: 1200, height: 630 }, file: `${slug}-og.png`, label: '공유 이미지' },
+      { format: 'card', size: { width: 1280, height: 800 }, file: `${slug}.png`, label: '랜딩 카드 썸네일' },
+    ];
 
 const TYPES = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript', '.json': 'application/json', '.woff2': 'font/woff2', '.png': 'image/png', '.svg': 'image/svg+xml' };
 const server = createServer((req, res) => {

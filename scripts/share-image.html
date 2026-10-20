@@ -71,8 +71,15 @@
   const params = new URLSearchParams(location.search);
   const slug = params.get('slug');
   if (params.get('format') === 'card') document.documentElement.classList.add('card-mode');
-  const tools = await (await fetch('../tools.json', { cache: 'no-cache' })).json();
-  const t = tools.find((x) => x.slug === slug);
+  let t;
+  if (slug === 'site') {
+    // 사이트(랜딩) 공유 이미지: site.json의 share 칸. 색은 share.area
+    const site = await (await fetch('../site.json', { cache: 'no-cache' })).json();
+    t = site.share ? { area: site.share.area || 'sales', name: '마이포워더 도구', summary: '', share: site.share } : null;
+  } else {
+    const tools = await (await fetch('../tools.json', { cache: 'no-cache' })).json();
+    t = tools.find((x) => x.slug === slug);
+  }
   if (!t || !t.share) { document.body.dataset.error = `tools.json에 ${slug}의 share 칸이 없어요`; return; }
   const s = t.share;
   const AREA = { ops: '운영', sales: '영업' };

@@ -19,6 +19,18 @@
       {"label": "KIFFA 교육 일정 보기", "href": "https://www.kiffa.or.kr/bbs/board.php?tbl=bbs33&mode=VIEW&category=3&num=482"}
     ]
   },
+  "share": {
+    "_note": "랜딩 공유 이미지(thumbs/site-og.png) 문구. npm run share-image -- site. 도구 개수·날짜처럼 낡는 값은 넣지 않는다",
+    "area": "sales",
+    "tag": "포워딩 × AI · 무료",
+    "title": ["마이포워더", "도구"],
+    "sub": ["포워딩 실무의 반복 업무를", "AI로 하나씩 덜어 내요"],
+    "who": "포워딩 실무자",
+    "question": "\"이거 매일 손으로 해요\"",
+    "answer": "무료 도구",
+    "answerStyle": "text",
+    "answerNote": "로그인 없이 바로 쓰고, 만드는 법까지 가져가요"
+  },
   "kakao": {
     "_note": "카카오 개발자 앱의 JavaScript 키(공개용 키, 등록한 도메인에서만 동작). 비어 있으면 '카카오톡 공유' 버튼을 숨긴다",
     "jsKey": ""
