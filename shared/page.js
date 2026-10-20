@@ -10,9 +10,9 @@
 //    펼친 채 시작한다. 768px 이하는 화면을 가리지 않게 알약 하나로 접은 채 시작한다. 접기·펼치기는 기억한다.
 // 5) site.json의 연락(contact.links): 첫 링크가 오류 제보 링크([data-contact-link])의 주소가 되고,
 //    [data-contact-links] 자리에 모든 채널 버튼을 그린다.
-// 7) 공유 버튼([data-share] 자리): "링크 복사"(정식 주소 = canonical) + "공유하기"(기기 공유창 → 카카오톡 등)
-//    + "카카오톡 공유"(site.json의 kakao.jsKey가 있을 때만. 누를 때 카카오 SDK를 불러와 Kakao.Share.sendScrap).
-//    공유하기는 navigator.share를 지원하는 브라우저에서만 보인다.
+// 7) 공유 버튼([data-share] 자리): "공유하기"(기기 공유창 → 카카오톡 등, 검정 주 버튼) + "링크 복사"(정식 주소 = canonical).
+//    공유하기는 navigator.share를 지원하는 브라우저에서만 보이고, 없으면 링크 복사가 주 버튼이 된다.
+//    (카카오 SDK 전용 버튼은 2026-10-20 시험 후 뺐다 — 공유하기로 카카오톡 전달·썸네일이 정상이라 중복)
 // 6) 방문 분석: 배포된 사이트에서만 Vercel Web Analytics(같은 도메인 /_vercel/insights)를 붙인다. 로컬 미리보기에서는 불러오지 않는다.
 (() => {
   if (!/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) {
@@ -64,38 +64,19 @@
     }
   }
 
-  // 카카오 JavaScript SDK — 버전과 무결성 값(SRI)을 고정한다. 바꿀 때는 developers.kakao.com 다운로드 페이지에서 확인
-  const KAKAO_SDK = {
-    src: 'https://t1.kakaocdn.net/kakao_js_sdk/2.8.3/kakao.min.js',
-    integrity: 'sha384-oroumrnFVE0xtgqyDZJARgERibXg2C28380uaUZz2kHDS5CR7tu20eGiOU6GkTpy',
-  };
-  let kakaoReady = null;
-  function loadKakao(jsKey) {
-    kakaoReady ||= new Promise((resolve, reject) => {
-      const s = Object.assign(document.createElement('script'), { src: KAKAO_SDK.src, integrity: KAKAO_SDK.integrity, crossOrigin: 'anonymous' });
-      s.onload = () => {
-        try { if (!window.Kakao.isInitialized()) window.Kakao.init(jsKey); resolve(window.Kakao); } catch (err) { reject(err); }
-      };
-      s.onerror = () => reject(new Error('카카오 SDK를 불러오지 못했어요'));
-      document.head.appendChild(s);
-    });
-    return kakaoReady;
-  }
-
   // 공유 버튼 — 정식 주소(canonical)를 쓴다. 로컬 미리보기에서도 배포 주소가 복사된다
-  function renderShare(site = {}) {
+  function renderShare() {
     const hosts = document.querySelectorAll('[data-share]');
     if (!hosts.length) return;
     const meta = (p) => document.querySelector(`meta[property="${p}"]`)?.content;
     const url = document.querySelector('link[rel="canonical"]')?.href || location.href.split('#')[0];
     const data = { title: meta('og:title') || document.title, text: meta('og:description') || '', url };
     const canShare = typeof navigator.share === 'function';
-    const kakaoKey = site.kakao?.jsKey;
     hosts.forEach((host) => {
+      // 주 버튼(검정)은 공유하기, 공유창이 없는 브라우저에서는 링크 복사
       host.innerHTML = [
-        kakaoKey ? `<button class="btn btn-sm btn-soft" type="button" data-share-act="kakao">${CHAT_SVG}카카오톡 공유</button>` : '',
-        `<button class="btn btn-sm btn-soft" type="button" data-share-act="copy">${LINK_SVG}링크 복사</button>`,
-        canShare ? `<button class="btn btn-sm btn-soft" type="button" data-share-act="share">${SHARE_SVG}공유하기</button>` : '',
+        canShare ? `<button class="btn btn-sm btn-dark" type="button" data-share-act="share">${SHARE_SVG}공유하기</button>` : '',
+        `<button class="btn btn-sm ${canShare ? 'btn-outline' : 'btn-dark'}" type="button" data-share-act="copy">${LINK_SVG}링크 복사</button>`,
       ].join('');
       host.addEventListener('click', async (e) => {
         const act = e.target.closest('[data-share-act]')?.dataset.shareAct;
@@ -104,14 +85,6 @@
         } else if (act === 'share') {
           try { await navigator.share(data); } catch (err) {
             if (err?.name !== 'AbortError') toast((await copyText(url)) ? '공유창을 열지 못해 링크를 복사했어요' : '공유하지 못했어요');
-          }
-        } else if (act === 'kakao') {
-          try {
-            const Kakao = await loadKakao(kakaoKey);
-            Kakao.Share.sendScrap({ requestUrl: url });
-          } catch (err) {
-            console.warn('카카오톡 공유 실패:', err);
-            toast((await copyText(url)) ? '카카오톡을 열지 못해 링크를 복사했어요. 카카오톡에 붙여넣으세요' : '카카오톡 공유를 하지 못했어요');
           }
         }
       });
@@ -422,7 +395,7 @@
     const funnelHost = document.querySelector('[data-site-funnel]');
     const site = await loadSite();
     siteConfig = site;
-    renderShare(site);
+    renderShare();
     applyContact(site);
     if (funnelHost) funnelHost.innerHTML = funnelHtml(site);
     if (host) {

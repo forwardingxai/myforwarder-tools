@@ -54,7 +54,7 @@
 ## 금지
 
 - 사각 버튼, 그라데이션, 이모지 아이콘, 좌측 색 테두리 카드, 굵기 700
-- 외부 CDN 폰트·스크립트 (아이콘이 필요하면 인라인 SVG). 예외: Vercel Web Analytics(같은 도메인 `/_vercel/insights`, 쿠키 없음)는 `shared/page.js`가 배포 사이트에서만 불러온다. 카카오 JavaScript SDK(t1.kakaocdn.net, 버전·SRI 고정)는 "카카오톡 공유" 버튼을 누를 때만 불러온다(site.json `kakao.jsKey`가 있을 때)
+- 외부 CDN 폰트·스크립트 (아이콘이 필요하면 인라인 SVG). 예외: Vercel Web Analytics(같은 도메인 `/_vercel/insights`, 쿠키 없음)는 `shared/page.js`가 배포 사이트에서만 불러온다
 - 데이터 upsert(덮어쓰기). 버전을 쌓는다.
 - PRD에 없는 입력 추가, 로그인·회원 기능
 - 추정값을 실제값처럼 표시 (추정이면 "추정" 태그)
