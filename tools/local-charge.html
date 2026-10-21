@@ -62,6 +62,11 @@
     position: sticky; left: 0; z-index: 1; text-align: left; min-width: 152px;
     background: var(--card-raised); box-shadow: inset -1px 0 0 var(--line);
   }
+  /* 합계 열은 오른쪽 끝에 고정 — 가로로 밀어도 선사명과 합계는 늘 보인다 */
+  .lc-table th:last-child, .lc-table td.lc-total {
+    position: sticky; right: 0; z-index: 1; min-width: 112px;
+    background: var(--card-raised); box-shadow: inset 1px 0 0 var(--line);
+  }
   .lc-table tbody tr.lc-row:hover td { background: var(--card); }
   .lc-name { display: grid; gap: 2px; white-space: normal; }
   .lc-name__ko { font-weight: 500; }
@@ -69,6 +74,11 @@
   .lc-st { margin-left: 4px; vertical-align: 1px; }           /* 상태 태그: 무채색 텍스트 태그(.tag-mini) */
   .lc-muted { color: var(--ink-3); }
   .lc-total { font-weight: 500; }
+  .lc-total__est { display: block; margin-top: 2px; color: var(--ink-2); font-size: 11px; font-weight: 400; }
+  .lc-est { color: var(--ink-2); }                              /* 추정값: 회색 글자 + "추정" 태그 */
+  .lc-tip { cursor: help; }                                     /* 마우스를 올리면 근거 문구(title) */
+  .lc-link { color: var(--ink); text-decoration: none; }
+  .lc-link:hover { text-decoration: underline; text-underline-offset: 3px; }
   .lc-divider td { background: var(--card) !important; padding: 10px 14px; text-align: left; }
   .lc-divider__text { position: sticky; left: 14px; color: var(--ink-2); font-size: 13px; font-weight: 500; }
   .lc-empty td { text-align: left; color: var(--ink-2); white-space: normal; }
@@ -91,7 +101,8 @@
     .lc-group--grow { flex-basis: 100%; }
     .lc-group--grow .input { max-width: none; }
     .lc-table th, .lc-table td { padding: 10px 10px; font-size: 14px; }
-    .lc-table th:first-child, .lc-table td:first-child { min-width: 112px; max-width: 128px; }
+    .lc-table th:first-child, .lc-table td:first-child { min-width: 108px; max-width: 120px; }
+    .lc-table td.lc-total { white-space: normal; min-width: 88px; max-width: 96px; }
     .lc-divider__text { left: 10px; }
     .lc-data { grid-template-columns: minmax(0, 1fr); padding: var(--space-4); }
     .lc-tools { width: 100%; }
@@ -142,7 +153,7 @@
     <!-- ② 선사 비교표 · ③ 견적서용 표(선사 행을 누르면 그 아래에 펼침, 5단계) -->
     <div class="lc-result">
       <div class="lc-result-head">
-        <p class="lc-count" aria-live="polite"><strong id="count">0</strong><span class="ink-2"> 곳</span></p>
+        <p class="lc-count" aria-live="polite"><strong id="count">0</strong><span class="ink-2"> 곳 · 합계 낮은 순</span></p>
         <div class="lc-tools">
           <span class="lc-sel" id="sel-info" aria-live="polite"></span>
           <button class="btn btn-sm" type="button" id="sel-clear" hidden>선택 해제</button>
@@ -168,7 +179,7 @@
           <li><span class="lc-legend__mark">210,000</span><span>선사 공식 Tariff에서 확인한 금액</span></li>
           <li><span class="lc-legend__mark">130,000 <span class="tag tag-mini">2018</span></span><span>오래된 공지에서 확인한 금액이라 청구 전에 다시 확인이 필요해요</span></li>
           <li><span class="lc-legend__mark"><span class="tag tag-mini">THC 포함</span></span><span>다른 항목 금액에 이미 들어 있어 따로 받지 않아요</span></li>
-          <li><span class="lc-legend__mark lc-muted">210,000 <span class="tag tag-mini">추정</span></span><span>공식 값이 없어 같은 국적구분 선사들이 가장 많이 받는 금액(또는 범위)으로 채웠어요</span></li>
+          <li><span class="lc-legend__mark"><span class="lc-est">210,000</span> <span class="tag tag-mini">추정</span></span><span>공식 값이 없어 같은 국적구분 선사들이 가장 많이 받는 금액(또는 범위)으로 채웠어요. 칸에 마우스를 올리면 근거가 보여요</span></li>
           <li><span class="lc-legend__mark"><span class="tag tag-mini">미확인</span></span><span>근거가 부족해 비워 둔 칸이에요</span></li>
         </ul>
       </div>
@@ -220,50 +231,111 @@
   const isConfirmed = (v) => !!v && v.status.startsWith('확인');
   const isUnpublished = (c) => !Object.values(c.values).some(isConfirmed);
 
-  // 비교표 열: 컨테이너 종류·규격에 맞는 항목 키
+  // 비교표 열: 컨테이너 종류·규격에 맞는 항목 키. per: 'cntr'(× 수량) | 'bl'(× B/L 수)
+  // DG 대체 규칙(PRD 3-3): DOC_FEE_DG가 확인값이면 DOC_FEE 대신, DG_SURCHARGE는 확인값일 때만 더한다
   function columns() {
-    const s = state.size;
+    const s = state.size, dg = state.type === 'DG';
     const cols = [
-      { label: 'THC', key: `THC_${state.type}_${s}` },
-      { label: 'W/FAG', key: `WHARFAGE_${s}` },
-      { label: 'PFS', key: `SECURITY_${s}` },
-      { label: 'PSC', key: `PORT_SAFETY_${s}` },
-      { label: 'SEAL', key: 'SEAL' },
-      { label: 'DOCS FEE', key: 'DOC_FEE' },
+      { label: 'THC', key: `THC_${state.type}_${s}`, per: 'cntr' },
+      { label: 'W/FAG', key: `WHARFAGE_${s}`, per: 'cntr' },
+      { label: 'PFS', key: `SECURITY_${s}`, per: 'cntr' },
+      { label: 'PSC', key: `PORT_SAFETY_${s}`, per: 'cntr' },
+      { label: 'SEAL', key: 'SEAL', per: 'cntr' },
+      { label: 'DOCS FEE', key: 'DOC_FEE', per: 'bl', pick: (c) => (dg && isConfirmed(c.values.DOC_FEE_DG) ? 'DOC_FEE_DG' : 'DOC_FEE') },
     ];
-    if (state.type === 'DG') cols.push({ label: 'DG 할증', key: 'DG_SURCHARGE' });
+    if (dg) cols.push({ label: 'DG 할증', key: 'DG_SURCHARGE', per: 'cntr' });
     return cols;
   }
 
-  // 칸 하나 표시(3단계: 상태별 기본 표시. 추정값·합계는 4단계에서)
-  function cellHtml(v) {
-    if (!v) return '<span class="lc-muted">—</span>';
+  // 선사별 데이터 메모(PRD 3-8): 칸 태그 + 근거 문구
+  const DATA_NOTES = {
+    'smline:THC_DG_20': ['미주향', '미주향(TPE) 요율만 공개된 값이에요'],
+    'smline:THC_DG_40': ['미주향', '미주향(TPE) 요율만 공개된 값이에요'],
+  };
+  const groupWord = (g) => (g === '전체' ? '' : `${g} `);
+
+  // 칸 하나: 합계에 넣을 최저·최고값, 화면 표시, 근거 문구(툴팁), 내보내기 값·비고 (PRD 3-5 상태 체계)
+  function cellInfo(c, col) {
+    const key = col.pick ? col.pick(c) : col.key;
+    const v = c.values[key];
+    const r = { lo: 0, hi: 0, est: false, html: '<span class="lc-muted">—</span>', title: '', out: '', note: '' };
+    if (!v) return r;
+    const tags = [];
     switch (v.status) {
       case '확인':
-        return fmt(v.amount);
       case '확인(오래된 공지)': {
-        const y = (v.effective_from || '').slice(0, 4);
-        return `${fmt(v.amount)}<span class="tag tag-mini lc-st">${esc(y || '오래된 공지')}</span>`;
+        r.lo = r.hi = r.out = v.amount;
+        const titles = [];
+        if (v.range && v.range[0] !== v.range[1]) titles.push(`항로·조건에 따라 ${fmt(v.range[0])}~${fmt(v.range[1])}원`);
+        if (v.status === '확인(오래된 공지)') {
+          const y = (v.effective_from || '').slice(0, 4);
+          tags.push(y || '오래된 공지');
+          titles.push(`${y ? `${y}년 ` : ''}오래된 공지에서 확인한 값이라 청구 전에 다시 확인하세요`);
+          r.note = `${col.label} ${y ? `${y}년 ` : '오래된 '}공지`;
+        }
+        if (key === 'DOC_FEE_DG') { tags.push('위험물'); titles.push('위험물 서류비로 일반 서류비를 대신했어요'); r.note = 'DOCS FEE 위험물 서류비'; }
+        const dn = DATA_NOTES[`${c.carrier_id}:${key}`];
+        if (dn) { tags.push(dn[0]); titles.push(dn[1]); r.note = [r.note, `${col.label} ${dn[0]} 기준`].filter(Boolean).join(', '); }
+        r.html = fmt(v.amount) + tags.map((t) => `<span class="tag tag-mini lc-st">${esc(t)}</span>`).join('');
+        r.title = titles.join(' · ');
+        return r;
       }
       case 'THC에 포함':
-        return '<span class="tag tag-mini">THC 포함</span>';
+        r.html = '<span class="tag tag-mini">THC 포함</span>'; r.out = 0; r.note = `${col.label} THC 포함`;
+        r.title = 'THC 금액에 들어 있어 따로 받지 않아요';
+        return r;
       case 'W/FAG에 포함(추정)':
-        return '<span class="tag tag-mini">W/FAG 포함</span>';
+        r.html = '<span class="tag tag-mini">W/FAG 포함</span>'; r.out = 0; r.note = `${col.label} W/FAG 포함(추정)`;
+        r.title = '이 선사의 부산 W/FAG에 보안료가 더해져 있어(4,574원/9,148원) 따로 받지 않는 것으로 봤어요(추정)';
+        return r;
       case '일반 서류비 적용':
       case '해당 없음':
-        return '<span class="lc-muted">—</span>';
-      default:
-        return '<span class="tag tag-mini">미확인</span>';
+        return r;
     }
+    // 미확인 → 추정(최빈값·범위) 또는 추정 불가 (PRD 3-6, 추정값은 데이터 빌드 때 계산해 JSON에 담겨 있다)
+    const e = v.estimate;
+    if (!e) {
+      r.html = '<span class="tag tag-mini">미확인</span>'; r.note = `${col.label} 미확인`;
+      r.title = '확인된 선사가 5곳 미만이라 추정하지 않았어요';
+      return r;
+    }
+    r.est = true;
+    if (e.type === 'mode') {
+      r.lo = r.hi = r.out = e.amount;
+      r.html = `<span class="lc-est">${fmt(e.amount)}</span>`;
+      r.title = `확인된 ${groupWord(e.basis_group)}선사 ${e.n_total}곳 중 ${e.n_same}곳이 ${fmt(e.amount)}원을 청구합니다.`;
+      r.note = `${col.label} 추정`;
+    } else {
+      [r.lo, r.hi] = e.range;
+      r.out = `${e.range[0]}~${e.range[1]}`;
+      r.html = `<span class="lc-est">${fmt(e.range[0])}~${fmt(e.range[1])}</span>`;
+      r.title = `확인된 ${groupWord(e.basis_group)}선사 ${e.n_total}곳 기준 ${fmt(e.range[0])}~${fmt(e.range[1])}원`;
+      r.note = `${col.label} 추정 범위`;
+    }
+    r.html += '<span class="tag tag-mini lc-st">추정</span>';
+    return r;
   }
 
-  function rowHtml(c, cols) {
+  // 선사 한 줄 계산: 합계 = (컨테이너당 항목 합 × 수량) + (DOCS FEE × B/L 수). 범위 추정이 있으면 최저~최고
+  function calc(c, cols) {
+    const cells = cols.map((col) => cellInfo(c, col));
+    let lo = 0, hi = 0;
+    cells.forEach((x, i) => { const m = cols[i].per === 'bl' ? state.bl : state.qty; lo += x.lo * m; hi += x.hi * m; });
+    return { c, cells, lo, hi, est: cells.some((x) => x.est) };
+  }
+
+  function rowHtml(row) {
+    const { c, cells, lo, hi, est } = row;
     const title = c.name_ko === shortName(c) ? c.name_en : `${c.name_ko} · ${c.name_en}`;
     const on = selected.has(c.carrier_id);
+    const name = c.page_url
+      ? `<a class="lc-name__ko lc-link" href="${esc(c.page_url)}" target="_blank" rel="noopener" title="${esc(title)} — 공식 Tariff 페이지(새 창)">${esc(shortName(c))}</a>`
+      : `<span class="lc-name__ko" title="${esc(title)}">${esc(shortName(c))}</span>`;
+    const total = lo === hi ? fmt(lo) : `${fmt(lo)}~<wbr>${fmt(hi)}`; // 좁은 화면에서는 ~ 뒤에서 줄바꿈
     return `<tr class="lc-row${on ? ' is-selected' : ''}" data-id="${esc(c.carrier_id)}">
-      <td><div class="lc-namecell"><input class="lc-check" type="checkbox" data-check="${esc(c.carrier_id)}" aria-label="${esc(shortName(c))} 선택"${on ? ' checked' : ''}><span class="lc-name" title="${esc(title)}"><span class="lc-name__ko">${esc(shortName(c))}</span><span class="lc-name__sub">${esc(c.nationality)}</span></span></div></td>
-      ${cols.map((col) => `<td>${cellHtml(c.values[col.key])}</td>`).join('')}
-      <td class="lc-total"><span class="lc-muted">—</span></td>
+      <td><div class="lc-namecell"><input class="lc-check" type="checkbox" data-check="${esc(c.carrier_id)}" aria-label="${esc(shortName(c))} 선택"${on ? ' checked' : ''}><span class="lc-name">${name}<span class="lc-name__sub">${esc(c.nationality)}</span></span></div></td>
+      ${cells.map((x) => `<td${x.title ? ` title="${esc(x.title)}" class="lc-tip"` : ''}>${x.html}</td>`).join('')}
+      <td class="lc-total"><span class="${est ? 'lc-est' : ''}">${total}</span>${est ? '<span class="lc-total__est">추정 포함</span>' : ''}</td>
     </tr>`;
   }
 
@@ -274,25 +346,28 @@
     return [shortName(c), c.name_ko, c.name_en, c.carrier_id].some((s) => String(s).toLowerCase().replace(/\s+/g, '').includes(q));
   }
 
-  // 화면에 보이는 순서대로(확인 선사 → 미공개 선사)
-  function visibleList() {
-    const list = DATA.carriers.filter(matches);
-    return [...list.filter((c) => !isUnpublished(c)), ...list.filter(isUnpublished)];
+  // 화면에 보이는 순서대로(확인 선사 → 미공개 선사, 각각 합계 낮은 순 · 범위면 최저값 기준)
+  function visibleRows(cols = columns()) {
+    const byTotal = (a, b) => a.lo - b.lo || a.hi - b.hi;
+    const rows = DATA.carriers.filter(matches).map((c) => calc(c, cols));
+    return [...rows.filter((r) => !isUnpublished(r.c)).sort(byTotal), ...rows.filter((r) => isUnpublished(r.c)).sort(byTotal)];
   }
+  const visibleList = () => visibleRows().map((r) => r.c);
 
   function renderTable() {
     const cols = columns();
-    const list = visibleList();
-    const published = list.filter((c) => !isUnpublished(c));
-    const unpublished = list.filter(isUnpublished);
+    const rows = visibleRows(cols);
+    const list = rows.map((r) => r.c);
+    const published = rows.filter((r) => !isUnpublished(r.c));
+    const unpublished = rows.filter((r) => isUnpublished(r.c));
     const span = cols.length + 2;
     const nSel = list.filter((c) => selected.has(c.carrier_id)).length;
     const allBox = `<input class="lc-check" type="checkbox" id="check-all" aria-label="화면의 선사 모두 선택"${list.length && nSel === list.length ? ' checked' : ''}>`;
     $('count').textContent = list.length;
-    let body = published.map((c) => rowHtml(c, cols)).join('');
+    let body = published.map(rowHtml).join('');
     if (unpublished.length) {
       body += `<tr class="lc-divider"><td colspan="${span}"><span class="lc-divider__text">${esc(UNPUBLISHED_LABEL)}</span></td></tr>`;
-      body += unpublished.map((c) => rowHtml(c, cols)).join('');
+      body += unpublished.map(rowHtml).join('');
     }
     if (!list.length) body = `<tr class="lc-empty"><td colspan="${span}">찾는 선사가 없어요. 이름을 다시 확인하거나 선사 범위를 "전체"로 바꿔 보세요.</td></tr>`;
     $('table-host').innerHTML = `<div class="lc-table-wrap"><table class="lc-table">
@@ -306,34 +381,20 @@
   }
 
   // ── 비교표 가져가기(표 복사 · 엑셀(CSV) 내려받기) ──
-  // 금액은 쉼표 없는 숫자(엑셀이 숫자로 인식), 포함은 0, 추정·포함·오래된 공지·미확인은 비고 열에 적는다.
-  // 합계·추정값은 4단계 계산 로직에서 채운다.
-  function exportRows() {
-    const list = visibleList();
-    const sel = list.filter((c) => selected.has(c.carrier_id));
-    return sel.length ? sel : list;
-  }
-  function rowModel(c, cols) {
-    const notes = [];
-    const nums = cols.map((col) => {
-      const v = c.values[col.key];
-      if (!v) return '';
-      switch (v.status) {
-        case '확인': return v.amount;
-        case '확인(오래된 공지)': notes.push(`${col.label} ${(v.effective_from || '').slice(0, 4) || '오래된'} 공지`); return v.amount;
-        case 'THC에 포함': notes.push(`${col.label} THC 포함`); return 0;
-        case 'W/FAG에 포함(추정)': notes.push(`${col.label} W/FAG 포함(추정)`); return 0;
-        case '일반 서류비 적용':
-        case '해당 없음': return '';
-        default: notes.push(`${col.label} 미확인`); return '';
-      }
-    });
-    return { cells: [shortName(c), c.nationality, ...nums, '', ''], note: notes.join(', ') };
-  }
+  // 금액은 쉼표 없는 숫자(엑셀이 숫자로 인식), 포함은 0, 범위 추정은 "최저~최고" 글자.
+  // 추정·포함·오래된 공지·미확인·위험물 서류비는 비고 열에 적는다.
   function exportTable() {
     const cols = columns();
+    const rows = visibleRows(cols);
+    const sel = rows.filter((r) => selected.has(r.c.carrier_id));
     const head = ['선사', '국적구분', ...cols.map((c) => c.label), '합계(최저)', '합계(최고)', '비고'];
-    return { head, rows: exportRows().map((c) => { const m = rowModel(c, cols); return [...m.cells, m.note]; }) };
+    return {
+      head,
+      rows: (sel.length ? sel : rows).map((r) => [
+        shortName(r.c), r.c.nationality, ...r.cells.map((x) => x.out), Math.round(r.lo), Math.round(r.hi),
+        r.cells.map((x) => x.note).filter(Boolean).join(', '),
+      ]),
+    };
   }
   const typeLabel = () => TYPES.find(([v]) => v === state.type)[1];
   const conditionText = () => `부산항 수출 · ${typeLabel()} ${state.size}' · 수량 ${state.qty}개 · B/L ${state.bl}건 · 기준일 ${DATA.meta.checked_at}`;
