@@ -45,6 +45,18 @@
   .lc-sel { color: var(--ink-2); font-size: 13px; margin-right: var(--space-1); }
   .lc-check { width: 16px; height: 16px; margin: 3px 0 0; accent-color: var(--ink); cursor: pointer; flex: none; }
   .lc-namecell { display: flex; align-items: flex-start; gap: var(--space-3); }
+  /* 펼침 세모 — 평소 회색, 행에 마우스를 올리거나 펼치면 진하게. 펼치면 아래로(▾), 움직임 없이 바뀜 */
+  .lc-toggle {
+    margin-left: auto; align-self: center; flex: none;
+    width: 28px; height: 28px; padding: 0; border: 0; border-radius: var(--radius-pill);
+    display: inline-flex; align-items: center; justify-content: center;
+    background: transparent; color: var(--ink-2); cursor: pointer;
+    transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+  }
+  .lc-toggle svg { width: 16px; height: 16px; }
+  .lc-row:hover .lc-toggle, .lc-row.is-open .lc-toggle { color: var(--ink); }
+  .lc-toggle:hover { background: var(--line); }
+  .lc-row.is-open .lc-toggle svg { transform: rotate(90deg); }
   .lc-table tbody tr.is-selected td { background: var(--card); }
 
   /* ② 선사 비교표 — 선사명 열 고정 + 가로 스크롤 */
@@ -127,7 +139,9 @@
     .lc-group--grow { flex-basis: 100%; }
     .lc-group--grow .input { max-width: none; }
     .lc-table th, .lc-table td { padding: 10px 10px; font-size: 14px; }
-    .lc-table th:first-child, .lc-table td:first-child { min-width: 108px; max-width: 120px; }
+    .lc-table th:first-child, .lc-table td:first-child { min-width: 128px; max-width: 140px; }
+    .lc-namecell { gap: var(--space-2); }
+    .lc-toggle { width: 24px; height: 24px; }
     .lc-table td.lc-total { white-space: normal; min-width: 88px; max-width: 96px; }
     .lc-quote { padding: var(--space-3) var(--space-3) var(--space-4); }
     .lc-quote__actions { width: 100%; }
@@ -190,7 +204,7 @@
           <button class="btn btn-sm btn-outline" type="button" id="download-csv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5"/><path d="M5 19h14"/></svg><span>엑셀(CSV) 내려받기</span></button>
         </div>
       </div>
-      <p class="caption lc-table-note" style="margin-bottom: 12px">단위 원(KRW) · THC~SEAL은 컨테이너당, DOCS FEE는 B/L당 단가 · 선사 행을 누르면 견적서용 표가 펼쳐져요 · 선사를 체크하면 그 선사만, 체크가 없으면 화면에 보이는 선사를 모두 가져가요</p>
+      <p class="caption lc-table-note" style="margin-bottom: 12px">단위 원(KRW) · THC~SEAL은 컨테이너당, DOCS FEE는 B/L당 단가 · 선사 이름 옆 세모나 행을 누르면 견적서용 표가 펼쳐져요 · 선사를 체크하면 그 선사만, 체크가 없으면 화면에 보이는 선사를 모두 가져가요</p>
       <div id="table-host">
         <div class="lc-state"><p class="body">선사별 부대비용 데이터를 불러오고 있어요.</p></div>
       </div>
@@ -362,8 +376,11 @@
       : `<span class="lc-name__ko" title="${esc(title)}">${esc(shortName(c))}</span>`;
     const total = lo === hi ? fmt(lo) : `${fmt(lo)}~<wbr>${fmt(hi)}`; // 좁은 화면에서는 ~ 뒤에서 줄바꿈
     const open = state.open === c.carrier_id;
-    return `<tr class="lc-row${on ? ' is-selected' : ''}${open ? ' is-open' : ''}" data-id="${esc(c.carrier_id)}" tabindex="0" aria-expanded="${open}" title="누르면 견적서용 표가 펼쳐져요">
-      <td><div class="lc-namecell"><input class="lc-check" type="checkbox" data-check="${esc(c.carrier_id)}" aria-label="${esc(shortName(c))} 선택"${on ? ' checked' : ''}><span class="lc-name">${name}<span class="lc-name__sub">${esc(c.nationality)}</span></span></div></td>
+    const verb = open ? '접기' : '펼치기';
+    // 세모(▸/▾): 행을 누르면 견적서용 표가 펼쳐진다는 표시. 버튼이라 키보드(Tab → Enter)로도 연다
+    const toggle = `<button class="lc-toggle" type="button" data-toggle="${esc(c.carrier_id)}" aria-expanded="${open}" aria-label="${esc(shortName(c))} 견적서용 표 ${verb}" title="견적서용 표 ${verb}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l7 6-7 6z" fill="currentColor"/></svg></button>`;
+    return `<tr class="lc-row${on ? ' is-selected' : ''}${open ? ' is-open' : ''}" data-id="${esc(c.carrier_id)}">
+      <td><div class="lc-namecell"><input class="lc-check" type="checkbox" data-check="${esc(c.carrier_id)}" aria-label="${esc(shortName(c))} 선택"${on ? ' checked' : ''}><span class="lc-name">${name}<span class="lc-name__sub">${esc(c.nationality)}</span></span>${toggle}</div></td>
       ${cells.map((x) => `<td${x.title ? ` title="${esc(x.title)}" class="lc-tip"` : ''}>${x.html}</td>`).join('')}
       <td class="lc-total"><span class="${est ? 'lc-est' : ''}">${total}</span>${est ? '<span class="lc-total__est">추정 포함</span>' : ''}</td>
     </tr>`;
@@ -489,7 +506,7 @@
   function toggleQuote(id) {
     state.open = state.open === id ? null : id;
     render();
-    $('table-host').querySelector(`tr.lc-row[data-id="${CSS.escape(id)}"]`)?.focus();
+    $('table-host').querySelector(`[data-toggle="${CSS.escape(id)}"]`)?.focus({ preventScroll: true });
   }
   $('table-host').addEventListener('click', async (e) => {
     const copyBtn = e.target.closest('[data-copy-quote]');
@@ -499,12 +516,11 @@
       return;
     }
     if (e.target.closest('[data-close-quote]')) { if (state.open) toggleQuote(state.open); return; }
+    const tg = e.target.closest('[data-toggle]');
+    if (tg) { toggleQuote(tg.dataset.toggle); return; }
     if (e.target.closest('a, input, button, .lc-quote-row')) return;
     const tr = e.target.closest('tr.lc-row');
     if (tr) toggleQuote(tr.dataset.id);
-  });
-  $('table-host').addEventListener('keydown', (e) => {
-    if ((e.key === 'Enter' || e.key === ' ') && e.target.matches('tr.lc-row')) { e.preventDefault(); toggleQuote(e.target.dataset.id); }
   });
 
   // ── 비교표 가져가기(표 복사 · 엑셀(CSV) 내려받기) ──
