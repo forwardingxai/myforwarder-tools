@@ -84,6 +84,32 @@
   .lc-empty td { text-align: left; color: var(--ink-2); white-space: normal; }
   .lc-table-note { color: var(--ink-3); }
 
+  /* ③ 견적서용 표 — 선사 행 아래에 펼침. 비교표의 고정 열 규칙이 안쪽 표에 번지지 않게 되돌린다 */
+  .lc-table tbody tr.lc-row { cursor: pointer; }
+  .lc-table tbody tr.lc-row:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
+  .lc-table tbody tr.lc-row.is-open td { background: var(--card); }
+  .lc-table tr.lc-quote-row td {
+    position: static; padding: 0; min-width: 0; max-width: none; text-align: left; white-space: normal;
+    background: var(--card); box-shadow: none; border-bottom: 1px solid var(--line);
+  }
+  .lc-quote {
+    position: sticky; left: 0; width: var(--wrap-w, 100%); max-width: 100%;
+    display: grid; gap: var(--space-3); padding: var(--space-4) var(--space-6) var(--space-6);
+  }
+  .lc-quote__head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3); }
+  .lc-quote__actions { display: flex; align-items: center; gap: var(--space-2); }
+  .lc-quote__notice { padding: var(--space-3) var(--space-4); background: var(--card-raised); border-radius: var(--radius-sm); color: var(--ink-2); font-size: 14px; }
+  .lc-qt-wrap { overflow-x: auto; background: var(--card-raised); border-radius: var(--radius-sm); box-shadow: var(--card-rest); }
+  .lc-table table.lc-qt { width: 100%; min-width: 600px; border-collapse: collapse; font-size: 14px; }
+  .lc-table table.lc-qt th, .lc-table table.lc-qt td {
+    position: static; min-width: 0; max-width: none; padding: 9px 12px; text-align: left; white-space: nowrap;
+    background: transparent; box-shadow: none; border-bottom: 1px solid var(--line); font-size: 14px;
+  }
+  .lc-table table.lc-qt thead th { font-size: 13px; color: var(--ink-2); }
+  .lc-table table.lc-qt tbody tr:last-child td { border-bottom: 0; }
+  .lc-table table.lc-qt td.num { text-align: right; }
+  .lc-table table.lc-qt td.lc-qt__note { white-space: normal; min-width: 180px; color: var(--ink-2); font-size: 13px; }
+
   /* ④ 데이터 안내 */
   .lc-data { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-6) var(--space-12); padding: var(--space-6); }
   .lc-data dl { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--space-2) var(--space-4); margin: var(--space-3) 0 0; font-size: 14px; }
@@ -103,6 +129,9 @@
     .lc-table th, .lc-table td { padding: 10px 10px; font-size: 14px; }
     .lc-table th:first-child, .lc-table td:first-child { min-width: 108px; max-width: 120px; }
     .lc-table td.lc-total { white-space: normal; min-width: 88px; max-width: 96px; }
+    .lc-quote { padding: var(--space-3) var(--space-3) var(--space-4); }
+    .lc-quote__actions { width: 100%; }
+    .lc-quote__actions .btn-accent { flex: 1; }
     .lc-divider__text { left: 10px; }
     .lc-data { grid-template-columns: minmax(0, 1fr); padding: var(--space-4); }
     .lc-tools { width: 100%; }
@@ -161,7 +190,7 @@
           <button class="btn btn-sm btn-outline" type="button" id="download-csv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5"/><path d="M5 19h14"/></svg><span>엑셀(CSV) 내려받기</span></button>
         </div>
       </div>
-      <p class="caption lc-table-note" style="margin-bottom: 12px">단위 원(KRW) · THC~SEAL은 컨테이너당, DOCS FEE는 B/L당 단가 · 선사를 체크하면 그 선사만, 체크가 없으면 화면에 보이는 선사를 모두 가져가요</p>
+      <p class="caption lc-table-note" style="margin-bottom: 12px">단위 원(KRW) · THC~SEAL은 컨테이너당, DOCS FEE는 B/L당 단가 · 선사 행을 누르면 견적서용 표가 펼쳐져요 · 선사를 체크하면 그 선사만, 체크가 없으면 화면에 보이는 선사를 모두 가져가요</p>
       <div id="table-host">
         <div class="lc-state"><p class="body">선사별 부대비용 데이터를 불러오고 있어요.</p></div>
       </div>
@@ -220,7 +249,7 @@
     matson: '맛슨', esl: 'ESL',
   };
 
-  const state = { type: 'DRY', size: '20', qty: 1, bl: 1, scope: 'all', q: '' };
+  const state = { type: 'DRY', size: '20', qty: 1, bl: 1, scope: 'all', q: '', open: null }; // open: 견적서용 표를 펼친 선사
   const selected = new Set(); // 체크한 선사(carrier_id). 체크가 없으면 화면에 보이는 선사를 모두 가져간다
   let DATA = null;
 
@@ -258,7 +287,7 @@
   function cellInfo(c, col) {
     const key = col.pick ? col.pick(c) : col.key;
     const v = c.values[key];
-    const r = { lo: 0, hi: 0, est: false, html: '<span class="lc-muted">—</span>', title: '', out: '', note: '' };
+    const r = { key, v, lo: 0, hi: 0, est: false, html: '<span class="lc-muted">—</span>', title: '', out: '', note: '' };
     if (!v) return r;
     const tags = [];
     switch (v.status) {
@@ -321,7 +350,7 @@
     const cells = cols.map((col) => cellInfo(c, col));
     let lo = 0, hi = 0;
     cells.forEach((x, i) => { const m = cols[i].per === 'bl' ? state.bl : state.qty; lo += x.lo * m; hi += x.hi * m; });
-    return { c, cells, lo, hi, est: cells.some((x) => x.est) };
+    return { c, cols, cells, lo, hi, est: cells.some((x) => x.est) };
   }
 
   function rowHtml(row) {
@@ -332,7 +361,8 @@
       ? `<a class="lc-name__ko lc-link" href="${esc(c.page_url)}" target="_blank" rel="noopener" title="${esc(title)} — 공식 Tariff 페이지(새 창)">${esc(shortName(c))}</a>`
       : `<span class="lc-name__ko" title="${esc(title)}">${esc(shortName(c))}</span>`;
     const total = lo === hi ? fmt(lo) : `${fmt(lo)}~<wbr>${fmt(hi)}`; // 좁은 화면에서는 ~ 뒤에서 줄바꿈
-    return `<tr class="lc-row${on ? ' is-selected' : ''}" data-id="${esc(c.carrier_id)}">
+    const open = state.open === c.carrier_id;
+    return `<tr class="lc-row${on ? ' is-selected' : ''}${open ? ' is-open' : ''}" data-id="${esc(c.carrier_id)}" tabindex="0" aria-expanded="${open}" title="누르면 견적서용 표가 펼쳐져요">
       <td><div class="lc-namecell"><input class="lc-check" type="checkbox" data-check="${esc(c.carrier_id)}" aria-label="${esc(shortName(c))} 선택"${on ? ' checked' : ''}><span class="lc-name">${name}<span class="lc-name__sub">${esc(c.nationality)}</span></span></div></td>
       ${cells.map((x) => `<td${x.title ? ` title="${esc(x.title)}" class="lc-tip"` : ''}>${x.html}</td>`).join('')}
       <td class="lc-total"><span class="${est ? 'lc-est' : ''}">${total}</span>${est ? '<span class="lc-total__est">추정 포함</span>' : ''}</td>
@@ -364,10 +394,12 @@
     const nSel = list.filter((c) => selected.has(c.carrier_id)).length;
     const allBox = `<input class="lc-check" type="checkbox" id="check-all" aria-label="화면의 선사 모두 선택"${list.length && nSel === list.length ? ' checked' : ''}>`;
     $('count').textContent = list.length;
-    let body = published.map(rowHtml).join('');
+    // 선사 행 + (펼친 선사면) 바로 아래 견적서용 표
+    const rowWithQuote = (r) => rowHtml(r) + (state.open === r.c.carrier_id ? `<tr class="lc-quote-row"><td colspan="${span}">${quoteHtml(r)}</td></tr>` : '');
+    let body = published.map(rowWithQuote).join('');
     if (unpublished.length) {
       body += `<tr class="lc-divider"><td colspan="${span}"><span class="lc-divider__text">${esc(UNPUBLISHED_LABEL)}</span></td></tr>`;
-      body += unpublished.map(rowHtml).join('');
+      body += unpublished.map(rowWithQuote).join('');
     }
     if (!list.length) body = `<tr class="lc-empty"><td colspan="${span}">찾는 선사가 없어요. 이름을 다시 확인하거나 선사 범위를 "전체"로 바꿔 보세요.</td></tr>`;
     $('table-host').innerHTML = `<div class="lc-table-wrap"><table class="lc-table">
@@ -378,7 +410,102 @@
     $('sel-info').textContent = nSel ? `가져갈 선사: 선택 ${nSel}곳` : `가져갈 선사: 화면의 ${list.length}곳`;
     $('sel-clear').hidden = !nSel;
     $('copy-table').disabled = $('download-csv').disabled = !list.length;
+    fitQuote();
   }
+
+  // ── 견적서용 표(선사 행을 누르면 그 아래에 펼침, PRD 2-3) ──
+  // 0원·"포함"·해당 없음은 행으로 넣지 않고, 포함 관계는 관련 항목 비고에 적는다(예: W/FAG "PFS 포함(추정)", THC "W/FAG 포함")
+  const QUOTE_HEAD = ['항목', '단위', '단가(KRW)', '수량', '금액(KRW)', '비고'];
+  const QUOTE_EST_NOTICE = '이 선사는 일부 항목이 공식 확인되지 않아 같은 국적구분 선사들이 가장 많이 청구하는 금액으로 표시했습니다.';
+  const quoteFoot = () => `기준일 ${DATA.meta.checked_at} · 선사 공식 Tariff 기준 · 부가세 별도 여부와 실제 청구액은 선사 확인 필요`;
+  const conditionShort = () => `${typeLabel()} ${state.size}' · 수량 ${state.qty}개 · B/L ${state.bl}건`;
+
+  function quoteLines(row) {
+    const { cols, cells } = row;
+    const itemLabel = (key) => (DATA.items.find((i) => i.key === key) || {}).label || key;
+    // 포함 관계 비고: 포함된 항목 → 그 금액을 품은 항목 줄에
+    const incl = {};
+    cells.forEach((x, i) => {
+      const st = x.v && x.v.status;
+      if (st === 'THC에 포함') (incl.THC ||= []).push(`${cols[i].label} 포함`);
+      if (st === 'W/FAG에 포함(추정)') (incl['W/FAG'] ||= []).push(`${cols[i].label} 포함(추정)`);
+    });
+    const lines = [];
+    cells.forEach((x, i) => {
+      if (!x.lo && !x.hi) return;
+      const col = cols[i];
+      const m = col.per === 'bl' ? state.bl : state.qty;
+      const notes = [];
+      const e = x.est && x.v.estimate;
+      if (e) notes.push(e.type === 'mode'
+        ? `추정(확인된 ${groupWord(e.basis_group)}선사 ${e.n_total}곳 중 ${e.n_same}곳)`
+        : `추정 범위(확인된 ${groupWord(e.basis_group)}선사 ${e.n_total}곳)`);
+      if (x.v.status === '확인(오래된 공지)') notes.push(`${(x.v.effective_from || '').slice(0, 4) ? `${x.v.effective_from.slice(0, 4)}년 ` : '오래된 '}공지 — 다시 확인 필요`);
+      const dn = DATA_NOTES[`${row.c.carrier_id}:${x.key}`];
+      if (dn) notes.push(`${dn[0]} 기준`);
+      notes.push(...(incl[col.label] || []));
+      lines.push({ item: itemLabel(x.key), unit: col.per === 'bl' ? 'B/L당' : '컨테이너당', lo: x.lo, hi: x.hi, qty: m, est: x.est, note: notes.join(' · ') });
+    });
+    return lines;
+  }
+
+  function quoteHtml(row) {
+    const lines = quoteLines(row);
+    const money = (l, k) => (l.lo === l.hi ? fmt(l.lo * k) : `${fmt(l.lo * k)}~${fmt(l.hi * k)}`);
+    return `<div class="lc-quote" role="region" aria-label="${esc(shortName(row.c))} 견적서용 표">
+      <div class="lc-quote__head">
+        <div><p class="label">${esc(shortName(row.c))} 견적서용 표</p><p class="caption ink-2">${esc(conditionShort())}</p></div>
+        <div class="lc-quote__actions">
+          <button class="btn btn-accent" type="button" data-copy-quote="${esc(row.c.carrier_id)}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg><span>견적서 표 복사</span></button>
+          <button class="btn-icon" type="button" data-close-quote aria-label="견적서용 표 닫기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+        </div>
+      </div>
+      ${row.est ? `<p class="lc-quote__notice body">${esc(QUOTE_EST_NOTICE)}</p>` : ''}
+      <div class="lc-qt-wrap"><table class="lc-qt">
+        <thead><tr>${QUOTE_HEAD.map((h) => `<th scope="col">${esc(h)}</th>`).join('')}</tr></thead>
+        <tbody>${lines.map((l) => `<tr>
+          <td>${esc(l.item)}</td><td>${esc(l.unit)}</td>
+          <td class="num${l.est ? ' lc-est' : ''}">${money(l, 1)}</td><td class="num">${l.qty}</td>
+          <td class="num${l.est ? ' lc-est' : ''}">${money(l, l.qty)}</td><td class="lc-qt__note">${esc(l.note)}</td></tr>`).join('')}</tbody>
+      </table></div>
+      <p class="caption ink-3">${esc(quoteFoot())}</p>
+    </div>`;
+  }
+
+  // 견적서 표 복사: 탭 구분, 금액은 쉼표 없는 숫자. 범위 추정은 "최저~최고" 글자(숫자로 지어내지 않음)
+  function quoteTsv(row) {
+    const val = (l, k) => (l.lo === l.hi ? Math.round(l.lo * k) : `${Math.round(l.lo * k)}~${Math.round(l.hi * k)}`);
+    return [QUOTE_HEAD, ...quoteLines(row).map((l) => [l.item, l.unit, val(l, 1), l.qty, val(l, l.qty), l.note])]
+      .map((r) => r.map((x) => String(x).replace(/[\t\r\n]+/g, ' ')).join('\t')).join('\r\n');
+  }
+
+  // 펼친 표는 가로 스크롤과 상관없이 표 상자 너비에 맞춰 왼쪽에 붙어 있게
+  function fitQuote() {
+    const wrap = document.querySelector('.lc-table-wrap');
+    if (wrap) wrap.style.setProperty('--wrap-w', `${wrap.clientWidth}px`);
+  }
+  window.addEventListener('resize', fitQuote);
+
+  function toggleQuote(id) {
+    state.open = state.open === id ? null : id;
+    render();
+    $('table-host').querySelector(`tr.lc-row[data-id="${CSS.escape(id)}"]`)?.focus();
+  }
+  $('table-host').addEventListener('click', async (e) => {
+    const copyBtn = e.target.closest('[data-copy-quote]');
+    if (copyBtn) {
+      const row = visibleRows().find((r) => r.c.carrier_id === copyBtn.dataset.copyQuote);
+      if (row) flash(copyBtn, (await copyText(quoteTsv(row))) ? '복사됨' : '복사 안 됨');
+      return;
+    }
+    if (e.target.closest('[data-close-quote]')) { if (state.open) toggleQuote(state.open); return; }
+    if (e.target.closest('a, input, button, .lc-quote-row')) return;
+    const tr = e.target.closest('tr.lc-row');
+    if (tr) toggleQuote(tr.dataset.id);
+  });
+  $('table-host').addEventListener('keydown', (e) => {
+    if ((e.key === 'Enter' || e.key === ' ') && e.target.matches('tr.lc-row')) { e.preventDefault(); toggleQuote(e.target.dataset.id); }
+  });
 
   // ── 비교표 가져가기(표 복사 · 엑셀(CSV) 내려받기) ──
   // 금액은 쉼표 없는 숫자(엑셀이 숫자로 인식), 포함은 0, 범위 추정은 "최저~최고" 글자.
@@ -474,7 +601,13 @@
   for (const id of ['qty', 'bl']) {
     const el = $(id);
     el.addEventListener('input', () => { if (el.value !== '') { state[id] = clamp(el.value); render(); } });
-    el.addEventListener('change', () => { state[id] = clamp(el.value); el.value = state[id]; render(); });
+    // 입력칸을 벗어날 때(change)는 값이 실제로 바뀐 경우에만 다시 그린다 —
+    // 수량을 고친 뒤 바로 선사 행을 누르면 그 사이에 표가 다시 그려져 첫 클릭이 사라지던 문제
+    el.addEventListener('change', () => {
+      const v = clamp(el.value);
+      if (el.value !== String(v)) el.value = v;
+      if (state[id] !== v) { state[id] = v; render(); }
+    });
   }
   $('q').addEventListener('input', (e) => { state.q = e.target.value; render(); });
 
