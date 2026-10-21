@@ -35,6 +35,8 @@
   .stat b { font-size: 22px; font-weight: 500; letter-spacing: -0.02em; line-height: 1; font-variant-numeric: tabular-nums; }
   .stat > span:not(.tag) { font-size: 14px; color: var(--ink-2); }
   .stat .tag { padding: 4px 10px; font-size: 12px; }
+  /* 공통(영업·운영 함께) — 영역 색을 섞지 않고 검정 바탕으로 또렷하게 */
+  .tag-both { background: var(--ink); color: var(--bg); border-color: var(--ink); }
   .tools-head { display: grid; gap: var(--space-4); }
   .landing-section { display: grid; gap: var(--space-6); margin-top: var(--space-24); }
   #tools { margin-top: var(--space-8); }
@@ -78,7 +80,7 @@
         <div class="stat"><b id="n-tools">0</b><span>지금 쓸 수 있는 도구</span></div>
         <div class="stat" title="통관·선적·서류 확인을 더 빠르게"><span class="tag tag-area" data-area="ops">운영</span><b id="n-ops">0</b></div>
         <div class="stat" title="견적·운임 계산과 고객 응대를 더 빠르게"><span class="tag tag-area" data-area="sales">영업</span><b id="n-sales">0</b></div>
-        <div class="stat" title="영업과 운영에 함께 쓰는 도구"><span class="tag">공통</span><b id="n-both">0</b></div>
+        <div class="stat" title="영업과 운영에 함께 쓰는 도구"><span class="tag tag-both">공통</span><b id="n-both">0</b></div>
       </div>
     </div>
     <div id="grid"></div>
