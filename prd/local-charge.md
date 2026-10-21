@@ -20,7 +20,7 @@
 | 1단계 범위 | 부산항 수출 · 컨테이너 FCL · 39개 선사 · DRY / DG / OT·FR / RF · 20'·40' |
 | 2기 확장 | 수입, 인천·광양·평택·울산, 45', 외화 항목, 공표 API 교차 확인, 자동 갱신 |
 | 상태 | draft → (검증 통과 후) live |
-| 결과물 | `tools/local-charge.html`, `tools.json` 항목, `data/local-charge-busan-export.json`, `scripts/build_busan_export.py`, 본 문서 |
+| 결과물 | `tools/local-charge.html`, `tools.json` 항목, `data/local-charge-busan-export.json`·`.csv`, `scripts/build_busan_export.py`·`local_charge_csv.py`, `kits/local-charge.md`·`.prompt.txt`, `thumbs/local-charge.png`·`-og.png`, 본 문서 |
 
 ---
 
@@ -168,7 +168,7 @@
 
 ### 3-9. 갱신
 - 주기: 월 1회.
-- 방법: aside로 같은 조건 재수집 → `raw/aside-YYYY-MM-DD/`에 저장 → `python scripts/build_busan_export.py raw/aside-YYYY-MM-DD data/local-charge-busan-export.json` → 이전 데이터와 차이 확인 → 커밋·push(자동 배포).
+- 방법: aside로 같은 조건 재수집 → `raw/aside-YYYY-MM-DD/`에 저장 → `python scripts/build_busan_export.py raw/aside-YYYY-MM-DD data/local-charge-busan-export.json` → `python scripts/local_charge_csv.py`(키트용 CSV, 표준 라이브러리만) → 이전 데이터와 차이 확인 → 커밋·push(자동 배포).
 - 화면의 기준일은 JSON `meta.checked_at`에서 읽는다.
 - 선사 PDF·XLSX 파일명은 개정 때마다 바뀌므로 고정 URL을 저장하지 않는다(aside `automation_hint` 참조).
 

@@ -85,10 +85,31 @@
       {"title": "PRD 검증"},
       {"title": "마무리"}
     ],
+    "kit": {
+      "prompt": "kits/local-charge.prompt.txt",
+      "guide": "kits/local-charge.md",
+      "data": [
+        {"label": "JSON", "note": "선사 39곳 · 항목 18개 · 상태와 추정 근거까지 · 프로그램이나 AI에 넣을 때", "href": "data/local-charge-busan-export.json"},
+        {"label": "CSV", "note": "엑셀용 · 선사×항목 702줄 · 피벗으로 보기 좋게", "href": "data/local-charge-busan-export.csv"}
+      ],
+      "ideas": [
+        {"title": "우리 회사 견적서 양식으로 바로", "prompt": "국내 부대비용 조회기의 견적서용 표를 우리 회사 견적서 양식에 맞게 바꿔 줘. 열 순서는 '항목(영문) | 항목(국문) | 단위 | 단가 | 수량 | 금액 | 비고'로 하고, 위에 해상운임(O/F)과 핸들링 차지를 직접 입력하는 칸을 더해 한 장짜리 견적서로 복사되게 해 줘. 데이터는 {{DATA_URL}} 의 JSON을 쓰고, 추정값에는 '추정' 표시를 그대로 남겨 줘."},
+        {"title": "선사 청구서와 금액 대조", "prompt": "선사에서 받은 청구서의 항목과 금액을 붙여넣으면, {{DATA_URL}} 의 해당 선사 공식 Tariff 값과 비교해 차이 나는 항목만 '차이' 태그와 금액 차이로 보여 주는 HTML 도구를 만들어 줘. 컨테이너 종류·규격·수량·B/L 수를 고르게 하고, 'THC에 포함'·'W/FAG에 포함'처럼 묶여 있는 항목은 차이로 보지 마. 결과는 엑셀에 붙여넣을 수 있게 탭 구분으로 복사."},
+        {"title": "구글 시트에서 로컬차지 합계 함수", "prompt": "구글 시트에서 =LOCALCHARGE(\"고려해운\", \"DRY\", \"20\", 3, 2)처럼 선사·컨테이너 종류·규격·수량·B/L 수를 넣으면 부산항 수출 로컬차지 합계가 나오는 Apps Script 함수를 만들어 줘. 데이터는 {{DATA_URL}} 의 JSON을 하루 한 번 불러와 캐시하고, 추정값이 섞이면 옆 칸에 '추정 포함'을 적어 줘. 설치 방법을 초보자용으로 단계별로 알려 줘."}
+      ]
+    },
+    "share": {
+      "title": ["국내 부대비용", "조회기"],
+      "sub": ["부산항 수출 로컬차지,", "39개 선사를 한 번에 비교해요"],
+      "who": "화주",
+      "question": "\"부산 로컬차지 얼마예요?\"",
+      "answer": "₩202,833",
+      "answerNote": "고려해운 · DRY 20' 1개 · 선사 공식 Tariff 합계"
+    },
     "toolsUsed": ["Claude 채팅(기획)", "Claude Code", "aside(선사 Tariff 수집)"],
     "hours": 0,
     "status": "draft",
-    "thumb": "",
+    "thumb": "thumbs/local-charge.png",
     "related": ["bonded-area-code"]
   }
 ]
