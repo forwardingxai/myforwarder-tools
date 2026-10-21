@@ -29,6 +29,8 @@
     String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
   const pad2 = (n) => String(n).padStart(2, '0');
   const AREA_LABEL = { sales: '영업', ops: '운영' };
+  // area는 목록(["sales","ops"]). 첫 번째 영역이 액센트 색. 예전 문자열 값도 목록으로 받아 준다
+  const areasOf = (t) => (Array.isArray(t.area) ? t.area : [t.area]).filter(Boolean);
   const COPY_SVG =
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>';
   const CHAT_SVG =
@@ -232,9 +234,9 @@
 
   function toolCard(t) {
     const thumb = t.thumb ? `<img src="${esc(new URL(t.thumb, ROOT))}" alt="" loading="lazy">` : '';
-    return `<a class="tool-card" href="${esc(new URL(`tools/${t.slug}.html`, ROOT))}">
+    return `<a class="tool-card" href="${esc(new URL(`tools/${t.slug}.html`, ROOT))}" data-area="${esc(areasOf(t)[0] || '')}">
       <div class="tool-card__thumb">${thumb}</div>
-      <div class="tool-card__tags"><span class="tag tag-area" data-area="${esc(t.area)}">${esc(AREA_LABEL[t.area] || t.area)}</span><span class="tag">${esc(t.stage)}</span></div>
+      <div class="tool-card__tags">${areasOf(t).map((a) => `<span class="tag tag-area" data-area="${esc(a)}">${esc(AREA_LABEL[a] || a)}</span>`).join('')}<span class="tag">${esc(t.stage)}</span></div>
       <h3 class="heading-2">${esc(t.name)}</h3>
       <p class="body ink-2">${esc(t.summary)}</p>
       <p class="caption tool-card__meta">D${pad2(t.day)} · ${esc(t.date)}</p>
@@ -374,11 +376,11 @@
     }
     if (tool.kit) parts.push(kitSection(tool.kit));
     parts.push(funnelHtml(site));
-    // 관련 도구: related가 비어 있으면 같은 영역 최신 3개(live만, 자기 자신 제외)
+    // 관련 도구: related가 비어 있으면 영역이 하나라도 겹치는 최신 3개(live만, 자기 자신 제외)
     let related = (tool.related || []).map((s) => all.find((t) => t.slug === s)).filter(Boolean);
     if (!related.length) {
       related = all
-        .filter((t) => t.slug !== tool.slug && t.area === tool.area && t.status === 'live')
+        .filter((t) => t.slug !== tool.slug && areasOf(t).some((a) => areasOf(tool).includes(a)) && t.status === 'live')
         .sort((a, b) => b.date.localeCompare(a.date))
         .slice(0, 3);
     }

@@ -83,7 +83,9 @@
   if (!t || !t.share) { document.body.dataset.error = `tools.json에 ${slug}의 share 칸이 없어요`; return; }
   const s = t.share;
   const AREA = { ops: '운영', sales: '영업' };
-  document.body.dataset.area = t.area;
+  // area는 목록이면 첫 번째 영역 색, 태그 문구는 영역을 모두 나란히(예: 영업 · 운영 · 무료 도구)
+  const areas = (Array.isArray(t.area) ? t.area : [t.area]).filter(Boolean);
+  document.body.dataset.area = areas[0] || 'ops';
   const setLines = (id, lines) => {
     const el = document.getElementById(id);
     (Array.isArray(lines) ? lines : [lines]).forEach((line, i) => {
@@ -91,7 +93,7 @@
       el.appendChild(document.createTextNode(line));
     });
   };
-  document.getElementById('tag').textContent = s.tag || `${AREA[t.area] || ''} · 무료 도구`;
+  document.getElementById('tag').textContent = s.tag || [...areas.map((a) => AREA[a] || a), '무료 도구'].join(' · ');
   setLines('title', s.title || t.name);
   setLines('sub', s.sub || t.summary);
   document.getElementById('who').textContent = s.who || '';
