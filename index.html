@@ -42,7 +42,7 @@
   .empty { padding: var(--space-12) var(--space-6); text-align: center; color: var(--ink-2); background: var(--card); border-radius: var(--radius-md); }
   @media (max-width: 768px) {
     .hero .display-xl { font-size: 48px; }
-    .stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); padding: var(--space-3) 0; }
+    .stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); padding: var(--space-3) 0; }
     .stat:first-child { grid-column: 1 / -1; }
     .stat:nth-child(2) { border-left: 0; }
     .landing-section { margin-top: var(--space-16); }
@@ -78,6 +78,7 @@
         <div class="stat"><b id="n-tools">0</b><span>지금 쓸 수 있는 도구</span></div>
         <div class="stat" title="통관·선적·서류 확인을 더 빠르게"><span class="tag tag-area" data-area="ops">운영</span><b id="n-ops">0</b></div>
         <div class="stat" title="견적·운임 계산과 고객 응대를 더 빠르게"><span class="tag tag-area" data-area="sales">영업</span><b id="n-sales">0</b></div>
+        <div class="stat" title="영업과 운영에 함께 쓰는 도구"><span class="tag">공통</span><b id="n-both">0</b></div>
       </div>
     </div>
     <div id="grid"></div>
@@ -109,17 +110,22 @@
   const areasOf = (t) => (Array.isArray(t.area) ? t.area : [t.area]).filter(Boolean);
   const AREA_LABEL = { sales: '영업', ops: '운영' };
   const areaTags = (t) => areasOf(t).map((a) => `<span class="tag tag-area" data-area="${esc(a)}">${esc(AREA_LABEL[a] || a)}</span>`).join('');
+  // 단계 태그는 해상수입 프로세스 ①~⑬처럼 실제 단계가 있을 때만. "공통"(단계 없음)은 영업·운영 공통과 헷갈려 숨긴다
+  const stageTag = (t) => (t.stage && t.stage !== '공통' ? `<span class="tag">${esc(t.stage)}</span>` : '');
+  // 현황 줄은 겹치지 않게 센다: 영역이 하나면 그 영역, 둘 이상이면 공통 → 합이 전체 도구 수와 같다
   fetch('tools.json', { cache: 'no-cache' })
     .then((r) => r.json())
     .then((all) => {
       const live = all.filter((t) => t.status === 'live').sort((a, b) => b.date.localeCompare(a.date));
       document.getElementById('n-tools').textContent = live.length;
-      document.getElementById('n-sales').textContent = live.filter((t) => areasOf(t).includes('sales')).length;
-      document.getElementById('n-ops').textContent = live.filter((t) => areasOf(t).includes('ops')).length;
+      const only = (a) => live.filter((t) => areasOf(t).length === 1 && areasOf(t)[0] === a).length;
+      document.getElementById('n-ops').textContent = only('ops');
+      document.getElementById('n-sales').textContent = only('sales');
+      document.getElementById('n-both').textContent = live.filter((t) => areasOf(t).length > 1).length;
       document.getElementById('grid').innerHTML = live.length
         ? `<div class="tool-grid">${live.map((t) => `<a class="tool-card" href="tools/${esc(t.slug)}.html" data-area="${esc(areasOf(t)[0] || '')}">
             <div class="tool-card__thumb">${t.thumb ? `<img src="${esc(t.thumb)}" alt="" loading="lazy">` : ''}</div>
-            <div class="tool-card__tags">${areaTags(t)}<span class="tag">${esc(t.stage)}</span></div>
+            <div class="tool-card__tags">${areaTags(t)}${stageTag(t)}</div>
             <h3 class="heading-2">${esc(t.name)}</h3>
             <p class="body ink-2">${esc(t.summary)}</p>
             <p class="caption tool-card__meta">D${pad2(t.day)} · ${esc(t.date)}</p></a>`).join('')}</div>`

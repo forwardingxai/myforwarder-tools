@@ -247,7 +247,7 @@ ${line || desc}`.trim();
     const thumb = t.thumb ? `<img src="${esc(new URL(t.thumb, ROOT))}" alt="" loading="lazy">` : '';
     return `<a class="tool-card" href="${esc(new URL(`tools/${t.slug}.html`, ROOT))}" data-area="${esc(areasOf(t)[0] || '')}">
       <div class="tool-card__thumb">${thumb}</div>
-      <div class="tool-card__tags">${areasOf(t).map((a) => `<span class="tag tag-area" data-area="${esc(a)}">${esc(AREA_LABEL[a] || a)}</span>`).join('')}<span class="tag">${esc(t.stage)}</span></div>
+      <div class="tool-card__tags">${areasOf(t).map((a) => `<span class="tag tag-area" data-area="${esc(a)}">${esc(AREA_LABEL[a] || a)}</span>`).join('')}${t.stage && t.stage !== '공통' ? `<span class="tag">${esc(t.stage)}</span>` : ''}</div>
       <h3 class="heading-2">${esc(t.name)}</h3>
       <p class="body ink-2">${esc(t.summary)}</p>
       <p class="caption tool-card__meta">D${pad2(t.day)} · ${esc(t.date)}</p>
