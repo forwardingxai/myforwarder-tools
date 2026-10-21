@@ -1,0 +1,6825 @@
+{
+ "meta": {
+  "tool": "D02 국내 부대비용 조회기",
+  "scope": "부산항 수출 · 현재 유효 요율 · KRW",
+  "source": "각 선사 공식 사이트 공개 Tariff(로그인 없이 확인 가능한 조회툴·PDF·HTML)",
+  "checked_at": "2026-10-20",
+  "carriers": 39,
+  "items": 18,
+  "dg_basis": "드라이 컨테이너 위험물, 한중·아시아 항로, IMO 3~9급 우선"
+ },
+ "items": [
+  {
+   "key": "THC_DRY_20",
+   "group": "THC",
+   "label": "THC 20' DRY",
+   "unit": "PER_CNTR",
+   "applies_to": "DRY"
+  },
+  {
+   "key": "THC_DRY_40",
+   "group": "THC",
+   "label": "THC 40' DRY",
+   "unit": "PER_CNTR",
+   "applies_to": "DRY"
+  },
+  {
+   "key": "THC_DG_20",
+   "group": "THC",
+   "label": "THC 20' DG",
+   "unit": "PER_CNTR",
+   "applies_to": "DG"
+  },
+  {
+   "key": "THC_DG_40",
+   "group": "THC",
+   "label": "THC 40' DG",
+   "unit": "PER_CNTR",
+   "applies_to": "DG"
+  },
+  {
+   "key": "THC_OOG_20",
+   "group": "THC",
+   "label": "THC 20' OT·FR",
+   "unit": "PER_CNTR",
+   "applies_to": "OOG"
+  },
+  {
+   "key": "THC_OOG_40",
+   "group": "THC",
+   "label": "THC 40' OT·FR",
+   "unit": "PER_CNTR",
+   "applies_to": "OOG"
+  },
+  {
+   "key": "THC_RF_20",
+   "group": "THC",
+   "label": "THC 20' RF",
+   "unit": "PER_CNTR",
+   "applies_to": "RF"
+  },
+  {
+   "key": "THC_RF_40",
+   "group": "THC",
+   "label": "THC 40' RF",
+   "unit": "PER_CNTR",
+   "applies_to": "RF"
+  },
+  {
+   "key": "WHARFAGE_20",
+   "group": "W/FAG",
+   "label": "W/FAG 20'",
+   "unit": "PER_CNTR",
+   "applies_to": "ALL"
+  },
+  {
+   "key": "WHARFAGE_40",
+   "group": "W/FAG",
+   "label": "W/FAG 40'",
+   "unit": "PER_CNTR",
+   "applies_to": "ALL"
+  },
+  {
+   "key": "SECURITY_20",
+   "group": "PFS",
+   "label": "PFS 항만시설보안료 20'",
+   "unit": "PER_CNTR",
+   "applies_to": "ALL"
+  },
+  {
+   "key": "SECURITY_40",
+   "group": "PFS",
+   "label": "PFS 항만시설보안료 40'",
+   "unit": "PER_CNTR",
+   "applies_to": "ALL"
+  },
+  {
+   "key": "PORT_SAFETY_20",
+   "group": "PSC",
+   "label": "PSC 항만안전관리비 20'",
+   "unit": "PER_CNTR",
+   "applies_to": "ALL"
+  },
+  {
+   "key": "PORT_SAFETY_40",
+   "group": "PSC",
+   "label": "PSC 항만안전관리비 40'",
+   "unit": "PER_CNTR",
+   "applies_to": "ALL"
+  },
+  {
+   "key": "SEAL",
+   "group": "SEAL",
+   "label": "SEAL",
+   "unit": "PER_CNTR",
+   "applies_to": "ALL"
+  },
+  {
+   "key": "DOC_FEE",
+   "group": "DOCS FEE",
+   "label": "DOCS FEE",
+   "unit": "PER_BL",
+   "applies_to": "ALL"
+  },
+  {
+   "key": "DOC_FEE_DG",
+   "group": "DOCS FEE",
+   "label": "DOCS FEE (위험물)",
+   "unit": "PER_BL",
+   "applies_to": "DG"
+  },
+  {
+   "key": "DG_SURCHARGE",
+   "group": "기타",
+   "label": "DG 처리 할증",
+   "unit": "PER_CNTR",
+   "applies_to": "DG"
+  }
+ ],
+ "carriers": [
+  {
+   "carrier_id": "hmm",
+   "name_ko": "HMM",
+   "name_en": "HMM Co., Ltd.",
+   "nationality": "국적",
+   "status": "PUBLISHED",
+   "page_url": "https://www.hmm21.com/e-service/import/quickInquiry/DomImpSchgRt.do",
+   "values": {
+    "THC_DRY_20": {
+     "status": "확인",
+     "amount": 150000.0,
+     "range": null,
+     "charge_name": "THC IN LOADING PORT",
+     "trade_scope": "Korea-China (Intra Asia, svc IPSR)",
+     "effective_from": "",
+     "source_url": "https://www.hmm21.com/e-service/general/tariffRate/SurchargeInquiry.do"
+    },
+    "THC_DRY_40": {
+     "status": "확인",
+     "amount": 210000.0,
+     "range": null,
+     "charge_name": "THC IN LOADING PORT",
+     "trade_scope": "Korea-China (Intra Asia, svc IPSR)",
+     "effective_from": "",
+     "source_url": "https://www.hmm21.com/e-service/general/tariffRate/SurchargeInquiry.do"
+    },
+    "THC_DG_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 150000.0,
+      "basis_group": "국적",
+      "n_same": 9,
+      "n_total": 10
+     }
+    },
+    "THC_DG_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 210000.0,
+      "basis_group": "국적",
+      "n_same": 9,
+      "n_total": 10
+     }
+    },
+    "THC_OOG_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 180000.0,
+      "basis_group": "국적",
+      "n_same": 13,
+      "n_total": 14
+     }
+    },
+    "THC_OOG_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 250000.0,
+      "basis_group": "국적",
+      "n_same": 13,
+      "n_total": 14
+     }
+    },
+    "THC_RF_20": {
+     "status": "확인",
+     "amount": 250000.0,
+     "range": null,
+     "charge_name": "THC IN LOADING PORT",
+     "trade_scope": "Korea-China (Intra Asia, svc IPSR)",
+     "effective_from": "",
+     "source_url": "https://www.hmm21.com/e-service/general/tariffRate/SurchargeInquiry.do"
+    },
+    "THC_RF_40": {
+     "status": "확인",
+     "amount": 375000.0,
+     "range": null,
+     "charge_name": "THC IN LOADING PORT",
+     "trade_scope": "Korea-China (Intra Asia, svc IPSR)",
+     "effective_from": "",
+     "source_url": "https://www.hmm21.com/e-service/general/tariffRate/SurchargeInquiry.do"
+    },
+    "WHARFAGE_20": {
+     "status": "확인",
+     "amount": 4429.0,
+     "range": null,
+     "charge_name": "WHARFAGE",
+     "trade_scope": "Korea-China (Intra Asia, svc IPSR)",
+     "effective_from": "",
+     "source_url": "https://www.hmm21.com/e-service/general/tariffRate/SurchargeInquiry.do"
+    },
+    "WHARFAGE_40": {
+     "status": "확인",
+     "amount": 8858.0,
+     "range": null,
+     "charge_name": "WHARFAGE",
+     "trade_scope": "Korea-China (Intra Asia, svc IPSR)",
+     "effective_from": "",
+     "source_url": "https://www.hmm21.com/e-service/general/tariffRate/SurchargeInquiry.do"
+    },
+    "SECURITY_20": {
+     "status": "확인",
+     "amount": 145.0,
+     "range": null,
+     "charge_name": "PORT FACILITY SECURITY CHARGE",
+     "trade_scope": "Korea-China (Intra Asia, svc IPSR)",
+     "effective_from": "",
+     "source_url": "https://www.hmm21.com/e-service/general/tariffRate/SurchargeInquiry.do"
+    },
+    "SECURITY_40": {
+     "status": "확인",
+     "amount": 290.0,
+     "range": null,
+     "charge_name": "PORT FACILITY SECURITY CHARGE",
+     "trade_scope": "Korea-China (Intra Asia, svc IPSR)",
+     "effective_from": "",
+     "source_url": "https://www.hmm21.com/e-service/general/tariffRate/SurchargeInquiry.do"
+    },
+    "PORT_SAFETY_20": {
+     "status": "확인",
+     "amount": 259.0,
+     "range": null,
+     "charge_name": "Port Safety Charge",
+     "trade_scope": "Korea-China (Intra Asia, svc IPSR)",
+     "effective_from": "",
+     "source_url": "https://www.hmm21.com/e-service/general/tariffRate/SurchargeInquiry.do"
+    },
+    "PORT_SAFETY_40": {
+     "status": "확인",
+     "amount": 518.0,
+     "range": null,
+     "charge_name": "Port Safety Charge",
+     "trade_scope": "Korea-China (Intra Asia, svc IPSR)",
+     "effective_from": "",
+     "source_url": "https://www.hmm21.com/e-service/general/tariffRate/SurchargeInquiry.do"
+    },
+    "SEAL": {
+     "status": "확인",
+     "amount": 10000.0,
+     "range": null,
+     "charge_name": "CONTAINER SEAL CHARGE",
+     "trade_scope": "Korea-China (Intra Asia, svc IPSR)",
+     "effective_from": "",
+     "source_url": "https://www.hmm21.com/e-service/general/tariffRate/SurchargeInquiry.do"
+    },
+    "DOC_FEE": {
+     "status": "확인",
+     "amount": 40000.0,
+     "range": [
+      40000.0,
+      50000.0
+     ],
+     "charge_name": "DOC FEE AT ORIGIN",
+     "trade_scope": "Korea-China (Intra Asia, svc IPSR)",
+     "effective_from": "",
+     "source_url": "https://www.hmm21.com/e-service/general/tariffRate/SurchargeInquiry.do"
+    },
+    "DOC_FEE_DG": {
+     "status": "일반 서류비 적용"
+    },
+    "DG_SURCHARGE": {
+     "status": "해당 없음"
+    }
+   }
+  },
+  {
+   "carrier_id": "kmtc",
+   "name_ko": "고려해운",
+   "name_en": "Korea Marine Transport Co. (KMTC)",
+   "nationality": "국적",
+   "status": "PUBLISHED",
+   "page_url": "https://www.ekmtc.com/index.html#/common/info/local-charge",
+   "values": {
+    "THC_DRY_20": {
+     "status": "확인",
+     "amount": 150000.0,
+     "range": null,
+     "charge_name": "T.H.C.",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://www.ekmtc.com/index.html#/common/info/local-charge"
+    },
+    "THC_DRY_40": {
+     "status": "확인",
+     "amount": 210000.0,
+     "range": null,
+     "charge_name": "T.H.C.",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://www.ekmtc.com/index.html#/common/info/local-charge"
+    },
+    "THC_DG_20": {
+     "status": "확인",
+     "amount": 150000.0,
+     "range": null,
+     "charge_name": "T.H.C.",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://www.ekmtc.com/index.html#/common/info/local-charge"
+    },
+    "THC_DG_40": {
+     "status": "확인",
+     "amount": 210000.0,
+     "range": null,
+     "charge_name": "T.H.C.",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://www.ekmtc.com/index.html#/common/info/local-charge"
+    },
+    "THC_OOG_20": {
+     "status": "확인",
+     "amount": 180000.0,
+     "range": null,
+     "charge_name": "T.H.C.",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://www.ekmtc.com/index.html#/common/info/local-charge"
+    },
+    "THC_OOG_40": {
+     "status": "확인",
+     "amount": 250000.0,
+     "range": null,
+     "charge_name": "T.H.C.",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://www.ekmtc.com/index.html#/common/info/local-charge"
+    },
+    "THC_RF_20": {
+     "status": "확인",
+     "amount": 250000.0,
+     "range": null,
+     "charge_name": "T.H.C.",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://www.ekmtc.com/index.html#/common/info/local-charge"
+    },
+    "THC_RF_40": {
+     "status": "확인",
+     "amount": 375000.0,
+     "range": null,
+     "charge_name": "T.H.C.",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://www.ekmtc.com/index.html#/common/info/local-charge"
+    },
+    "WHARFAGE_20": {
+     "status": "확인",
+     "amount": 4429.0,
+     "range": null,
+     "charge_name": "WHARFAGE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://www.ekmtc.com/index.html#/common/info/local-charge"
+    },
+    "WHARFAGE_40": {
+     "status": "확인",
+     "amount": 8858.0,
+     "range": null,
+     "charge_name": "WHARFAGE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://www.ekmtc.com/index.html#/common/info/local-charge"
+    },
+    "SECURITY_20": {
+     "status": "확인",
+     "amount": 145.0,
+     "range": null,
+     "charge_name": "PORT FACILITY SECURITY",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://www.ekmtc.com/index.html#/common/info/local-charge"
+    },
+    "SECURITY_40": {
+     "status": "확인",
+     "amount": 290.0,
+     "range": null,
+     "charge_name": "PORT FACILITY SECURITY",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://www.ekmtc.com/index.html#/common/info/local-charge"
+    },
+    "PORT_SAFETY_20": {
+     "status": "확인",
+     "amount": 259.0,
+     "range": null,
+     "charge_name": "PORT SAFTY MAINTENANCE CHARGE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://www.ekmtc.com/index.html#/common/info/local-charge"
+    },
+    "PORT_SAFETY_40": {
+     "status": "확인",
+     "amount": 518.0,
+     "range": null,
+     "charge_name": "PORT SAFTY MAINTENANCE CHARGE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://www.ekmtc.com/index.html#/common/info/local-charge"
+    },
+    "SEAL": {
+     "status": "확인",
+     "amount": 8000.0,
+     "range": null,
+     "charge_name": "SEAL CHARGE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://www.ekmtc.com/index.html#/common/info/local-charge"
+    },
+    "DOC_FEE": {
+     "status": "확인",
+     "amount": 40000.0,
+     "range": null,
+     "charge_name": "DOCUMENT FEE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://www.ekmtc.com/index.html#/common/info/local-charge"
+    },
+    "DOC_FEE_DG": {
+     "status": "일반 서류비 적용"
+    },
+    "DG_SURCHARGE": {
+     "status": "해당 없음"
+    }
+   }
+  },
+  {
+   "carrier_id": "sinokor",
+   "name_ko": "장금상선",
+   "name_en": "Sinokor Merchant Marine Co., Ltd.",
+   "nationality": "국적",
+   "status": "PUBLISHED",
+   "page_url": "https://e-sinokor.com/Tariff/StandardTariff",
+   "values": {
+    "THC_DRY_20": {
+     "status": "확인",
+     "amount": 150000.0,
+     "range": null,
+     "charge_name": "TERMINAL HANDLING CHARGE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://e-sinokor.com/Tariff/StandardTariff"
+    },
+    "THC_DRY_40": {
+     "status": "확인",
+     "amount": 210000.0,
+     "range": null,
+     "charge_name": "TERMINAL HANDLING CHARGE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://e-sinokor.com/Tariff/StandardTariff"
+    },
+    "THC_DG_20": {
+     "status": "확인",
+     "amount": 150000.0,
+     "range": null,
+     "charge_name": "TERMINAL HANDLING CHARGE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://e-sinokor.com/Tariff/StandardTariff"
+    },
+    "THC_DG_40": {
+     "status": "확인",
+     "amount": 210000.0,
+     "range": null,
+     "charge_name": "TERMINAL HANDLING CHARGE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://e-sinokor.com/Tariff/StandardTariff"
+    },
+    "THC_OOG_20": {
+     "status": "확인",
+     "amount": 180000.0,
+     "range": null,
+     "charge_name": "TERMINAL HANDLING CHARGE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://e-sinokor.com/Tariff/StandardTariff"
+    },
+    "THC_OOG_40": {
+     "status": "확인",
+     "amount": 250000.0,
+     "range": null,
+     "charge_name": "TERMINAL HANDLING CHARGE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://e-sinokor.com/Tariff/StandardTariff"
+    },
+    "THC_RF_20": {
+     "status": "확인",
+     "amount": 250000.0,
+     "range": null,
+     "charge_name": "TERMINAL HANDLING CHARGE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://e-sinokor.com/Tariff/StandardTariff"
+    },
+    "THC_RF_40": {
+     "status": "확인",
+     "amount": 375000.0,
+     "range": null,
+     "charge_name": "TERMINAL HANDLING CHARGE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://e-sinokor.com/Tariff/StandardTariff"
+    },
+    "WHARFAGE_20": {
+     "status": "확인",
+     "amount": 4429.0,
+     "range": null,
+     "charge_name": "WHARFAGE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://e-sinokor.com/Tariff/StandardTariff"
+    },
+    "WHARFAGE_40": {
+     "status": "확인",
+     "amount": 8858.0,
+     "range": null,
+     "charge_name": "WHARFAGE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://e-sinokor.com/Tariff/StandardTariff"
+    },
+    "SECURITY_20": {
+     "status": "확인",
+     "amount": 145.0,
+     "range": null,
+     "charge_name": "TERMINAL SECURITY FEE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://e-sinokor.com/Tariff/StandardTariff"
+    },
+    "SECURITY_40": {
+     "status": "확인",
+     "amount": 290.0,
+     "range": null,
+     "charge_name": "TERMINAL SECURITY FEE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://e-sinokor.com/Tariff/StandardTariff"
+    },
+    "PORT_SAFETY_20": {
+     "status": "확인",
+     "amount": 259.0,
+     "range": null,
+     "charge_name": "PORT SAFETY MANAGEMENT FEE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://e-sinokor.com/Tariff/StandardTariff"
+    },
+    "PORT_SAFETY_40": {
+     "status": "확인",
+     "amount": 518.0,
+     "range": null,
+     "charge_name": "PORT SAFETY MANAGEMENT FEE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://e-sinokor.com/Tariff/StandardTariff"
+    },
+    "SEAL": {
+     "status": "확인",
+     "amount": 8000.0,
+     "range": null,
+     "charge_name": "ADDITIONAL SEAL CHARGE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://e-sinokor.com/Tariff/StandardTariff"
+    },
+    "DOC_FEE": {
+     "status": "확인",
+     "amount": 40000.0,
+     "range": null,
+     "charge_name": "DOCUMENTATION FEE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://e-sinokor.com/Tariff/StandardTariff"
+    },
+    "DOC_FEE_DG": {
+     "status": "일반 서류비 적용"
+    },
+    "DG_SURCHARGE": {
+     "status": "해당 없음"
+    }
+   }
+  },
+  {
+   "carrier_id": "heunga",
+   "name_ko": "흥아라인",
+   "name_en": "Heung-A Line Co., Ltd.",
+   "nationality": "국적",
+   "status": "PUBLISHED",
+   "page_url": "https://e-heunga.com/Tariff/StandardTariff",
+   "values": {
+    "THC_DRY_20": {
+     "status": "확인",
+     "amount": 150000.0,
+     "range": null,
+     "charge_name": "TERMINAL HANDLING CHARGE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://e-heunga.com/Tariff/StandardTariff"
+    },
+    "THC_DRY_40": {
+     "status": "확인",
+     "amount": 210000.0,
+     "range": null,
+     "charge_name": "TERMINAL HANDLING CHARGE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://e-heunga.com/Tariff/StandardTariff"
+    },
+    "THC_DG_20": {
+     "status": "확인",
+     "amount": 150000.0,
+     "range": null,
+     "charge_name": "TERMINAL HANDLING CHARGE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://e-heunga.com/Tariff/StandardTariff"
+    },
+    "THC_DG_40": {
+     "status": "확인",
+     "amount": 210000.0,
+     "range": null,
+     "charge_name": "TERMINAL HANDLING CHARGE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://e-heunga.com/Tariff/StandardTariff"
+    },
+    "THC_OOG_20": {
+     "status": "확인",
+     "amount": 180000.0,
+     "range": null,
+     "charge_name": "TERMINAL HANDLING CHARGE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://e-heunga.com/Tariff/StandardTariff"
+    },
+    "THC_OOG_40": {
+     "status": "확인",
+     "amount": 250000.0,
+     "range": null,
+     "charge_name": "TERMINAL HANDLING CHARGE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://e-heunga.com/Tariff/StandardTariff"
+    },
+    "THC_RF_20": {
+     "status": "확인",
+     "amount": 250000.0,
+     "range": null,
+     "charge_name": "TERMINAL HANDLING CHARGE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://e-heunga.com/Tariff/StandardTariff"
+    },
+    "THC_RF_40": {
+     "status": "확인",
+     "amount": 375000.0,
+     "range": null,
+     "charge_name": "TERMINAL HANDLING CHARGE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://e-heunga.com/Tariff/StandardTariff"
+    },
+    "WHARFAGE_20": {
+     "status": "확인",
+     "amount": 4429.0,
+     "range": null,
+     "charge_name": "WHARFAGE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://e-heunga.com/Tariff/StandardTariff"
+    },
+    "WHARFAGE_40": {
+     "status": "확인",
+     "amount": 8858.0,
+     "range": null,
+     "charge_name": "WHARFAGE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://e-heunga.com/Tariff/StandardTariff"
+    },
+    "SECURITY_20": {
+     "status": "확인",
+     "amount": 145.0,
+     "range": null,
+     "charge_name": "TERMINAL SECURITY FEE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://e-heunga.com/Tariff/StandardTariff"
+    },
+    "SECURITY_40": {
+     "status": "확인",
+     "amount": 290.0,
+     "range": null,
+     "charge_name": "TERMINAL SECURITY FEE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://e-heunga.com/Tariff/StandardTariff"
+    },
+    "PORT_SAFETY_20": {
+     "status": "확인",
+     "amount": 259.0,
+     "range": null,
+     "charge_name": "PORT SAFETY MANAGEMENT FEE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://e-heunga.com/Tariff/StandardTariff"
+    },
+    "PORT_SAFETY_40": {
+     "status": "확인",
+     "amount": 518.0,
+     "range": null,
+     "charge_name": "PORT SAFETY MANAGEMENT FEE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://e-heunga.com/Tariff/StandardTariff"
+    },
+    "SEAL": {
+     "status": "확인",
+     "amount": 8000.0,
+     "range": null,
+     "charge_name": "ADDITIONAL SEAL CHARGE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://e-heunga.com/Tariff/StandardTariff"
+    },
+    "DOC_FEE": {
+     "status": "확인",
+     "amount": 40000.0,
+     "range": null,
+     "charge_name": "DOCUMENTATION FEE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://e-heunga.com/Tariff/StandardTariff"
+    },
+    "DOC_FEE_DG": {
+     "status": "일반 서류비 적용"
+    },
+    "DG_SURCHARGE": {
+     "status": "해당 없음"
+    }
+   }
+  },
+  {
+   "carrier_id": "panocean",
+   "name_ko": "팬오션",
+   "name_en": "Pan Ocean Co., Ltd. (Container)",
+   "nationality": "국적",
+   "status": "PUBLISHED",
+   "page_url": "https://container.panocean.com/",
+   "values": {
+    "THC_DRY_20": {
+     "status": "확인",
+     "amount": 150000.0,
+     "range": null,
+     "charge_name": "LOADING THC",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://container.panocean.com/"
+    },
+    "THC_DRY_40": {
+     "status": "확인",
+     "amount": 210000.0,
+     "range": null,
+     "charge_name": "LOADING THC",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://container.panocean.com/"
+    },
+    "THC_DG_20": {
+     "status": "확인",
+     "amount": 150000.0,
+     "range": null,
+     "charge_name": "LOADING THC",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://container.panocean.com/"
+    },
+    "THC_DG_40": {
+     "status": "확인",
+     "amount": 210000.0,
+     "range": null,
+     "charge_name": "LOADING THC",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://container.panocean.com/"
+    },
+    "THC_OOG_20": {
+     "status": "확인",
+     "amount": 180000.0,
+     "range": null,
+     "charge_name": "LOADING THC",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://container.panocean.com/"
+    },
+    "THC_OOG_40": {
+     "status": "확인",
+     "amount": 250000.0,
+     "range": null,
+     "charge_name": "LOADING THC",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://container.panocean.com/"
+    },
+    "THC_RF_20": {
+     "status": "확인",
+     "amount": 250000.0,
+     "range": null,
+     "charge_name": "LOADING THC",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://container.panocean.com/"
+    },
+    "THC_RF_40": {
+     "status": "확인",
+     "amount": 375000.0,
+     "range": null,
+     "charge_name": "LOADING THC",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://container.panocean.com/"
+    },
+    "WHARFAGE_20": {
+     "status": "확인",
+     "amount": 4429.0,
+     "range": null,
+     "charge_name": "WHARFAGE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://container.panocean.com/"
+    },
+    "WHARFAGE_40": {
+     "status": "확인",
+     "amount": 8858.0,
+     "range": null,
+     "charge_name": "WHARFAGE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://container.panocean.com/"
+    },
+    "SECURITY_20": {
+     "status": "확인",
+     "amount": 145.0,
+     "range": null,
+     "charge_name": "TERMINAL SECURITY CHARGE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://container.panocean.com/"
+    },
+    "SECURITY_40": {
+     "status": "확인",
+     "amount": 290.0,
+     "range": null,
+     "charge_name": "TERMINAL SECURITY CHARGE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://container.panocean.com/"
+    },
+    "PORT_SAFETY_20": {
+     "status": "확인",
+     "amount": 259.0,
+     "range": null,
+     "charge_name": "PORT SAFETY MANAGEMENT FEE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://container.panocean.com/"
+    },
+    "PORT_SAFETY_40": {
+     "status": "확인",
+     "amount": 518.0,
+     "range": null,
+     "charge_name": "PORT SAFETY MANAGEMENT FEE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://container.panocean.com/"
+    },
+    "SEAL": {
+     "status": "확인",
+     "amount": 8000.0,
+     "range": null,
+     "charge_name": "CONTAINER SEAL SURCHARGE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://container.panocean.com/"
+    },
+    "DOC_FEE": {
+     "status": "확인",
+     "amount": 40000.0,
+     "range": null,
+     "charge_name": "DOC FEE-LOADING",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://container.panocean.com/"
+    },
+    "DOC_FEE_DG": {
+     "status": "일반 서류비 적용"
+    },
+    "DG_SURCHARGE": {
+     "status": "해당 없음"
+    }
+   }
+  },
+  {
+   "carrier_id": "namsung",
+   "name_ko": "남성해운",
+   "name_en": "NAMSUNG SHIPPING",
+   "nationality": "국적",
+   "status": "PUBLISHED",
+   "page_url": "https://ebiz.namsung.co.kr/?direct=Y&code=00010033&rtnUrl=/WS/frt/UIE0825.xml&title=기본 부대비용 조회",
+   "values": {
+    "THC_DRY_20": {
+     "status": "확인",
+     "amount": 150000.0,
+     "range": null,
+     "charge_name": "THC IN LOADING PORT",
+     "trade_scope": "ALL (identical for CNSHA, HKHKG, JPTYO, VNSGN, VNHPH, THBKK samples)",
+     "effective_from": "",
+     "source_url": "https://ebiz.namsung.co.kr/?direct=Y&code=00010033&rtnUrl=/WS/frt/UIE0825.xml (POST https://ebiz.namsung.co.kr/frt/selectSurchargeList)"
+    },
+    "THC_DRY_40": {
+     "status": "확인",
+     "amount": 210000.0,
+     "range": null,
+     "charge_name": "THC IN LOADING PORT",
+     "trade_scope": "ALL (identical for CNSHA, HKHKG, JPTYO, VNSGN, VNHPH, THBKK samples)",
+     "effective_from": "",
+     "source_url": "https://ebiz.namsung.co.kr/?direct=Y&code=00010033&rtnUrl=/WS/frt/UIE0825.xml (POST https://ebiz.namsung.co.kr/frt/selectSurchargeList)"
+    },
+    "THC_DG_20": {
+     "status": "확인",
+     "amount": 150000.0,
+     "range": null,
+     "charge_name": "THC IN LOADING PORT",
+     "trade_scope": "ALL (identical for CNSHA, HKHKG, JPTYO, VNSGN, VNHPH, THBKK samples)",
+     "effective_from": "",
+     "source_url": "https://ebiz.namsung.co.kr/?direct=Y&code=00010033&rtnUrl=/WS/frt/UIE0825.xml (POST https://ebiz.namsung.co.kr/frt/selectSurchargeList)"
+    },
+    "THC_DG_40": {
+     "status": "확인",
+     "amount": 210000.0,
+     "range": null,
+     "charge_name": "THC IN LOADING PORT",
+     "trade_scope": "ALL (identical for CNSHA, HKHKG, JPTYO, VNSGN, VNHPH, THBKK samples)",
+     "effective_from": "",
+     "source_url": "https://ebiz.namsung.co.kr/?direct=Y&code=00010033&rtnUrl=/WS/frt/UIE0825.xml (POST https://ebiz.namsung.co.kr/frt/selectSurchargeList)"
+    },
+    "THC_OOG_20": {
+     "status": "확인",
+     "amount": 180000.0,
+     "range": null,
+     "charge_name": "THC IN LOADING PORT",
+     "trade_scope": "ALL (identical for CNSHA, HKHKG, JPTYO, VNSGN, VNHPH, THBKK samples)",
+     "effective_from": "",
+     "source_url": "https://ebiz.namsung.co.kr/?direct=Y&code=00010033&rtnUrl=/WS/frt/UIE0825.xml (POST https://ebiz.namsung.co.kr/frt/selectSurchargeList)"
+    },
+    "THC_OOG_40": {
+     "status": "확인",
+     "amount": 250000.0,
+     "range": null,
+     "charge_name": "THC IN LOADING PORT",
+     "trade_scope": "ALL (identical for CNSHA, HKHKG, JPTYO, VNSGN, VNHPH, THBKK samples)",
+     "effective_from": "",
+     "source_url": "https://ebiz.namsung.co.kr/?direct=Y&code=00010033&rtnUrl=/WS/frt/UIE0825.xml (POST https://ebiz.namsung.co.kr/frt/selectSurchargeList)"
+    },
+    "THC_RF_20": {
+     "status": "확인",
+     "amount": 250000.0,
+     "range": null,
+     "charge_name": "THC IN LOADING PORT",
+     "trade_scope": "ALL (identical for CNSHA, HKHKG, JPTYO, VNSGN, VNHPH, THBKK samples)",
+     "effective_from": "",
+     "source_url": "https://ebiz.namsung.co.kr/?direct=Y&code=00010033&rtnUrl=/WS/frt/UIE0825.xml (POST https://ebiz.namsung.co.kr/frt/selectSurchargeList)"
+    },
+    "THC_RF_40": {
+     "status": "확인",
+     "amount": 375000.0,
+     "range": null,
+     "charge_name": "THC IN LOADING PORT",
+     "trade_scope": "ALL (identical for CNSHA, HKHKG, JPTYO, VNSGN, VNHPH, THBKK samples)",
+     "effective_from": "",
+     "source_url": "https://ebiz.namsung.co.kr/?direct=Y&code=00010033&rtnUrl=/WS/frt/UIE0825.xml (POST https://ebiz.namsung.co.kr/frt/selectSurchargeList)"
+    },
+    "WHARFAGE_20": {
+     "status": "확인",
+     "amount": 4429.0,
+     "range": null,
+     "charge_name": "WHARFAGE",
+     "trade_scope": "ALL (same amount on outbound and inbound lookups)",
+     "effective_from": "",
+     "source_url": "https://ebiz.namsung.co.kr/?direct=Y&code=00010033&rtnUrl=/WS/frt/UIE0825.xml (POST https://ebiz.namsung.co.kr/frt/selectSurchargeList)"
+    },
+    "WHARFAGE_40": {
+     "status": "확인",
+     "amount": 8858.0,
+     "range": null,
+     "charge_name": "WHARFAGE",
+     "trade_scope": "ALL (same amount on outbound and inbound lookups)",
+     "effective_from": "",
+     "source_url": "https://ebiz.namsung.co.kr/?direct=Y&code=00010033&rtnUrl=/WS/frt/UIE0825.xml (POST https://ebiz.namsung.co.kr/frt/selectSurchargeList)"
+    },
+    "SECURITY_20": {
+     "status": "확인",
+     "amount": 145.0,
+     "range": null,
+     "charge_name": "CONTAINER SECURITY CHARGE",
+     "trade_scope": "ALL (identical for CNSHA, HKHKG, JPTYO, VNSGN, VNHPH, THBKK samples)",
+     "effective_from": "",
+     "source_url": "https://ebiz.namsung.co.kr/?direct=Y&code=00010033&rtnUrl=/WS/frt/UIE0825.xml (POST https://ebiz.namsung.co.kr/frt/selectSurchargeList)"
+    },
+    "SECURITY_40": {
+     "status": "확인",
+     "amount": 290.0,
+     "range": null,
+     "charge_name": "CONTAINER SECURITY CHARGE",
+     "trade_scope": "ALL (identical for CNSHA, HKHKG, JPTYO, VNSGN, VNHPH, THBKK samples)",
+     "effective_from": "",
+     "source_url": "https://ebiz.namsung.co.kr/?direct=Y&code=00010033&rtnUrl=/WS/frt/UIE0825.xml (POST https://ebiz.namsung.co.kr/frt/selectSurchargeList)"
+    },
+    "PORT_SAFETY_20": {
+     "status": "확인",
+     "amount": 259.0,
+     "range": null,
+     "charge_name": "PORT SAFETY MANAGEMENT FEE",
+     "trade_scope": "ALL (identical for CNSHA, HKHKG, JPTYO, VNSGN, VNHPH, THBKK samples)",
+     "effective_from": "",
+     "source_url": "https://ebiz.namsung.co.kr/?direct=Y&code=00010033&rtnUrl=/WS/frt/UIE0825.xml (POST https://ebiz.namsung.co.kr/frt/selectSurchargeList)"
+    },
+    "PORT_SAFETY_40": {
+     "status": "확인",
+     "amount": 518.0,
+     "range": null,
+     "charge_name": "PORT SAFETY MANAGEMENT FEE",
+     "trade_scope": "ALL (identical for CNSHA, HKHKG, JPTYO, VNSGN, VNHPH, THBKK samples)",
+     "effective_from": "",
+     "source_url": "https://ebiz.namsung.co.kr/?direct=Y&code=00010033&rtnUrl=/WS/frt/UIE0825.xml (POST https://ebiz.namsung.co.kr/frt/selectSurchargeList)"
+    },
+    "SEAL": {
+     "status": "확인",
+     "amount": 8000.0,
+     "range": null,
+     "charge_name": "SEAL CHARGE",
+     "trade_scope": "ALL (identical for CNSHA, HKHKG, JPTYO, VNSGN, VNHPH, THBKK samples)",
+     "effective_from": "",
+     "source_url": "https://ebiz.namsung.co.kr/?direct=Y&code=00010033&rtnUrl=/WS/frt/UIE0825.xml (POST https://ebiz.namsung.co.kr/frt/selectSurchargeList)"
+    },
+    "DOC_FEE": {
+     "status": "확인",
+     "amount": 40000.0,
+     "range": null,
+     "charge_name": "DOCUMENT FEE IN LOADING",
+     "trade_scope": "ALL (identical for CNSHA, HKHKG, JPTYO, VNSGN, VNHPH, THBKK samples)",
+     "effective_from": "",
+     "source_url": "https://ebiz.namsung.co.kr/?direct=Y&code=00010033&rtnUrl=/WS/frt/UIE0825.xml (POST https://ebiz.namsung.co.kr/frt/selectSurchargeList)"
+    },
+    "DOC_FEE_DG": {
+     "status": "일반 서류비 적용"
+    },
+    "DG_SURCHARGE": {
+     "status": "해당 없음"
+    }
+   }
+  },
+  {
+   "carrier_id": "dongyoung",
+   "name_ko": "동영해운",
+   "name_en": "DONG YOUNG SHIPPING (PCS Line)",
+   "nationality": "국적",
+   "status": "PUBLISHED",
+   "page_url": "https://ebiz.pcsline.co.kr/?direct=Y&code=00010033&rtnUrl=/WS/frt/UIE0825.xml&title=기본 부대비용 조회",
+   "values": {
+    "THC_DRY_20": {
+     "status": "확인",
+     "amount": 150000.0,
+     "range": null,
+     "charge_name": "THC IN LOADING PORT",
+     "trade_scope": "ALL (identical for CNSHA, JPTYO, VNSGN, VNHPH, THBKK samples)",
+     "effective_from": "",
+     "source_url": "https://ebiz.pcsline.co.kr/?direct=Y&code=00010033&rtnUrl=/WS/frt/UIE0825.xml (POST https://ebiz.pcsline.co.kr/frt/selectSurchargeList)"
+    },
+    "THC_DRY_40": {
+     "status": "확인",
+     "amount": 210000.0,
+     "range": null,
+     "charge_name": "THC IN LOADING PORT",
+     "trade_scope": "ALL (identical for CNSHA, JPTYO, VNSGN, VNHPH, THBKK samples)",
+     "effective_from": "",
+     "source_url": "https://ebiz.pcsline.co.kr/?direct=Y&code=00010033&rtnUrl=/WS/frt/UIE0825.xml (POST https://ebiz.pcsline.co.kr/frt/selectSurchargeList)"
+    },
+    "THC_DG_20": {
+     "status": "확인",
+     "amount": 150000.0,
+     "range": null,
+     "charge_name": "THC IN LOADING PORT",
+     "trade_scope": "ALL (identical for CNSHA, JPTYO, VNSGN, VNHPH, THBKK samples)",
+     "effective_from": "",
+     "source_url": "https://ebiz.pcsline.co.kr/?direct=Y&code=00010033&rtnUrl=/WS/frt/UIE0825.xml (POST https://ebiz.pcsline.co.kr/frt/selectSurchargeList)"
+    },
+    "THC_DG_40": {
+     "status": "확인",
+     "amount": 210000.0,
+     "range": null,
+     "charge_name": "THC IN LOADING PORT",
+     "trade_scope": "ALL (identical for CNSHA, JPTYO, VNSGN, VNHPH, THBKK samples)",
+     "effective_from": "",
+     "source_url": "https://ebiz.pcsline.co.kr/?direct=Y&code=00010033&rtnUrl=/WS/frt/UIE0825.xml (POST https://ebiz.pcsline.co.kr/frt/selectSurchargeList)"
+    },
+    "THC_OOG_20": {
+     "status": "확인",
+     "amount": 180000.0,
+     "range": null,
+     "charge_name": "THC IN LOADING PORT",
+     "trade_scope": "ALL (identical for CNSHA, JPTYO, VNSGN, VNHPH, THBKK samples)",
+     "effective_from": "",
+     "source_url": "https://ebiz.pcsline.co.kr/?direct=Y&code=00010033&rtnUrl=/WS/frt/UIE0825.xml (POST https://ebiz.pcsline.co.kr/frt/selectSurchargeList)"
+    },
+    "THC_OOG_40": {
+     "status": "확인",
+     "amount": 250000.0,
+     "range": null,
+     "charge_name": "THC IN LOADING PORT",
+     "trade_scope": "ALL (identical for CNSHA, JPTYO, VNSGN, VNHPH, THBKK samples)",
+     "effective_from": "",
+     "source_url": "https://ebiz.pcsline.co.kr/?direct=Y&code=00010033&rtnUrl=/WS/frt/UIE0825.xml (POST https://ebiz.pcsline.co.kr/frt/selectSurchargeList)"
+    },
+    "THC_RF_20": {
+     "status": "확인",
+     "amount": 250000.0,
+     "range": null,
+     "charge_name": "THC IN LOADING PORT",
+     "trade_scope": "ALL (identical for CNSHA, JPTYO, VNSGN, VNHPH, THBKK samples)",
+     "effective_from": "",
+     "source_url": "https://ebiz.pcsline.co.kr/?direct=Y&code=00010033&rtnUrl=/WS/frt/UIE0825.xml (POST https://ebiz.pcsline.co.kr/frt/selectSurchargeList)"
+    },
+    "THC_RF_40": {
+     "status": "확인",
+     "amount": 375000.0,
+     "range": null,
+     "charge_name": "THC IN LOADING PORT",
+     "trade_scope": "ALL (identical for CNSHA, JPTYO, VNSGN, VNHPH, THBKK samples)",
+     "effective_from": "",
+     "source_url": "https://ebiz.pcsline.co.kr/?direct=Y&code=00010033&rtnUrl=/WS/frt/UIE0825.xml (POST https://ebiz.pcsline.co.kr/frt/selectSurchargeList)"
+    },
+    "WHARFAGE_20": {
+     "status": "확인",
+     "amount": 4429.0,
+     "range": null,
+     "charge_name": "WHARFAGE",
+     "trade_scope": "ALL (same amount on outbound and inbound lookups)",
+     "effective_from": "",
+     "source_url": "https://ebiz.pcsline.co.kr/?direct=Y&code=00010033&rtnUrl=/WS/frt/UIE0825.xml (POST https://ebiz.pcsline.co.kr/frt/selectSurchargeList)"
+    },
+    "WHARFAGE_40": {
+     "status": "확인",
+     "amount": 8858.0,
+     "range": null,
+     "charge_name": "WHARFAGE",
+     "trade_scope": "ALL (same amount on outbound and inbound lookups)",
+     "effective_from": "",
+     "source_url": "https://ebiz.pcsline.co.kr/?direct=Y&code=00010033&rtnUrl=/WS/frt/UIE0825.xml (POST https://ebiz.pcsline.co.kr/frt/selectSurchargeList)"
+    },
+    "SECURITY_20": {
+     "status": "확인",
+     "amount": 145.0,
+     "range": null,
+     "charge_name": "CONTAINER SECURITY CHARGE",
+     "trade_scope": "ALL (identical for CNSHA, JPTYO, VNSGN, VNHPH, THBKK samples)",
+     "effective_from": "",
+     "source_url": "https://ebiz.pcsline.co.kr/?direct=Y&code=00010033&rtnUrl=/WS/frt/UIE0825.xml (POST https://ebiz.pcsline.co.kr/frt/selectSurchargeList)"
+    },
+    "SECURITY_40": {
+     "status": "확인",
+     "amount": 290.0,
+     "range": null,
+     "charge_name": "CONTAINER SECURITY CHARGE",
+     "trade_scope": "ALL (identical for CNSHA, JPTYO, VNSGN, VNHPH, THBKK samples)",
+     "effective_from": "",
+     "source_url": "https://ebiz.pcsline.co.kr/?direct=Y&code=00010033&rtnUrl=/WS/frt/UIE0825.xml (POST https://ebiz.pcsline.co.kr/frt/selectSurchargeList)"
+    },
+    "PORT_SAFETY_20": {
+     "status": "확인",
+     "amount": 259.0,
+     "range": null,
+     "charge_name": "PORT SAFETY MANAGEMENT FEE",
+     "trade_scope": "ALL (identical for CNSHA, JPTYO, VNSGN, VNHPH, THBKK samples)",
+     "effective_from": "",
+     "source_url": "https://ebiz.pcsline.co.kr/?direct=Y&code=00010033&rtnUrl=/WS/frt/UIE0825.xml (POST https://ebiz.pcsline.co.kr/frt/selectSurchargeList)"
+    },
+    "PORT_SAFETY_40": {
+     "status": "확인",
+     "amount": 518.0,
+     "range": null,
+     "charge_name": "PORT SAFETY MANAGEMENT FEE",
+     "trade_scope": "ALL (identical for CNSHA, JPTYO, VNSGN, VNHPH, THBKK samples)",
+     "effective_from": "",
+     "source_url": "https://ebiz.pcsline.co.kr/?direct=Y&code=00010033&rtnUrl=/WS/frt/UIE0825.xml (POST https://ebiz.pcsline.co.kr/frt/selectSurchargeList)"
+    },
+    "SEAL": {
+     "status": "확인",
+     "amount": 8000.0,
+     "range": null,
+     "charge_name": "SEAL CHARGE",
+     "trade_scope": "ALL (identical for CNSHA, JPTYO, VNSGN, VNHPH, THBKK samples)",
+     "effective_from": "",
+     "source_url": "https://ebiz.pcsline.co.kr/?direct=Y&code=00010033&rtnUrl=/WS/frt/UIE0825.xml (POST https://ebiz.pcsline.co.kr/frt/selectSurchargeList)"
+    },
+    "DOC_FEE": {
+     "status": "확인",
+     "amount": 40000.0,
+     "range": null,
+     "charge_name": "DOCUMENT FEE IN LOADING",
+     "trade_scope": "ALL (identical for CNSHA, JPTYO, VNSGN, VNHPH, THBKK samples)",
+     "effective_from": "",
+     "source_url": "https://ebiz.pcsline.co.kr/?direct=Y&code=00010033&rtnUrl=/WS/frt/UIE0825.xml (POST https://ebiz.pcsline.co.kr/frt/selectSurchargeList)"
+    },
+    "DOC_FEE_DG": {
+     "status": "일반 서류비 적용"
+    },
+    "DG_SURCHARGE": {
+     "status": "해당 없음"
+    }
+   }
+  },
+  {
+   "carrier_id": "ckline",
+   "name_ko": "천경해운",
+   "name_en": "CK LINE",
+   "nationality": "국적",
+   "status": "PUBLISHED",
+   "page_url": "https://es.ckline.co.kr/ (menu 운임/요율 > Local Charge; no direct URL, header anchor id mf_wfm_header_WESFRT001)",
+   "values": {
+    "THC_DRY_20": {
+     "status": "확인",
+     "amount": 150000.0,
+     "range": null,
+     "charge_name": "THC IN LOADING PORT",
+     "trade_scope": "ALL (identical for CNSHA, HKHKG, JPTYO, VNSGN, THBKK samples)",
+     "effective_from": "2024-06-15",
+     "source_url": "https://es.ckline.co.kr/ (운임/요율 > Local Charge, screen /ui/sup/WESSUP412.xml; POST https://es.ckline.co.kr/action/sup.WESSUP412.WESSUP412R01)"
+    },
+    "THC_DRY_40": {
+     "status": "확인",
+     "amount": 210000.0,
+     "range": null,
+     "charge_name": "THC IN LOADING PORT",
+     "trade_scope": "ALL (identical for CNSHA, HKHKG, JPTYO, VNSGN, THBKK samples)",
+     "effective_from": "2024-06-15",
+     "source_url": "https://es.ckline.co.kr/ (운임/요율 > Local Charge, screen /ui/sup/WESSUP412.xml; POST https://es.ckline.co.kr/action/sup.WESSUP412.WESSUP412R01)"
+    },
+    "THC_DG_20": {
+     "status": "확인",
+     "amount": 150000.0,
+     "range": null,
+     "charge_name": "THC IN LOADING PORT",
+     "trade_scope": "ALL (identical for CNSHA, HKHKG, JPTYO, VNSGN, THBKK samples)",
+     "effective_from": "2024-06-15",
+     "source_url": "https://es.ckline.co.kr/ (운임/요율 > Local Charge, screen /ui/sup/WESSUP412.xml; POST https://es.ckline.co.kr/action/sup.WESSUP412.WESSUP412R01)"
+    },
+    "THC_DG_40": {
+     "status": "확인",
+     "amount": 210000.0,
+     "range": null,
+     "charge_name": "THC IN LOADING PORT",
+     "trade_scope": "ALL (identical for CNSHA, HKHKG, JPTYO, VNSGN, THBKK samples)",
+     "effective_from": "2024-06-15",
+     "source_url": "https://es.ckline.co.kr/ (운임/요율 > Local Charge, screen /ui/sup/WESSUP412.xml; POST https://es.ckline.co.kr/action/sup.WESSUP412.WESSUP412R01)"
+    },
+    "THC_OOG_20": {
+     "status": "확인",
+     "amount": 180000.0,
+     "range": null,
+     "charge_name": "THC IN LOADING PORT",
+     "trade_scope": "ALL (identical for CNSHA, HKHKG, JPTYO, VNSGN, THBKK samples)",
+     "effective_from": "2024-06-15",
+     "source_url": "https://es.ckline.co.kr/ (운임/요율 > Local Charge, screen /ui/sup/WESSUP412.xml; POST https://es.ckline.co.kr/action/sup.WESSUP412.WESSUP412R01)"
+    },
+    "THC_OOG_40": {
+     "status": "확인",
+     "amount": 250000.0,
+     "range": null,
+     "charge_name": "THC IN LOADING PORT",
+     "trade_scope": "ALL (identical for CNSHA, HKHKG, JPTYO, VNSGN, THBKK samples)",
+     "effective_from": "2024-06-15",
+     "source_url": "https://es.ckline.co.kr/ (운임/요율 > Local Charge, screen /ui/sup/WESSUP412.xml; POST https://es.ckline.co.kr/action/sup.WESSUP412.WESSUP412R01)"
+    },
+    "THC_RF_20": {
+     "status": "확인",
+     "amount": 250000.0,
+     "range": null,
+     "charge_name": "THC IN LOADING PORT",
+     "trade_scope": "ALL (identical for CNSHA, HKHKG, JPTYO, VNSGN, THBKK samples)",
+     "effective_from": "2024-06-15",
+     "source_url": "https://es.ckline.co.kr/ (운임/요율 > Local Charge, screen /ui/sup/WESSUP412.xml; POST https://es.ckline.co.kr/action/sup.WESSUP412.WESSUP412R01)"
+    },
+    "THC_RF_40": {
+     "status": "확인",
+     "amount": 375000.0,
+     "range": null,
+     "charge_name": "THC IN LOADING PORT",
+     "trade_scope": "ALL (identical for CNSHA, HKHKG, JPTYO, VNSGN, THBKK samples)",
+     "effective_from": "2024-06-15",
+     "source_url": "https://es.ckline.co.kr/ (운임/요율 > Local Charge, screen /ui/sup/WESSUP412.xml; POST https://es.ckline.co.kr/action/sup.WESSUP412.WESSUP412R01)"
+    },
+    "WHARFAGE_20": {
+     "status": "확인",
+     "amount": 4430.0,
+     "range": null,
+     "charge_name": "WHARFAGE",
+     "trade_scope": "ALL (identical for CNSHA, HKHKG, JPTYO, VNSGN, THBKK samples)",
+     "effective_from": "2022-03-01",
+     "source_url": "https://es.ckline.co.kr/ (운임/요율 > Local Charge, screen /ui/sup/WESSUP412.xml; POST https://es.ckline.co.kr/action/sup.WESSUP412.WESSUP412R01)"
+    },
+    "WHARFAGE_40": {
+     "status": "확인",
+     "amount": 8860.0,
+     "range": null,
+     "charge_name": "WHARFAGE",
+     "trade_scope": "ALL (identical for CNSHA, HKHKG, JPTYO, VNSGN, THBKK samples)",
+     "effective_from": "2022-03-01",
+     "source_url": "https://es.ckline.co.kr/ (운임/요율 > Local Charge, screen /ui/sup/WESSUP412.xml; POST https://es.ckline.co.kr/action/sup.WESSUP412.WESSUP412R01)"
+    },
+    "SECURITY_20": {
+     "status": "확인",
+     "amount": 145.0,
+     "range": null,
+     "charge_name": "PORT SECURITY CHARGE",
+     "trade_scope": "ALL (identical for CNSHA, HKHKG, JPTYO, VNSGN, THBKK samples)",
+     "effective_from": "2026-07-01",
+     "source_url": "https://es.ckline.co.kr/ (운임/요율 > Local Charge, screen /ui/sup/WESSUP412.xml; POST https://es.ckline.co.kr/action/sup.WESSUP412.WESSUP412R01)"
+    },
+    "SECURITY_40": {
+     "status": "확인",
+     "amount": 290.0,
+     "range": null,
+     "charge_name": "PORT SECURITY CHARGE",
+     "trade_scope": "ALL (identical for CNSHA, HKHKG, JPTYO, VNSGN, THBKK samples)",
+     "effective_from": "2026-07-01",
+     "source_url": "https://es.ckline.co.kr/ (운임/요율 > Local Charge, screen /ui/sup/WESSUP412.xml; POST https://es.ckline.co.kr/action/sup.WESSUP412.WESSUP412R01)"
+    },
+    "PORT_SAFETY_20": {
+     "status": "확인",
+     "amount": 259.0,
+     "range": null,
+     "charge_name": "PORT SAFETY MANAGEMENT FEE",
+     "trade_scope": "Korea-Japan (sample KRPUS<->JPTYO, GP/GP(DG) only)",
+     "effective_from": "2026-04-01",
+     "source_url": "https://es.ckline.co.kr/ (운임/요율 > Local Charge, screen /ui/sup/WESSUP412.xml; POST https://es.ckline.co.kr/action/sup.WESSUP412.WESSUP412R01)"
+    },
+    "PORT_SAFETY_40": {
+     "status": "확인",
+     "amount": 518.0,
+     "range": null,
+     "charge_name": "PORT SAFETY MANAGEMENT FEE",
+     "trade_scope": "Korea-Japan (sample KRPUS<->JPTYO, GP/GP(DG) only)",
+     "effective_from": "2026-04-01",
+     "source_url": "https://es.ckline.co.kr/ (운임/요율 > Local Charge, screen /ui/sup/WESSUP412.xml; POST https://es.ckline.co.kr/action/sup.WESSUP412.WESSUP412R01)"
+    },
+    "SEAL": {
+     "status": "확인",
+     "amount": 8000.0,
+     "range": null,
+     "charge_name": "CONTAINER SEAL CHARGE",
+     "trade_scope": "ALL (identical for CNSHA, HKHKG, JPTYO, VNSGN, THBKK samples)",
+     "effective_from": "2015-02-16",
+     "source_url": "https://es.ckline.co.kr/ (운임/요율 > Local Charge, screen /ui/sup/WESSUP412.xml; POST https://es.ckline.co.kr/action/sup.WESSUP412.WESSUP412R01)"
+    },
+    "DOC_FEE": {
+     "status": "확인",
+     "amount": 40000.0,
+     "range": null,
+     "charge_name": "DOC FEE AT ORIGIN",
+     "trade_scope": "ALL (identical for CNSHA, HKHKG, JPTYO, VNSGN, THBKK samples)",
+     "effective_from": "2016-11-01",
+     "source_url": "https://es.ckline.co.kr/ (운임/요율 > Local Charge, screen /ui/sup/WESSUP412.xml; POST https://es.ckline.co.kr/action/sup.WESSUP412.WESSUP412R01)"
+    },
+    "DOC_FEE_DG": {
+     "status": "일반 서류비 적용"
+    },
+    "DG_SURCHARGE": {
+     "status": "해당 없음"
+    }
+   }
+  },
+  {
+   "carrier_id": "taiyoung",
+   "name_ko": "태영상선",
+   "name_en": "TAIYOUNG SHIPPING",
+   "nationality": "국적",
+   "status": "PUBLISHED",
+   "page_url": "https://eservice.taiyoungship.co.kr/etc/portcost.do",
+   "values": {
+    "THC_DRY_20": {
+     "status": "확인",
+     "amount": 150000.0,
+     "range": null,
+     "charge_name": "TERMINAL HANDLING CHARGE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://eservice.taiyoungship.co.kr/etc/portcost.do"
+    },
+    "THC_DRY_40": {
+     "status": "확인",
+     "amount": 210000.0,
+     "range": null,
+     "charge_name": "TERMINAL HANDLING CHARGE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://eservice.taiyoungship.co.kr/etc/portcost.do"
+    },
+    "THC_DG_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 150000.0,
+      "basis_group": "국적",
+      "n_same": 9,
+      "n_total": 10
+     }
+    },
+    "THC_DG_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 210000.0,
+      "basis_group": "국적",
+      "n_same": 9,
+      "n_total": 10
+     }
+    },
+    "THC_OOG_20": {
+     "status": "확인",
+     "amount": 180000.0,
+     "range": null,
+     "charge_name": "TERMINAL HANDLING CHARGE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://eservice.taiyoungship.co.kr/etc/portcost.do"
+    },
+    "THC_OOG_40": {
+     "status": "확인",
+     "amount": 250000.0,
+     "range": null,
+     "charge_name": "TERMINAL HANDLING CHARGE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://eservice.taiyoungship.co.kr/etc/portcost.do"
+    },
+    "THC_RF_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 250000.0,
+      "basis_group": "국적",
+      "n_same": 12,
+      "n_total": 14
+     }
+    },
+    "THC_RF_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 375000.0,
+      "basis_group": "국적",
+      "n_same": 12,
+      "n_total": 14
+     }
+    },
+    "WHARFAGE_20": {
+     "status": "확인",
+     "amount": 4429.0,
+     "range": null,
+     "charge_name": "WHARFAGE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://eservice.taiyoungship.co.kr/etc/portcost.do"
+    },
+    "WHARFAGE_40": {
+     "status": "확인",
+     "amount": 8858.0,
+     "range": null,
+     "charge_name": "WHARFAGE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://eservice.taiyoungship.co.kr/etc/portcost.do"
+    },
+    "SECURITY_20": {
+     "status": "확인",
+     "amount": 145.0,
+     "range": null,
+     "charge_name": "PORT FACILITIES SECURITY",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://eservice.taiyoungship.co.kr/etc/portcost.do"
+    },
+    "SECURITY_40": {
+     "status": "확인",
+     "amount": 290.0,
+     "range": null,
+     "charge_name": "PORT FACILITIES SECURITY",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://eservice.taiyoungship.co.kr/etc/portcost.do"
+    },
+    "PORT_SAFETY_20": {
+     "status": "확인",
+     "amount": 259.0,
+     "range": null,
+     "charge_name": "PORT SAFETY MANAGEMENT FEE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://eservice.taiyoungship.co.kr/etc/portcost.do"
+    },
+    "PORT_SAFETY_40": {
+     "status": "확인",
+     "amount": 518.0,
+     "range": null,
+     "charge_name": "PORT SAFETY MANAGEMENT FEE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://eservice.taiyoungship.co.kr/etc/portcost.do"
+    },
+    "SEAL": {
+     "status": "확인",
+     "amount": 8000.0,
+     "range": null,
+     "charge_name": "CONTAINER SEAL CHARGE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://eservice.taiyoungship.co.kr/etc/portcost.do"
+    },
+    "DOC_FEE": {
+     "status": "확인",
+     "amount": 40000.0,
+     "range": null,
+     "charge_name": "DOCUMENT FEE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://eservice.taiyoungship.co.kr/etc/portcost.do"
+    },
+    "DOC_FEE_DG": {
+     "status": "일반 서류비 적용"
+    },
+    "DG_SURCHARGE": {
+     "status": "해당 없음"
+    }
+   }
+  },
+  {
+   "carrier_id": "doowoo",
+   "name_ko": "두우해운",
+   "name_en": "DOOWOO SHIPPING",
+   "nationality": "국적",
+   "status": "PARTIAL",
+   "page_url": "https://www.doowoo.co.kr/pst_webapp/moveNotice.do",
+   "values": {
+    "THC_DRY_20": {
+     "status": "확인(오래된 공지)",
+     "amount": 130000.0,
+     "range": null,
+     "charge_name": "THC (TERMINAL HANDLING CHARGE)",
+     "trade_scope": "ALL",
+     "effective_from": "2018-07-02",
+     "source_url": "https://www.doowoo.co.kr/pst_webapp/moveNoticeView.do?seq=7&pagenum=1"
+    },
+    "THC_DRY_40": {
+     "status": "확인(오래된 공지)",
+     "amount": 180000.0,
+     "range": null,
+     "charge_name": "THC (TERMINAL HANDLING CHARGE)",
+     "trade_scope": "ALL",
+     "effective_from": "2018-07-02",
+     "source_url": "https://www.doowoo.co.kr/pst_webapp/moveNoticeView.do?seq=7&pagenum=1"
+    },
+    "THC_DG_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 150000.0,
+      "basis_group": "국적",
+      "n_same": 9,
+      "n_total": 10
+     }
+    },
+    "THC_DG_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 210000.0,
+      "basis_group": "국적",
+      "n_same": 9,
+      "n_total": 10
+     }
+    },
+    "THC_OOG_20": {
+     "status": "확인(오래된 공지)",
+     "amount": 160000.0,
+     "range": null,
+     "charge_name": "THC (TERMINAL HANDLING CHARGE)",
+     "trade_scope": "ALL",
+     "effective_from": "2018-07-02",
+     "source_url": "https://www.doowoo.co.kr/pst_webapp/moveNoticeView.do?seq=7&pagenum=1"
+    },
+    "THC_OOG_40": {
+     "status": "확인(오래된 공지)",
+     "amount": 220000.0,
+     "range": null,
+     "charge_name": "THC (TERMINAL HANDLING CHARGE)",
+     "trade_scope": "ALL",
+     "effective_from": "2018-07-02",
+     "source_url": "https://www.doowoo.co.kr/pst_webapp/moveNoticeView.do?seq=7&pagenum=1"
+    },
+    "THC_RF_20": {
+     "status": "확인(오래된 공지)",
+     "amount": 230000.0,
+     "range": null,
+     "charge_name": "THC (TERMINAL HANDLING CHARGE)",
+     "trade_scope": "ALL",
+     "effective_from": "2018-07-02",
+     "source_url": "https://www.doowoo.co.kr/pst_webapp/moveNoticeView.do?seq=7&pagenum=1"
+    },
+    "THC_RF_40": {
+     "status": "확인(오래된 공지)",
+     "amount": 345000.0,
+     "range": null,
+     "charge_name": "THC (TERMINAL HANDLING CHARGE)",
+     "trade_scope": "ALL",
+     "effective_from": "2018-07-02",
+     "source_url": "https://www.doowoo.co.kr/pst_webapp/moveNoticeView.do?seq=7&pagenum=1"
+    },
+    "WHARFAGE_20": {
+     "status": "확인(오래된 공지)",
+     "amount": 4429.0,
+     "range": null,
+     "charge_name": "부산항 항만시설사용료(화물입출항료) WHARFAGE",
+     "trade_scope": "ALL",
+     "effective_from": "2022-03-01",
+     "source_url": "https://www.doowoo.co.kr/pst_webapp/moveNoticeView.do?seq=27&pagenum=1"
+    },
+    "WHARFAGE_40": {
+     "status": "확인(오래된 공지)",
+     "amount": 8858.0,
+     "range": null,
+     "charge_name": "부산항 항만시설사용료(화물입출항료) WHARFAGE",
+     "trade_scope": "ALL",
+     "effective_from": "2022-03-01",
+     "source_url": "https://www.doowoo.co.kr/pst_webapp/moveNoticeView.do?seq=27&pagenum=1"
+    },
+    "SECURITY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 145.0,
+      "basis_group": "국적",
+      "n_same": 11,
+      "n_total": 11
+     }
+    },
+    "SECURITY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 290.0,
+      "basis_group": "국적",
+      "n_same": 11,
+      "n_total": 11
+     }
+    },
+    "PORT_SAFETY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 259.0,
+      "basis_group": "국적",
+      "n_same": 13,
+      "n_total": 13
+     }
+    },
+    "PORT_SAFETY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 518.0,
+      "basis_group": "국적",
+      "n_same": 13,
+      "n_total": 13
+     }
+    },
+    "SEAL": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 8000.0,
+      "basis_group": "국적",
+      "n_same": 11,
+      "n_total": 13
+     }
+    },
+    "DOC_FEE": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 40000.0,
+      "basis_group": "국적",
+      "n_same": 13,
+      "n_total": 13
+     }
+    },
+    "DOC_FEE_DG": {
+     "status": "일반 서류비 적용"
+    },
+    "DG_SURCHARGE": {
+     "status": "해당 없음"
+    }
+   }
+  },
+  {
+   "carrier_id": "dongjin",
+   "name_ko": "동진상선",
+   "name_en": "DONGJIN SHIPPING",
+   "nationality": "국적",
+   "status": "PUBLISHED",
+   "page_url": "https://esvc.djship.co.kr/gnoss/CUP_HOM_3116.do?sessLocale=ko",
+   "values": {
+    "THC_DRY_20": {
+     "status": "확인",
+     "amount": 150000.0,
+     "range": null,
+     "charge_name": "TERMINAL HANDLING CHARGE AT ORIGIN",
+     "trade_scope": "Korea-China",
+     "effective_from": "2024-06-29",
+     "source_url": "https://esvc.djship.co.kr/gnoss/CUP_HOM_3116.do?sessLocale=ko"
+    },
+    "THC_DRY_40": {
+     "status": "확인",
+     "amount": 210000.0,
+     "range": null,
+     "charge_name": "TERMINAL HANDLING CHARGE AT ORIGIN",
+     "trade_scope": "Korea-China",
+     "effective_from": "2024-06-29",
+     "source_url": "https://esvc.djship.co.kr/gnoss/CUP_HOM_3116.do?sessLocale=ko"
+    },
+    "THC_DG_20": {
+     "status": "확인",
+     "amount": 150000.0,
+     "range": null,
+     "charge_name": "TERMINAL HANDLING CHARGE AT ORIGIN",
+     "trade_scope": "Korea-China",
+     "effective_from": "2024-06-29",
+     "source_url": "https://esvc.djship.co.kr/gnoss/CUP_HOM_3116.do?sessLocale=ko"
+    },
+    "THC_DG_40": {
+     "status": "확인",
+     "amount": 210000.0,
+     "range": null,
+     "charge_name": "TERMINAL HANDLING CHARGE AT ORIGIN",
+     "trade_scope": "Korea-China",
+     "effective_from": "2024-06-29",
+     "source_url": "https://esvc.djship.co.kr/gnoss/CUP_HOM_3116.do?sessLocale=ko"
+    },
+    "THC_OOG_20": {
+     "status": "확인",
+     "amount": 180000.0,
+     "range": null,
+     "charge_name": "TERMINAL HANDLING CHARGE AT ORIGIN",
+     "trade_scope": "Korea-China",
+     "effective_from": "2024-06-29",
+     "source_url": "https://esvc.djship.co.kr/gnoss/CUP_HOM_3116.do?sessLocale=ko"
+    },
+    "THC_OOG_40": {
+     "status": "확인",
+     "amount": 250000.0,
+     "range": null,
+     "charge_name": "TERMINAL HANDLING CHARGE AT ORIGIN",
+     "trade_scope": "Korea-China",
+     "effective_from": "2024-06-29",
+     "source_url": "https://esvc.djship.co.kr/gnoss/CUP_HOM_3116.do?sessLocale=ko"
+    },
+    "THC_RF_20": {
+     "status": "확인",
+     "amount": 250000.0,
+     "range": null,
+     "charge_name": "TERMINAL HANDLING CHARGE AT ORIGIN",
+     "trade_scope": "Korea-China",
+     "effective_from": "2024-06-29",
+     "source_url": "https://esvc.djship.co.kr/gnoss/CUP_HOM_3116.do?sessLocale=ko"
+    },
+    "THC_RF_40": {
+     "status": "확인",
+     "amount": 375000.0,
+     "range": null,
+     "charge_name": "TERMINAL HANDLING CHARGE AT ORIGIN",
+     "trade_scope": "Korea-China",
+     "effective_from": "2024-06-29",
+     "source_url": "https://esvc.djship.co.kr/gnoss/CUP_HOM_3116.do?sessLocale=ko"
+    },
+    "WHARFAGE_20": {
+     "status": "확인",
+     "amount": 4574.0,
+     "range": null,
+     "charge_name": "WHARFAGE",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://esvc.djship.co.kr/gnoss/CUP_HOM_3116.do?sessLocale=ko"
+    },
+    "WHARFAGE_40": {
+     "status": "확인",
+     "amount": 9148.0,
+     "range": null,
+     "charge_name": "WHARFAGE",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://esvc.djship.co.kr/gnoss/CUP_HOM_3116.do?sessLocale=ko"
+    },
+    "SECURITY_20": {
+     "status": "W/FAG에 포함(추정)"
+    },
+    "SECURITY_40": {
+     "status": "W/FAG에 포함(추정)"
+    },
+    "PORT_SAFETY_20": {
+     "status": "확인",
+     "amount": 259.0,
+     "range": null,
+     "charge_name": "PORT SECURITY MANAGEMENT FEE",
+     "trade_scope": "ALL",
+     "effective_from": "2026-04-01",
+     "source_url": "https://esvc.djship.co.kr/gnoss/CUP_HOM_3116.do?sessLocale=ko"
+    },
+    "PORT_SAFETY_40": {
+     "status": "확인",
+     "amount": 518.0,
+     "range": null,
+     "charge_name": "PORT SECURITY MANAGEMENT FEE",
+     "trade_scope": "ALL",
+     "effective_from": "2026-04-01",
+     "source_url": "https://esvc.djship.co.kr/gnoss/CUP_HOM_3116.do?sessLocale=ko"
+    },
+    "SEAL": {
+     "status": "확인",
+     "amount": 8000.0,
+     "range": null,
+     "charge_name": "SEAL CHARGE",
+     "trade_scope": "ALL",
+     "effective_from": "2021-05-12",
+     "source_url": "https://esvc.djship.co.kr/gnoss/CUP_HOM_3116.do?sessLocale=ko"
+    },
+    "DOC_FEE": {
+     "status": "확인",
+     "amount": 40000.0,
+     "range": null,
+     "charge_name": "DOCUMENTATION FEE AT ORIGIN",
+     "trade_scope": "ALL",
+     "effective_from": "2021-05-13",
+     "source_url": "https://esvc.djship.co.kr/gnoss/CUP_HOM_3116.do?sessLocale=ko"
+    },
+    "DOC_FEE_DG": {
+     "status": "일반 서류비 적용"
+    },
+    "DG_SURCHARGE": {
+     "status": "해당 없음"
+    }
+   }
+  },
+  {
+   "carrier_id": "smline",
+   "name_ko": "SM상선",
+   "name_en": "SM LINE",
+   "nationality": "국적",
+   "status": "PUBLISHED",
+   "page_url": "https://esvc.smlines.com/smline/CUP_HOM_3116.do?sessLocale=ko",
+   "values": {
+    "THC_DRY_20": {
+     "status": "확인",
+     "amount": 150000.0,
+     "range": [
+      150000.0,
+      190000.0
+     ],
+     "charge_name": "TERMINAL HANDLING CHARGE AT ORIGIN",
+     "trade_scope": "Korea-China",
+     "effective_from": "2024-07-01",
+     "source_url": "https://esvc.smlines.com/smline/CUP_HOM_3116.do?sessLocale=ko"
+    },
+    "THC_DRY_40": {
+     "status": "확인",
+     "amount": 210000.0,
+     "range": [
+      210000.0,
+      270000.0
+     ],
+     "charge_name": "TERMINAL HANDLING CHARGE AT ORIGIN",
+     "trade_scope": "Korea-China",
+     "effective_from": "2024-07-01",
+     "source_url": "https://esvc.smlines.com/smline/CUP_HOM_3116.do?sessLocale=ko"
+    },
+    "THC_DG_20": {
+     "status": "확인",
+     "amount": 210000.0,
+     "range": null,
+     "charge_name": "TERMINAL HANDLING CHARGE AT ORIGIN",
+     "trade_scope": "TPE (Transpacific eastbound)",
+     "effective_from": "2024-11-01",
+     "source_url": "https://esvc.smlines.com/smline/CUP_HOM_3116.do?sessLocale=ko"
+    },
+    "THC_DG_40": {
+     "status": "확인",
+     "amount": 280000.0,
+     "range": null,
+     "charge_name": "TERMINAL HANDLING CHARGE AT ORIGIN",
+     "trade_scope": "TPE (Transpacific eastbound)",
+     "effective_from": "2024-11-01",
+     "source_url": "https://esvc.smlines.com/smline/CUP_HOM_3116.do?sessLocale=ko"
+    },
+    "THC_OOG_20": {
+     "status": "확인",
+     "amount": 180000.0,
+     "range": [
+      180000.0,
+      190000.0
+     ],
+     "charge_name": "TERMINAL HANDLING CHARGE AT ORIGIN",
+     "trade_scope": "Korea-China",
+     "effective_from": "2024-07-01",
+     "source_url": "https://esvc.smlines.com/smline/CUP_HOM_3116.do?sessLocale=ko"
+    },
+    "THC_OOG_40": {
+     "status": "확인",
+     "amount": 250000.0,
+     "range": [
+      250000.0,
+      270000.0
+     ],
+     "charge_name": "TERMINAL HANDLING CHARGE AT ORIGIN",
+     "trade_scope": "Korea-China",
+     "effective_from": "2024-07-01",
+     "source_url": "https://esvc.smlines.com/smline/CUP_HOM_3116.do?sessLocale=ko"
+    },
+    "THC_RF_20": {
+     "status": "확인",
+     "amount": 251000.0,
+     "range": [
+      250000.0,
+      251000.0
+     ],
+     "charge_name": "TERMINAL HANDLING CHARGE AT ORIGIN",
+     "trade_scope": "Korea-China",
+     "effective_from": "2024-07-01",
+     "source_url": "https://esvc.smlines.com/smline/CUP_HOM_3116.do?sessLocale=ko"
+    },
+    "THC_RF_40": {
+     "status": "확인",
+     "amount": 376000.0,
+     "range": [
+      210000.0,
+      380000.0
+     ],
+     "charge_name": "TERMINAL HANDLING CHARGE AT ORIGIN",
+     "trade_scope": "Korea-China",
+     "effective_from": "2024-07-01",
+     "source_url": "https://esvc.smlines.com/smline/CUP_HOM_3116.do?sessLocale=ko"
+    },
+    "WHARFAGE_20": {
+     "status": "확인",
+     "amount": 4429.0,
+     "range": null,
+     "charge_name": "WHARFAGE FOR KOREA ONLY",
+     "trade_scope": "Intra Asia (ALL)",
+     "effective_from": "2022-03-01",
+     "source_url": "https://esvc.smlines.com/smline/CUP_HOM_3116.do?sessLocale=ko"
+    },
+    "WHARFAGE_40": {
+     "status": "확인",
+     "amount": 8858.0,
+     "range": null,
+     "charge_name": "WHARFAGE FOR KOREA ONLY",
+     "trade_scope": "Intra Asia (ALL)",
+     "effective_from": "2022-03-01",
+     "source_url": "https://esvc.smlines.com/smline/CUP_HOM_3116.do?sessLocale=ko"
+    },
+    "SECURITY_20": {
+     "status": "확인",
+     "amount": 145.0,
+     "range": null,
+     "charge_name": "KOREA TERMINAL SECURITY CHARGE",
+     "trade_scope": "Intra Asia (ALL)",
+     "effective_from": "2026-07-01",
+     "source_url": "https://esvc.smlines.com/smline/CUP_HOM_3116.do?sessLocale=ko"
+    },
+    "SECURITY_40": {
+     "status": "확인",
+     "amount": 290.0,
+     "range": null,
+     "charge_name": "KOREA TERMINAL SECURITY CHARGE",
+     "trade_scope": "Intra Asia (ALL)",
+     "effective_from": "2026-07-01",
+     "source_url": "https://esvc.smlines.com/smline/CUP_HOM_3116.do?sessLocale=ko"
+    },
+    "PORT_SAFETY_20": {
+     "status": "확인",
+     "amount": 259.0,
+     "range": null,
+     "charge_name": "PORT SAFETY MANAGEMENT FEE",
+     "trade_scope": "Intra Asia (ALL)",
+     "effective_from": "2026-04-01",
+     "source_url": "https://esvc.smlines.com/smline/CUP_HOM_3116.do?sessLocale=ko"
+    },
+    "PORT_SAFETY_40": {
+     "status": "확인",
+     "amount": 518.0,
+     "range": null,
+     "charge_name": "PORT SAFETY MANAGEMENT FEE",
+     "trade_scope": "Intra Asia (ALL)",
+     "effective_from": "2026-04-01",
+     "source_url": "https://esvc.smlines.com/smline/CUP_HOM_3116.do?sessLocale=ko"
+    },
+    "SEAL": {
+     "status": "확인",
+     "amount": 0.0,
+     "range": [
+      0.0,
+      10000.0
+     ],
+     "charge_name": "SEAL FEE",
+     "trade_scope": "Intra Asia (ALL)",
+     "effective_from": "2017-05-01",
+     "source_url": "https://esvc.smlines.com/smline/CUP_HOM_3116.do?sessLocale=ko"
+    },
+    "DOC_FEE": {
+     "status": "확인",
+     "amount": 40000.0,
+     "range": [
+      40000.0,
+      50000.0
+     ],
+     "charge_name": "DOCUMENT HANDLING FEE",
+     "trade_scope": "Intra Asia (ALL)",
+     "effective_from": "2014-04-01",
+     "source_url": "https://esvc.smlines.com/smline/CUP_HOM_3116.do?sessLocale=ko"
+    },
+    "DOC_FEE_DG": {
+     "status": "일반 서류비 적용"
+    },
+    "DG_SURCHARGE": {
+     "status": "해당 없음"
+    }
+   }
+  },
+  {
+   "carrier_id": "pancon",
+   "name_ko": "범주해운",
+   "name_en": "PAN CONTINENTAL SHIPPING (PANCON)",
+   "nationality": "국적",
+   "status": "PUBLISHED",
+   "page_url": "https://www.pancon.co.kr/pan/pageLink.pcl?link=TARI/WEB_216&SCRN_ID=TARI",
+   "values": {
+    "THC_DRY_20": {
+     "status": "확인",
+     "amount": 150000.0,
+     "range": null,
+     "charge_name": "THC",
+     "trade_scope": "ALL",
+     "effective_from": "",
+     "source_url": "https://www.pancon.co.kr/pan/pageLink.pcl?link=TARI/WEB_216&SCRN_ID=TARI"
+    },
+    "THC_DRY_40": {
+     "status": "확인",
+     "amount": 210000.0,
+     "range": null,
+     "charge_name": "THC",
+     "trade_scope": "ALL",
+     "effective_from": "",
+     "source_url": "https://www.pancon.co.kr/pan/pageLink.pcl?link=TARI/WEB_216&SCRN_ID=TARI"
+    },
+    "THC_DG_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 150000.0,
+      "basis_group": "국적",
+      "n_same": 9,
+      "n_total": 10
+     }
+    },
+    "THC_DG_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 210000.0,
+      "basis_group": "국적",
+      "n_same": 9,
+      "n_total": 10
+     }
+    },
+    "THC_OOG_20": {
+     "status": "확인",
+     "amount": 180000.0,
+     "range": null,
+     "charge_name": "THC",
+     "trade_scope": "ALL",
+     "effective_from": "",
+     "source_url": "https://www.pancon.co.kr/pan/pageLink.pcl?link=TARI/WEB_216&SCRN_ID=TARI"
+    },
+    "THC_OOG_40": {
+     "status": "확인",
+     "amount": 250000.0,
+     "range": null,
+     "charge_name": "THC",
+     "trade_scope": "ALL",
+     "effective_from": "",
+     "source_url": "https://www.pancon.co.kr/pan/pageLink.pcl?link=TARI/WEB_216&SCRN_ID=TARI"
+    },
+    "THC_RF_20": {
+     "status": "확인",
+     "amount": 250000.0,
+     "range": null,
+     "charge_name": "THC",
+     "trade_scope": "ALL",
+     "effective_from": "",
+     "source_url": "https://www.pancon.co.kr/pan/pageLink.pcl?link=TARI/WEB_216&SCRN_ID=TARI"
+    },
+    "THC_RF_40": {
+     "status": "확인",
+     "amount": 375000.0,
+     "range": null,
+     "charge_name": "THC",
+     "trade_scope": "ALL",
+     "effective_from": "",
+     "source_url": "https://www.pancon.co.kr/pan/pageLink.pcl?link=TARI/WEB_216&SCRN_ID=TARI"
+    },
+    "WHARFAGE_20": {
+     "status": "확인",
+     "amount": 4574.0,
+     "range": null,
+     "charge_name": "WHARFAGE",
+     "trade_scope": "ALL",
+     "effective_from": "",
+     "source_url": "https://www.pancon.co.kr/pan/pageLink.pcl?link=TARI/WEB_216&SCRN_ID=TARI"
+    },
+    "WHARFAGE_40": {
+     "status": "확인",
+     "amount": 9148.0,
+     "range": null,
+     "charge_name": "WHARFAGE",
+     "trade_scope": "ALL",
+     "effective_from": "",
+     "source_url": "https://www.pancon.co.kr/pan/pageLink.pcl?link=TARI/WEB_216&SCRN_ID=TARI"
+    },
+    "SECURITY_20": {
+     "status": "W/FAG에 포함(추정)"
+    },
+    "SECURITY_40": {
+     "status": "W/FAG에 포함(추정)"
+    },
+    "PORT_SAFETY_20": {
+     "status": "확인",
+     "amount": 259.0,
+     "range": null,
+     "charge_name": "PORT SAFETY MANAGEMENT FEE",
+     "trade_scope": "ALL",
+     "effective_from": "",
+     "source_url": "https://www.pancon.co.kr/pan/pageLink.pcl?link=TARI/WEB_216&SCRN_ID=TARI"
+    },
+    "PORT_SAFETY_40": {
+     "status": "확인",
+     "amount": 518.0,
+     "range": null,
+     "charge_name": "PORT SAFETY MANAGEMENT FEE",
+     "trade_scope": "ALL",
+     "effective_from": "",
+     "source_url": "https://www.pancon.co.kr/pan/pageLink.pcl?link=TARI/WEB_216&SCRN_ID=TARI"
+    },
+    "SEAL": {
+     "status": "확인",
+     "amount": 8000.0,
+     "range": null,
+     "charge_name": "SEAL CHARGE",
+     "trade_scope": "ALL",
+     "effective_from": "",
+     "source_url": "https://www.pancon.co.kr/pan/pageLink.pcl?link=TARI/WEB_216&SCRN_ID=TARI"
+    },
+    "DOC_FEE": {
+     "status": "확인",
+     "amount": 40000.0,
+     "range": null,
+     "charge_name": "DOC. FEE",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://www.pancon.co.kr/pan/pageLink.pcl?link=TARI/WEB_216&SCRN_ID=TARI"
+    },
+    "DOC_FEE_DG": {
+     "status": "일반 서류비 적용"
+    },
+    "DG_SURCHARGE": {
+     "status": "해당 없음"
+    }
+   }
+  },
+  {
+   "carrier_id": "hansung",
+   "name_ko": "한성라인",
+   "name_en": "HANSUNG LINE",
+   "nationality": "국적",
+   "status": "PUBLISHED",
+   "page_url": "https://ebiz.hsln.co.kr/Etc/StandardTariff",
+   "values": {
+    "THC_DRY_20": {
+     "status": "확인",
+     "amount": 150000.0,
+     "range": null,
+     "charge_name": "LOADING PORT TERMINAL HANDLING CHARGE(LTH)",
+     "trade_scope": "Korea-China/Thailand/Vietnam",
+     "effective_from": "",
+     "source_url": "https://ebiz.hsln.co.kr/Etc/StandardTariff?pol=KRPUS&pod=CNSHA"
+    },
+    "THC_DRY_40": {
+     "status": "확인",
+     "amount": 210000.0,
+     "range": null,
+     "charge_name": "LOADING PORT TERMINAL HANDLING CHARGE(LTH)",
+     "trade_scope": "Korea-China/Thailand/Vietnam",
+     "effective_from": "",
+     "source_url": "https://ebiz.hsln.co.kr/Etc/StandardTariff?pol=KRPUS&pod=CNSHA"
+    },
+    "THC_DG_20": {
+     "status": "확인",
+     "amount": 150000.0,
+     "range": null,
+     "charge_name": "LOADING PORT TERMINAL HANDLING CHARGE(LTH)",
+     "trade_scope": "Korea-China/Thailand/Vietnam",
+     "effective_from": "",
+     "source_url": "https://ebiz.hsln.co.kr/Etc/StandardTariff?pol=KRPUS&pod=CNSHA"
+    },
+    "THC_DG_40": {
+     "status": "확인",
+     "amount": 210000.0,
+     "range": null,
+     "charge_name": "LOADING PORT TERMINAL HANDLING CHARGE(LTH)",
+     "trade_scope": "Korea-China/Thailand/Vietnam",
+     "effective_from": "",
+     "source_url": "https://ebiz.hsln.co.kr/Etc/StandardTariff?pol=KRPUS&pod=CNSHA"
+    },
+    "THC_OOG_20": {
+     "status": "확인",
+     "amount": 180000.0,
+     "range": null,
+     "charge_name": "LOADING PORT TERMINAL HANDLING CHARGE(LTH)",
+     "trade_scope": "Korea-China/Thailand/Vietnam",
+     "effective_from": "",
+     "source_url": "https://ebiz.hsln.co.kr/Etc/StandardTariff?pol=KRPUS&pod=CNSHA"
+    },
+    "THC_OOG_40": {
+     "status": "확인",
+     "amount": 250000.0,
+     "range": null,
+     "charge_name": "LOADING PORT TERMINAL HANDLING CHARGE(LTH)",
+     "trade_scope": "Korea-China/Thailand/Vietnam",
+     "effective_from": "",
+     "source_url": "https://ebiz.hsln.co.kr/Etc/StandardTariff?pol=KRPUS&pod=CNSHA"
+    },
+    "THC_RF_20": {
+     "status": "확인",
+     "amount": 250000.0,
+     "range": null,
+     "charge_name": "LOADING PORT TERMINAL HANDLING CHARGE(LTH)",
+     "trade_scope": "Korea-China/Thailand/Vietnam",
+     "effective_from": "",
+     "source_url": "https://ebiz.hsln.co.kr/Etc/StandardTariff?pol=KRPUS&pod=CNSHA"
+    },
+    "THC_RF_40": {
+     "status": "확인",
+     "amount": 375000.0,
+     "range": null,
+     "charge_name": "LOADING PORT TERMINAL HANDLING CHARGE(LTH)",
+     "trade_scope": "Korea-China/Thailand/Vietnam",
+     "effective_from": "",
+     "source_url": "https://ebiz.hsln.co.kr/Etc/StandardTariff?pol=KRPUS&pod=CNSHA"
+    },
+    "WHARFAGE_20": {
+     "status": "확인",
+     "amount": 4429.0,
+     "range": null,
+     "charge_name": "WHARFAGE(WHG)",
+     "trade_scope": "Korea-China/Thailand/Vietnam",
+     "effective_from": "",
+     "source_url": "https://ebiz.hsln.co.kr/Etc/StandardTariff?pol=KRPUS&pod=CNSHA"
+    },
+    "WHARFAGE_40": {
+     "status": "확인",
+     "amount": 8858.0,
+     "range": null,
+     "charge_name": "WHARFAGE(WHG)",
+     "trade_scope": "Korea-China/Thailand/Vietnam",
+     "effective_from": "",
+     "source_url": "https://ebiz.hsln.co.kr/Etc/StandardTariff?pol=KRPUS&pod=CNSHA"
+    },
+    "SECURITY_20": {
+     "status": "확인",
+     "amount": 145.0,
+     "range": null,
+     "charge_name": "PORT SECURITY CHARGE(PSE)",
+     "trade_scope": "Korea-China/Thailand/Vietnam",
+     "effective_from": "",
+     "source_url": "https://ebiz.hsln.co.kr/Etc/StandardTariff?pol=KRPUS&pod=CNSHA"
+    },
+    "SECURITY_40": {
+     "status": "확인",
+     "amount": 290.0,
+     "range": null,
+     "charge_name": "PORT SECURITY CHARGE(PSE)",
+     "trade_scope": "Korea-China/Thailand/Vietnam",
+     "effective_from": "",
+     "source_url": "https://ebiz.hsln.co.kr/Etc/StandardTariff?pol=KRPUS&pod=CNSHA"
+    },
+    "PORT_SAFETY_20": {
+     "status": "확인",
+     "amount": 259.0,
+     "range": null,
+     "charge_name": "PORT SAFETY MANAGEMENT FEE(PMF)",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://ebiz.hsln.co.kr/Etc/StandardTariff?pol=KRPUS&pod=CNSHA"
+    },
+    "PORT_SAFETY_40": {
+     "status": "확인",
+     "amount": 518.0,
+     "range": null,
+     "charge_name": "PORT SAFETY MANAGEMENT FEE(PMF)",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://ebiz.hsln.co.kr/Etc/StandardTariff?pol=KRPUS&pod=CNSHA"
+    },
+    "SEAL": {
+     "status": "확인",
+     "amount": 8000.0,
+     "range": null,
+     "charge_name": "SEAL CHARGE(SCH)",
+     "trade_scope": "Korea-China",
+     "effective_from": "",
+     "source_url": "https://ebiz.hsln.co.kr/Etc/StandardTariff?pol=KRPUS&pod=CNSHA"
+    },
+    "DOC_FEE": {
+     "status": "확인",
+     "amount": 40000.0,
+     "range": null,
+     "charge_name": "DOCUMENTATION FEE(LDF/BL)",
+     "trade_scope": "Korea-China/Thailand/Vietnam",
+     "effective_from": "",
+     "source_url": "https://ebiz.hsln.co.kr/Etc/StandardTariff?pol=KRPUS&pod=CNSHA"
+    },
+    "DOC_FEE_DG": {
+     "status": "확인",
+     "amount": 40000.0,
+     "range": null,
+     "charge_name": "DOCUMENTATION FEE(LDF/BL)",
+     "trade_scope": "Korea-China/Thailand/Vietnam",
+     "effective_from": "",
+     "source_url": "https://ebiz.hsln.co.kr/Etc/StandardTariff?pol=KRPUS&pod=CNSHA"
+    },
+    "DG_SURCHARGE": {
+     "status": "해당 없음"
+    }
+   }
+  },
+  {
+   "carrier_id": "panstar",
+   "name_ko": "팬스타",
+   "name_en": "PANSTAR LINE DOT COM",
+   "nationality": "국적",
+   "status": "PARTIAL",
+   "page_url": "https://cargo.panstar.co.kr/board/noticeListView.do",
+   "values": {
+    "THC_DRY_20": {
+     "status": "확인(오래된 공지)",
+     "amount": 150000.0,
+     "range": null,
+     "charge_name": "THC (Terminal Handling Charge) - 한국 THC",
+     "trade_scope": "Korea-Japan (Panstar services)",
+     "effective_from": "2024-06-15",
+     "source_url": "https://cargo.panstar.co.kr/board/boardViewPopup.do?boardType=NOTICE&boardSeq=113&isMainView=false"
+    },
+    "THC_DRY_40": {
+     "status": "확인(오래된 공지)",
+     "amount": 210000.0,
+     "range": null,
+     "charge_name": "THC (Terminal Handling Charge) - 한국 THC",
+     "trade_scope": "Korea-Japan (Panstar services)",
+     "effective_from": "2024-06-15",
+     "source_url": "https://cargo.panstar.co.kr/board/boardViewPopup.do?boardType=NOTICE&boardSeq=113&isMainView=false"
+    },
+    "THC_DG_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 150000.0,
+      "basis_group": "국적",
+      "n_same": 9,
+      "n_total": 10
+     }
+    },
+    "THC_DG_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 210000.0,
+      "basis_group": "국적",
+      "n_same": 9,
+      "n_total": 10
+     }
+    },
+    "THC_OOG_20": {
+     "status": "확인(오래된 공지)",
+     "amount": 180000.0,
+     "range": null,
+     "charge_name": "THC (Terminal Handling Charge) - 한국 THC",
+     "trade_scope": "Korea-Japan (Panstar services)",
+     "effective_from": "2024-06-15",
+     "source_url": "https://cargo.panstar.co.kr/board/boardViewPopup.do?boardType=NOTICE&boardSeq=113&isMainView=false"
+    },
+    "THC_OOG_40": {
+     "status": "확인(오래된 공지)",
+     "amount": 250000.0,
+     "range": null,
+     "charge_name": "THC (Terminal Handling Charge) - 한국 THC",
+     "trade_scope": "Korea-Japan (Panstar services)",
+     "effective_from": "2024-06-15",
+     "source_url": "https://cargo.panstar.co.kr/board/boardViewPopup.do?boardType=NOTICE&boardSeq=113&isMainView=false"
+    },
+    "THC_RF_20": {
+     "status": "확인(오래된 공지)",
+     "amount": 250000.0,
+     "range": null,
+     "charge_name": "THC (Terminal Handling Charge) - 한국 THC",
+     "trade_scope": "Korea-Japan (Panstar services)",
+     "effective_from": "2024-06-15",
+     "source_url": "https://cargo.panstar.co.kr/board/boardViewPopup.do?boardType=NOTICE&boardSeq=113&isMainView=false"
+    },
+    "THC_RF_40": {
+     "status": "확인(오래된 공지)",
+     "amount": 375000.0,
+     "range": null,
+     "charge_name": "THC (Terminal Handling Charge) - 한국 THC",
+     "trade_scope": "Korea-Japan (Panstar services)",
+     "effective_from": "2024-06-15",
+     "source_url": "https://cargo.panstar.co.kr/board/boardViewPopup.do?boardType=NOTICE&boardSeq=113&isMainView=false"
+    },
+    "WHARFAGE_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 4429.0,
+      "basis_group": "국적",
+      "n_same": 11,
+      "n_total": 14
+     }
+    },
+    "WHARFAGE_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 8858.0,
+      "basis_group": "국적",
+      "n_same": 11,
+      "n_total": 14
+     }
+    },
+    "SECURITY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 145.0,
+      "basis_group": "국적",
+      "n_same": 11,
+      "n_total": 11
+     }
+    },
+    "SECURITY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 290.0,
+      "basis_group": "국적",
+      "n_same": 11,
+      "n_total": 11
+     }
+    },
+    "PORT_SAFETY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 259.0,
+      "basis_group": "국적",
+      "n_same": 13,
+      "n_total": 13
+     }
+    },
+    "PORT_SAFETY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 518.0,
+      "basis_group": "국적",
+      "n_same": 13,
+      "n_total": 13
+     }
+    },
+    "SEAL": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 8000.0,
+      "basis_group": "국적",
+      "n_same": 11,
+      "n_total": 13
+     }
+    },
+    "DOC_FEE": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 40000.0,
+      "basis_group": "국적",
+      "n_same": 13,
+      "n_total": 13
+     }
+    },
+    "DOC_FEE_DG": {
+     "status": "일반 서류비 적용"
+    },
+    "DG_SURCHARGE": {
+     "status": "해당 없음"
+    }
+   }
+  },
+  {
+   "carrier_id": "maersk",
+   "name_ko": "머스크",
+   "name_en": "Maersk (A.P. Moller - Maersk)",
+   "nationality": "외국적",
+   "status": "PUBLISHED",
+   "page_url": "https://www.maersk.com/local-information/asia-pacific/south-korea",
+   "values": {
+    "THC_DRY_20": {
+     "status": "확인",
+     "amount": 155000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Service - Origin (OHC) 20 Dry",
+     "trade_scope": "ALL (All Trades)",
+     "effective_from": "2026-10-01",
+     "source_url": "https://www.maersk.com/~/media_sc9/maersk/local-information/files/asia-pacific/korea/export/customer-advisory/kr-thc-oct-2026-en-and-kr-to-web.pdf"
+    },
+    "THC_DRY_40": {
+     "status": "확인",
+     "amount": 220000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Service - Origin (OHC) 40 Dry",
+     "trade_scope": "ALL (All Trades)",
+     "effective_from": "2026-10-01",
+     "source_url": "https://www.maersk.com/~/media_sc9/maersk/local-information/files/asia-pacific/korea/export/customer-advisory/kr-thc-oct-2026-en-and-kr-to-web.pdf"
+    },
+    "THC_DG_20": {
+     "status": "확인",
+     "amount": 255000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Service - Origin (OHC) 20 Dry (Hazardous Cargo)",
+     "trade_scope": "ALL (All Trades)",
+     "effective_from": "2026-10-01",
+     "source_url": "https://www.maersk.com/~/media_sc9/maersk/local-information/files/asia-pacific/korea/export/customer-advisory/kr-thc-oct-2026-en-and-kr-to-web.pdf"
+    },
+    "THC_DG_40": {
+     "status": "확인",
+     "amount": 385000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Service - Origin (OHC) 40 Dry (Hazardous Cargo)",
+     "trade_scope": "ALL (All Trades)",
+     "effective_from": "2026-10-01",
+     "source_url": "https://www.maersk.com/~/media_sc9/maersk/local-information/files/asia-pacific/korea/export/customer-advisory/kr-thc-oct-2026-en-and-kr-to-web.pdf"
+    },
+    "THC_OOG_20": {
+     "status": "확인",
+     "amount": 255000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Service - Origin (OHC) 20 Special",
+     "trade_scope": "ALL (All Trades)",
+     "effective_from": "2026-10-01",
+     "source_url": "https://www.maersk.com/~/media_sc9/maersk/local-information/files/asia-pacific/korea/export/customer-advisory/kr-thc-oct-2026-en-and-kr-to-web.pdf"
+    },
+    "THC_OOG_40": {
+     "status": "확인",
+     "amount": 385000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Service - Origin (OHC) 40 Special",
+     "trade_scope": "ALL (All Trades)",
+     "effective_from": "2026-10-01",
+     "source_url": "https://www.maersk.com/~/media_sc9/maersk/local-information/files/asia-pacific/korea/export/customer-advisory/kr-thc-oct-2026-en-and-kr-to-web.pdf"
+    },
+    "THC_RF_20": {
+     "status": "확인",
+     "amount": 255000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Service - Origin (OHC) 20 Reefer",
+     "trade_scope": "ALL (All Trades)",
+     "effective_from": "2026-10-01",
+     "source_url": "https://www.maersk.com/~/media_sc9/maersk/local-information/files/asia-pacific/korea/export/customer-advisory/kr-thc-oct-2026-en-and-kr-to-web.pdf"
+    },
+    "THC_RF_40": {
+     "status": "확인",
+     "amount": 385000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Service - Origin (OHC) 40 Reefer",
+     "trade_scope": "ALL (All Trades)",
+     "effective_from": "2026-10-01",
+     "source_url": "https://www.maersk.com/~/media_sc9/maersk/local-information/files/asia-pacific/korea/export/customer-advisory/kr-thc-oct-2026-en-and-kr-to-web.pdf"
+    },
+    "WHARFAGE_20": {
+     "status": "THC에 포함"
+    },
+    "WHARFAGE_40": {
+     "status": "THC에 포함"
+    },
+    "SECURITY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 145.0,
+      "basis_group": "외국적",
+      "n_same": 7,
+      "n_total": 8
+     }
+    },
+    "SECURITY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 290.0,
+      "basis_group": "외국적",
+      "n_same": 6,
+      "n_total": 7
+     }
+    },
+    "PORT_SAFETY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 259.0,
+      "basis_group": "외국적",
+      "n_same": 5,
+      "n_total": 5
+     }
+    },
+    "PORT_SAFETY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 518.0,
+      "basis_group": "전체",
+      "n_same": 17,
+      "n_total": 17
+     }
+    },
+    "SEAL": {
+     "status": "확인",
+     "amount": 10000.0,
+     "range": null,
+     "charge_name": "Export Service (씰 비용)",
+     "trade_scope": "ALL",
+     "effective_from": "2025-07-01",
+     "source_url": "https://www.maersk.com/~/media_sc9/maersk/local-information/files/asia-pacific/korea/overview-useful-links/surcharge-tariff-2024.pdf"
+    },
+    "DOC_FEE": {
+     "status": "확인",
+     "amount": 55000.0,
+     "range": null,
+     "charge_name": "Documentation Fee - Origin (서류 비위험물)",
+     "trade_scope": "ALL",
+     "effective_from": "2025-07-01",
+     "source_url": "https://www.maersk.com/~/media_sc9/maersk/local-information/files/asia-pacific/korea/overview-useful-links/surcharge-tariff-2024.pdf"
+    },
+    "DOC_FEE_DG": {
+     "status": "확인",
+     "amount": 75000.0,
+     "range": null,
+     "charge_name": "Documentation Fee - Origin (서류 위험물)",
+     "trade_scope": "ALL",
+     "effective_from": "2025-07-01",
+     "source_url": "https://www.maersk.com/~/media_sc9/maersk/local-information/files/asia-pacific/korea/overview-useful-links/surcharge-tariff-2024.pdf"
+    },
+    "DG_SURCHARGE": {
+     "status": "해당 없음"
+    }
+   }
+  },
+  {
+   "carrier_id": "msc",
+   "name_ko": "엠에스씨",
+   "name_en": "MSC (Mediterranean Shipping Company)",
+   "nationality": "외국적",
+   "status": "NOT_FOUND",
+   "page_url": "https://www.msc.com/en/local-information/asia-pacific/south-korea",
+   "values": {
+    "THC_DRY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 150000.0,
+      "basis_group": "외국적",
+      "n_same": 10,
+      "n_total": 14
+     }
+    },
+    "THC_DRY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 210000.0,
+      "basis_group": "외국적",
+      "n_same": 9,
+      "n_total": 14
+     }
+    },
+    "THC_DG_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       135000.0,
+       255000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_DG_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       190000.0,
+       385000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_OOG_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       150000.0,
+       255000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_OOG_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       210000.0,
+       385000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_RF_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 250000.0,
+      "basis_group": "외국적",
+      "n_same": 8,
+      "n_total": 13
+     }
+    },
+    "THC_RF_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 375000.0,
+      "basis_group": "외국적",
+      "n_same": 8,
+      "n_total": 12
+     }
+    },
+    "WHARFAGE_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 4429.0,
+      "basis_group": "외국적",
+      "n_same": 7,
+      "n_total": 12
+     }
+    },
+    "WHARFAGE_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 8858.0,
+      "basis_group": "외국적",
+      "n_same": 7,
+      "n_total": 12
+     }
+    },
+    "SECURITY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 145.0,
+      "basis_group": "외국적",
+      "n_same": 7,
+      "n_total": 8
+     }
+    },
+    "SECURITY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 290.0,
+      "basis_group": "외국적",
+      "n_same": 6,
+      "n_total": 7
+     }
+    },
+    "PORT_SAFETY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 259.0,
+      "basis_group": "외국적",
+      "n_same": 5,
+      "n_total": 5
+     }
+    },
+    "PORT_SAFETY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 518.0,
+      "basis_group": "전체",
+      "n_same": 17,
+      "n_total": 17
+     }
+    },
+    "SEAL": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       8000.0,
+       15000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "DOC_FEE": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       40000.0,
+       55000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 14
+     }
+    },
+    "DOC_FEE_DG": {
+     "status": "일반 서류비 적용"
+    },
+    "DG_SURCHARGE": {
+     "status": "해당 없음"
+    }
+   }
+  },
+  {
+   "carrier_id": "cmacgm",
+   "name_ko": "씨엠에이 씨지엠",
+   "name_en": "CMA CGM (incl. ANL, APL, CNC)",
+   "nationality": "외국적",
+   "status": "PUBLISHED",
+   "page_url": "https://www.cma-cgm.com/ebusiness/local-charges",
+   "values": {
+    "THC_DRY_20": {
+     "status": "확인",
+     "amount": 150000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Charge (OTHC) at origin",
+     "trade_scope": "CMA CGM/ANL/APL",
+     "effective_from": "2025-07-01",
+     "source_url": "https://www.cma-cgm.com/assets/public/documents/SOUTH%20KOREA%20-%20LOCAL%20SCES_56.pdf"
+    },
+    "THC_DRY_40": {
+     "status": "확인",
+     "amount": 210000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Charge (OTHC) at origin",
+     "trade_scope": "CMA CGM/ANL/APL",
+     "effective_from": "2025-07-01",
+     "source_url": "https://www.cma-cgm.com/assets/public/documents/SOUTH%20KOREA%20-%20LOCAL%20SCES_56.pdf"
+    },
+    "THC_DG_20": {
+     "status": "확인",
+     "amount": 220000.0,
+     "range": [
+      150000.0,
+      220000.0
+     ],
+     "charge_name": "Terminal Handling Charge (OTHC) at origin",
+     "trade_scope": "CMA CGM/ANL/APL",
+     "effective_from": "2025-07-01",
+     "source_url": "https://www.cma-cgm.com/assets/public/documents/SOUTH%20KOREA%20-%20LOCAL%20SCES_56.pdf"
+    },
+    "THC_DG_40": {
+     "status": "확인",
+     "amount": 320000.0,
+     "range": [
+      210000.0,
+      320000.0
+     ],
+     "charge_name": "Terminal Handling Charge (OTHC) at origin",
+     "trade_scope": "CMA CGM/ANL/APL",
+     "effective_from": "2025-07-01",
+     "source_url": "https://www.cma-cgm.com/assets/public/documents/SOUTH%20KOREA%20-%20LOCAL%20SCES_56.pdf"
+    },
+    "THC_OOG_20": {
+     "status": "확인",
+     "amount": 190000.0,
+     "range": [
+      180000.0,
+      190000.0
+     ],
+     "charge_name": "Terminal Handling Charge (OTHC) at origin",
+     "trade_scope": "CMA CGM/ANL/APL",
+     "effective_from": "2025-07-01",
+     "source_url": "https://www.cma-cgm.com/assets/public/documents/SOUTH%20KOREA%20-%20LOCAL%20SCES_56.pdf"
+    },
+    "THC_OOG_40": {
+     "status": "확인",
+     "amount": 260000.0,
+     "range": [
+      250000.0,
+      260000.0
+     ],
+     "charge_name": "Terminal Handling Charge (OTHC) at origin",
+     "trade_scope": "CMA CGM/ANL/APL",
+     "effective_from": "2025-07-01",
+     "source_url": "https://www.cma-cgm.com/assets/public/documents/SOUTH%20KOREA%20-%20LOCAL%20SCES_56.pdf"
+    },
+    "THC_RF_20": {
+     "status": "확인",
+     "amount": 250000.0,
+     "range": [
+      230000.0,
+      250000.0
+     ],
+     "charge_name": "Terminal Handling Charge (OTHC) at origin",
+     "trade_scope": "CMA CGM/ANL/APL",
+     "effective_from": "2025-07-01",
+     "source_url": "https://www.cma-cgm.com/assets/public/documents/SOUTH%20KOREA%20-%20LOCAL%20SCES_56.pdf"
+    },
+    "THC_RF_40": {
+     "status": "확인",
+     "amount": 370000.0,
+     "range": [
+      345000.0,
+      370000.0
+     ],
+     "charge_name": "Terminal Handling Charge (OTHC) at origin",
+     "trade_scope": "CMA CGM/ANL/APL",
+     "effective_from": "2025-07-01",
+     "source_url": "https://www.cma-cgm.com/assets/public/documents/SOUTH%20KOREA%20-%20LOCAL%20SCES_56.pdf"
+    },
+    "WHARFAGE_20": {
+     "status": "확인",
+     "amount": 4574.0,
+     "range": null,
+     "charge_name": "Port and/or Terminal wharfage (PUSAN)",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://www.cma-cgm.com/assets/public/documents/SOUTH%20KOREA%20-%20LOCAL%20SCES_56.pdf"
+    },
+    "WHARFAGE_40": {
+     "status": "확인",
+     "amount": 9148.0,
+     "range": null,
+     "charge_name": "Port and/or Terminal wharfage (PUSAN)",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://www.cma-cgm.com/assets/public/documents/SOUTH%20KOREA%20-%20LOCAL%20SCES_56.pdf"
+    },
+    "SECURITY_20": {
+     "status": "W/FAG에 포함(추정)"
+    },
+    "SECURITY_40": {
+     "status": "W/FAG에 포함(추정)"
+    },
+    "PORT_SAFETY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 259.0,
+      "basis_group": "외국적",
+      "n_same": 5,
+      "n_total": 5
+     }
+    },
+    "PORT_SAFETY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 518.0,
+      "basis_group": "전체",
+      "n_same": 17,
+      "n_total": 17
+     }
+    },
+    "SEAL": {
+     "status": "확인",
+     "amount": 15000.0,
+     "range": null,
+     "charge_name": "Sealing service export",
+     "trade_scope": "All Carrier",
+     "effective_from": "2026-06-15",
+     "source_url": "https://www.cma-cgm.com/assets/public/documents/SOUTH%20KOREA%20-%20LOCAL%20SCES_56.pdf"
+    },
+    "DOC_FEE": {
+     "status": "확인",
+     "amount": 55000.0,
+     "range": [
+      55000.0,
+      65000.0
+     ],
+     "charge_name": "Documentation Fee at origin - All electronic",
+     "trade_scope": "CMA CGM/ANL/APL/CNC",
+     "effective_from": "2025-07-01",
+     "source_url": "https://www.cma-cgm.com/assets/public/documents/SOUTH%20KOREA%20-%20LOCAL%20SCES_56.pdf"
+    },
+    "DOC_FEE_DG": {
+     "status": "일반 서류비 적용"
+    },
+    "DG_SURCHARGE": {
+     "status": "해당 없음"
+    }
+   }
+  },
+  {
+   "carrier_id": "hapag",
+   "name_ko": "하파그로이드",
+   "name_en": "Hapag-Lloyd",
+   "nationality": "외국적",
+   "status": "PUBLISHED",
+   "page_url": "https://www.hapag-lloyd.com/en/online-business/quotation/tariffs/local-charges-service-fees.html",
+   "values": {
+    "THC_DRY_20": {
+     "status": "확인",
+     "amount": 150000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Charge Origin (THO) - 20'Dry",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://www.hapag-lloyd.com/content/dam/website/downloads/detention_demurrage/Terminal_Handling_Charges_RTAS_Aug_2026.pdf"
+    },
+    "THC_DRY_40": {
+     "status": "확인",
+     "amount": 240000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Charge Origin (THO) - 40'Dry",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://www.hapag-lloyd.com/content/dam/website/downloads/detention_demurrage/Terminal_Handling_Charges_RTAS_Aug_2026.pdf"
+    },
+    "THC_DG_20": {
+     "status": "확인",
+     "amount": 240000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Charge Origin (THO) - 20' Dry (Haz)",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://www.hapag-lloyd.com/content/dam/website/downloads/detention_demurrage/Terminal_Handling_Charges_RTAS_Aug_2026.pdf"
+    },
+    "THC_DG_40": {
+     "status": "확인",
+     "amount": 360000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Charge Origin (THO) - 40' Dry (Haz)",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://www.hapag-lloyd.com/content/dam/website/downloads/detention_demurrage/Terminal_Handling_Charges_RTAS_Aug_2026.pdf"
+    },
+    "THC_OOG_20": {
+     "status": "확인",
+     "amount": 250000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Charge Origin (THO) - 20' Special",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://www.hapag-lloyd.com/content/dam/website/downloads/detention_demurrage/Terminal_Handling_Charges_RTAS_Aug_2026.pdf"
+    },
+    "THC_OOG_40": {
+     "status": "확인",
+     "amount": 375000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Charge Origin (THO) - 40' Special",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://www.hapag-lloyd.com/content/dam/website/downloads/detention_demurrage/Terminal_Handling_Charges_RTAS_Aug_2026.pdf"
+    },
+    "THC_RF_20": {
+     "status": "확인",
+     "amount": 250000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Charge Origin (THO) - 20' Reefer",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://www.hapag-lloyd.com/content/dam/website/downloads/detention_demurrage/Terminal_Handling_Charges_RTAS_Aug_2026.pdf"
+    },
+    "THC_RF_40": {
+     "status": "확인",
+     "amount": 375000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Charge Origin (THO) - 40' Reefer",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://www.hapag-lloyd.com/content/dam/website/downloads/detention_demurrage/Terminal_Handling_Charges_RTAS_Aug_2026.pdf"
+    },
+    "WHARFAGE_20": {
+     "status": "확인",
+     "amount": 4574.0,
+     "range": null,
+     "charge_name": "Wharfage (Pusan)",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-27",
+     "source_url": "https://www.hapag-lloyd.com/content/dam/website/downloads/detention_demurrage/South_Korea_local_charges_service_fees_Aug2026.pdf"
+    },
+    "WHARFAGE_40": {
+     "status": "확인",
+     "amount": 9148.0,
+     "range": null,
+     "charge_name": "Wharfage (Pusan)",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-27",
+     "source_url": "https://www.hapag-lloyd.com/content/dam/website/downloads/detention_demurrage/South_Korea_local_charges_service_fees_Aug2026.pdf"
+    },
+    "SECURITY_20": {
+     "status": "W/FAG에 포함(추정)"
+    },
+    "SECURITY_40": {
+     "status": "W/FAG에 포함(추정)"
+    },
+    "PORT_SAFETY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 259.0,
+      "basis_group": "외국적",
+      "n_same": 5,
+      "n_total": 5
+     }
+    },
+    "PORT_SAFETY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 518.0,
+      "basis_group": "전체",
+      "n_same": 17,
+      "n_total": 17
+     }
+    },
+    "SEAL": {
+     "status": "확인",
+     "amount": 12000.0,
+     "range": null,
+     "charge_name": "Sealing Charge at Origin",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://www.hapag-lloyd.com/content/dam/website/downloads/detention_demurrage/South_Korea_local_charges_service_fees_Aug2026.pdf"
+    },
+    "DOC_FEE": {
+     "status": "확인",
+     "amount": 40000.0,
+     "range": [
+      40000.0,
+      70000.0
+     ],
+     "charge_name": "Document Charge - Electronic Shipping Instruction / Electronic Bill of Lading",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://www.hapag-lloyd.com/content/dam/website/downloads/detention_demurrage/South_Korea_local_charges_service_fees_Aug2026.pdf"
+    },
+    "DOC_FEE_DG": {
+     "status": "일반 서류비 적용"
+    },
+    "DG_SURCHARGE": {
+     "status": "확인",
+     "amount": 5000.0,
+     "range": null,
+     "charge_name": "DG Surcharge at POL (Hazardous Shipment Processing Fee)",
+     "trade_scope": "ALL",
+     "effective_from": "2015-04-01",
+     "source_url": "https://www.hapag-lloyd.com/content/dam/website/downloads/detention_demurrage/South_Korea_local_charges_service_fees_Aug2026.pdf"
+    }
+   }
+  },
+  {
+   "carrier_id": "one",
+   "name_ko": "오션 네트워크 익스프레스",
+   "name_en": "Ocean Network Express (ONE)",
+   "nationality": "외국적",
+   "status": "PUBLISHED",
+   "page_url": "https://www.one-line.com/en/local-information/kr/local-charges",
+   "values": {
+    "THC_DRY_20": {
+     "status": "확인",
+     "amount": 150000.0,
+     "range": null,
+     "charge_name": "THC",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://cms-resources-kr.one-line.com/sites/southkorea/files/2026-07/KR%20Local%20Charges%20-%202026.07.01_1.pdf"
+    },
+    "THC_DRY_40": {
+     "status": "확인",
+     "amount": 210000.0,
+     "range": null,
+     "charge_name": "THC",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://cms-resources-kr.one-line.com/sites/southkorea/files/2026-07/KR%20Local%20Charges%20-%202026.07.01_1.pdf"
+    },
+    "THC_DG_20": {
+     "status": "확인",
+     "amount": 220000.0,
+     "range": null,
+     "charge_name": "THC",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://cms-resources-kr.one-line.com/sites/southkorea/files/2026-07/KR%20Local%20Charges%20-%202026.07.01_1.pdf"
+    },
+    "THC_DG_40": {
+     "status": "확인",
+     "amount": 290000.0,
+     "range": null,
+     "charge_name": "THC",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://cms-resources-kr.one-line.com/sites/southkorea/files/2026-07/KR%20Local%20Charges%20-%202026.07.01_1.pdf"
+    },
+    "THC_OOG_20": {
+     "status": "확인",
+     "amount": 190000.0,
+     "range": null,
+     "charge_name": "THC",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://cms-resources-kr.one-line.com/sites/southkorea/files/2026-07/KR%20Local%20Charges%20-%202026.07.01_1.pdf"
+    },
+    "THC_OOG_40": {
+     "status": "확인",
+     "amount": 260000.0,
+     "range": null,
+     "charge_name": "THC",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://cms-resources-kr.one-line.com/sites/southkorea/files/2026-07/KR%20Local%20Charges%20-%202026.07.01_1.pdf"
+    },
+    "THC_RF_20": {
+     "status": "확인",
+     "amount": 250000.0,
+     "range": null,
+     "charge_name": "THC",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://cms-resources-kr.one-line.com/sites/southkorea/files/2026-07/KR%20Local%20Charges%20-%202026.07.01_1.pdf"
+    },
+    "THC_RF_40": {
+     "status": "확인",
+     "amount": 375000.0,
+     "range": null,
+     "charge_name": "THC",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://cms-resources-kr.one-line.com/sites/southkorea/files/2026-07/KR%20Local%20Charges%20-%202026.07.01_1.pdf"
+    },
+    "WHARFAGE_20": {
+     "status": "확인",
+     "amount": 4429.0,
+     "range": null,
+     "charge_name": "WHO",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://cms-resources-kr.one-line.com/sites/southkorea/files/2026-07/KR%20Local%20Charges%20-%202026.07.01_1.pdf"
+    },
+    "WHARFAGE_40": {
+     "status": "확인",
+     "amount": 8858.0,
+     "range": null,
+     "charge_name": "WHO",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://cms-resources-kr.one-line.com/sites/southkorea/files/2026-07/KR%20Local%20Charges%20-%202026.07.01_1.pdf"
+    },
+    "SECURITY_20": {
+     "status": "확인",
+     "amount": 145.0,
+     "range": null,
+     "charge_name": "CONTAINER CARGO SECURITY CHARGE (ORIGIN)",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://cms-resources-kr.one-line.com/sites/southkorea/files/2026-07/KR%20Local%20Charges%20-%202026.07.01_1.pdf"
+    },
+    "SECURITY_40": {
+     "status": "확인",
+     "amount": 290.0,
+     "range": null,
+     "charge_name": "CONTAINER CARGO SECURITY CHARGE (ORIGIN)",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://cms-resources-kr.one-line.com/sites/southkorea/files/2026-07/KR%20Local%20Charges%20-%202026.07.01_1.pdf"
+    },
+    "PORT_SAFETY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 259.0,
+      "basis_group": "외국적",
+      "n_same": 5,
+      "n_total": 5
+     }
+    },
+    "PORT_SAFETY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 518.0,
+      "basis_group": "전체",
+      "n_same": 17,
+      "n_total": 17
+     }
+    },
+    "SEAL": {
+     "status": "확인",
+     "amount": 10000.0,
+     "range": null,
+     "charge_name": "Seal",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://cms-resources-kr.one-line.com/sites/southkorea/files/2026-07/KR%20Local%20Charges%20-%202026.07.01_1.pdf"
+    },
+    "DOC_FEE": {
+     "status": "확인",
+     "amount": 50000.0,
+     "range": null,
+     "charge_name": "DOF/Re-Issue",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://cms-resources-kr.one-line.com/sites/southkorea/files/2026-07/KR%20Local%20Charges%20-%202026.07.01_1.pdf"
+    },
+    "DOC_FEE_DG": {
+     "status": "일반 서류비 적용"
+    },
+    "DG_SURCHARGE": {
+     "status": "해당 없음"
+    }
+   }
+  },
+  {
+   "carrier_id": "evergreen",
+   "name_ko": "에버그린",
+   "name_en": "EVERGREEN LINE",
+   "nationality": "외국적",
+   "status": "PUBLISHED",
+   "page_url": "https://www.shipmentlink.com/kr/tuf1/jsp/TUF1_GetLocalCharges.jsp?tradeMode=EXP",
+   "values": {
+    "THC_DRY_20": {
+     "status": "확인",
+     "amount": 150000.0,
+     "range": null,
+     "charge_name": "TERMINAL HANDLING CHARGE (THC/L)",
+     "trade_scope": "Intra Asia",
+     "effective_from": "",
+     "source_url": "https://www.shipmentlink.com/kr/texp/form/KR_EXP_Local_Charge_Collection_Declaration.pdf"
+    },
+    "THC_DRY_40": {
+     "status": "확인",
+     "amount": 210000.0,
+     "range": null,
+     "charge_name": "TERMINAL HANDLING CHARGE (THC/L)",
+     "trade_scope": "Intra Asia",
+     "effective_from": "",
+     "source_url": "https://www.shipmentlink.com/kr/texp/form/KR_EXP_Local_Charge_Collection_Declaration.pdf"
+    },
+    "THC_DG_20": {
+     "status": "확인",
+     "amount": 200000.0,
+     "range": [
+      200000.0,
+      260000.0
+     ],
+     "charge_name": "TERMINAL HANDLING CHARGE (THC/L) DG",
+     "trade_scope": "Intra Asia",
+     "effective_from": "",
+     "source_url": "https://www.shipmentlink.com/kr/texp/form/KR_EXP_Local_Charge_Collection_Declaration.pdf"
+    },
+    "THC_DG_40": {
+     "status": "확인",
+     "amount": 270000.0,
+     "range": [
+      270000.0,
+      350000.0
+     ],
+     "charge_name": "TERMINAL HANDLING CHARGE (THC/L) DG",
+     "trade_scope": "Intra Asia",
+     "effective_from": "",
+     "source_url": "https://www.shipmentlink.com/kr/texp/form/KR_EXP_Local_Charge_Collection_Declaration.pdf"
+    },
+    "THC_OOG_20": {
+     "status": "확인",
+     "amount": 180000.0,
+     "range": [
+      160000.0,
+      180000.0
+     ],
+     "charge_name": "TERMINAL HANDLING CHARGE (THC/L)",
+     "trade_scope": "Intra Asia",
+     "effective_from": "",
+     "source_url": "https://www.shipmentlink.com/kr/texp/form/KR_EXP_Local_Charge_Collection_Declaration.pdf"
+    },
+    "THC_OOG_40": {
+     "status": "확인",
+     "amount": 250000.0,
+     "range": [
+      210000.0,
+      250000.0
+     ],
+     "charge_name": "TERMINAL HANDLING CHARGE (THC/L)",
+     "trade_scope": "Intra Asia",
+     "effective_from": "",
+     "source_url": "https://www.shipmentlink.com/kr/texp/form/KR_EXP_Local_Charge_Collection_Declaration.pdf"
+    },
+    "THC_RF_20": {
+     "status": "확인",
+     "amount": 310000.0,
+     "range": null,
+     "charge_name": "TERMINAL HANDLING CHARGE (THC/L)",
+     "trade_scope": "Intra Asia",
+     "effective_from": "",
+     "source_url": "https://www.shipmentlink.com/kr/texp/form/KR_EXP_Local_Charge_Collection_Declaration.pdf"
+    },
+    "THC_RF_40": {
+     "status": "확인",
+     "amount": 375000.0,
+     "range": [
+      360000.0,
+      375000.0
+     ],
+     "charge_name": "TERMINAL HANDLING CHARGE (THC/L)",
+     "trade_scope": "Intra Asia",
+     "effective_from": "",
+     "source_url": "https://www.shipmentlink.com/kr/texp/form/KR_EXP_Local_Charge_Collection_Declaration.pdf"
+    },
+    "WHARFAGE_20": {
+     "status": "확인",
+     "amount": 4429.0,
+     "range": null,
+     "charge_name": "WHARFAGE",
+     "trade_scope": "ALL",
+     "effective_from": "",
+     "source_url": "https://www.shipmentlink.com/kr/texp/form/KR_EXP_Local_Charge_Collection_Declaration.pdf"
+    },
+    "WHARFAGE_40": {
+     "status": "확인",
+     "amount": 8858.0,
+     "range": null,
+     "charge_name": "WHARFAGE",
+     "trade_scope": "ALL",
+     "effective_from": "",
+     "source_url": "https://www.shipmentlink.com/kr/texp/form/KR_EXP_Local_Charge_Collection_Declaration.pdf"
+    },
+    "SECURITY_20": {
+     "status": "확인(오래된 공지)",
+     "amount": 86.0,
+     "range": null,
+     "charge_name": "PORT SECURITY CHARGE",
+     "trade_scope": "ALL",
+     "effective_from": "",
+     "source_url": "https://www.shipmentlink.com/kr/texp/form/KR_EXP_Local_Charge_Collection_Declaration.pdf"
+    },
+    "SECURITY_40": {
+     "status": "확인(오래된 공지)",
+     "amount": 172.0,
+     "range": null,
+     "charge_name": "PORT SECURITY CHARGE",
+     "trade_scope": "ALL",
+     "effective_from": "",
+     "source_url": "https://www.shipmentlink.com/kr/texp/form/KR_EXP_Local_Charge_Collection_Declaration.pdf"
+    },
+    "PORT_SAFETY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 259.0,
+      "basis_group": "외국적",
+      "n_same": 5,
+      "n_total": 5
+     }
+    },
+    "PORT_SAFETY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 518.0,
+      "basis_group": "전체",
+      "n_same": 17,
+      "n_total": 17
+     }
+    },
+    "SEAL": {
+     "status": "확인",
+     "amount": 10000.0,
+     "range": null,
+     "charge_name": "CONTAINER SEAL FEE",
+     "trade_scope": "ALL",
+     "effective_from": "",
+     "source_url": "https://www.shipmentlink.com/kr/texp/form/KR_EXP_Local_Charge_Collection_Declaration.pdf"
+    },
+    "DOC_FEE": {
+     "status": "확인",
+     "amount": 50000.0,
+     "range": [
+      40000.0,
+      50000.0
+     ],
+     "charge_name": "DOC FEE",
+     "trade_scope": "ALL (except Intra Asia)",
+     "effective_from": "",
+     "source_url": "https://www.shipmentlink.com/kr/texp/form/KR_EXP_Local_Charge_Collection_Declaration.pdf"
+    },
+    "DOC_FEE_DG": {
+     "status": "일반 서류비 적용"
+    },
+    "DG_SURCHARGE": {
+     "status": "해당 없음"
+    }
+   }
+  },
+  {
+   "carrier_id": "yangming",
+   "name_ko": "양밍",
+   "name_en": "YANG MING MARINE TRANSPORT CORP.",
+   "nationality": "외국적",
+   "status": "PARTIAL",
+   "page_url": "https://www.yml.co.kr/public",
+   "values": {
+    "THC_DRY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 150000.0,
+      "basis_group": "외국적",
+      "n_same": 10,
+      "n_total": 14
+     }
+    },
+    "THC_DRY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 210000.0,
+      "basis_group": "외국적",
+      "n_same": 9,
+      "n_total": 14
+     }
+    },
+    "THC_DG_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       135000.0,
+       255000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_DG_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       190000.0,
+       385000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_OOG_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       150000.0,
+       255000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_OOG_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       210000.0,
+       385000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_RF_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 250000.0,
+      "basis_group": "외국적",
+      "n_same": 8,
+      "n_total": 13
+     }
+    },
+    "THC_RF_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 375000.0,
+      "basis_group": "외국적",
+      "n_same": 8,
+      "n_total": 12
+     }
+    },
+    "WHARFAGE_20": {
+     "status": "확인",
+     "amount": 4574.0,
+     "range": null,
+     "charge_name": "WF (화물료+항만시설보안료 PFS 통합)",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://www.yml.co.kr/public"
+    },
+    "WHARFAGE_40": {
+     "status": "확인",
+     "amount": 9148.0,
+     "range": null,
+     "charge_name": "WF (화물료+항만시설보안료 PFS 통합)",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://www.yml.co.kr/public"
+    },
+    "SECURITY_20": {
+     "status": "W/FAG에 포함(추정)"
+    },
+    "SECURITY_40": {
+     "status": "W/FAG에 포함(추정)"
+    },
+    "PORT_SAFETY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 259.0,
+      "basis_group": "외국적",
+      "n_same": 5,
+      "n_total": 5
+     }
+    },
+    "PORT_SAFETY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 518.0,
+      "basis_group": "전체",
+      "n_same": 17,
+      "n_total": 17
+     }
+    },
+    "SEAL": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       8000.0,
+       15000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "DOC_FEE": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       40000.0,
+       55000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 14
+     }
+    },
+    "DOC_FEE_DG": {
+     "status": "일반 서류비 적용"
+    },
+    "DG_SURCHARGE": {
+     "status": "해당 없음"
+    }
+   }
+  },
+  {
+   "carrier_id": "zim",
+   "name_ko": "짐라인",
+   "name_en": "ZIM Integrated Shipping Services",
+   "nationality": "외국적",
+   "status": "PUBLISHED",
+   "page_url": "https://www.zim.com/tools/local-charges",
+   "values": {
+    "THC_DRY_20": {
+     "status": "확인",
+     "amount": 135000.0,
+     "range": [
+      135000.0,
+      150000.0
+     ],
+     "charge_name": "TERMINAL HANDLING CHARGE",
+     "trade_scope": "INTRA ASIA / AFRICA / AUSTRALIA / NEW ZEALAND",
+     "effective_from": "2026-09-02",
+     "source_url": "https://www.zim.com/api/v2/localcharges/RenderSearch?countryCode=KR&portCode=KRPUS&direction=EXP"
+    },
+    "THC_DRY_40": {
+     "status": "확인",
+     "amount": 190000.0,
+     "range": [
+      190000.0,
+      210000.0
+     ],
+     "charge_name": "TERMINAL HANDLING CHARGE",
+     "trade_scope": "INTRA ASIA / AFRICA / AUSTRALIA / NEW ZEALAND",
+     "effective_from": "2026-09-02",
+     "source_url": "https://www.zim.com/api/v2/localcharges/RenderSearch?countryCode=KR&portCode=KRPUS&direction=EXP"
+    },
+    "THC_DG_20": {
+     "status": "확인",
+     "amount": 218000.0,
+     "range": null,
+     "charge_name": "TERMINAL HANDLING CHARGE",
+     "trade_scope": "U.S.A./CANADA/CARRIBBEAN/PANAMA/CENTRA & SOUTH / AMERICA",
+     "effective_from": "2026-09-02",
+     "source_url": "https://www.zim.com/api/v2/localcharges/RenderSearch?countryCode=KR&portCode=KRPUS&direction=EXP"
+    },
+    "THC_DG_40": {
+     "status": "확인",
+     "amount": 190000.0,
+     "range": [
+      190000.0,
+      317000.0
+     ],
+     "charge_name": "TERMINAL HANDLING CHARGE",
+     "trade_scope": "INTRA ASIA / AFRICA / AUSTRALIA / NEW ZEALAND",
+     "effective_from": "2026-09-02",
+     "source_url": "https://www.zim.com/api/v2/localcharges/RenderSearch?countryCode=KR&portCode=KRPUS&direction=EXP"
+    },
+    "THC_OOG_20": {
+     "status": "확인",
+     "amount": 165000.0,
+     "range": [
+      165000.0,
+      180000.0
+     ],
+     "charge_name": "TERMINAL HANDLING CHARGE",
+     "trade_scope": "INTRA ASIA / AFRICA / AUSTRALIA / NEW ZEALAND",
+     "effective_from": "2026-09-02",
+     "source_url": "https://www.zim.com/api/v2/localcharges/RenderSearch?countryCode=KR&portCode=KRPUS&direction=EXP"
+    },
+    "THC_OOG_40": {
+     "status": "확인",
+     "amount": 230000.0,
+     "range": null,
+     "charge_name": "TERMINAL HANDLING CHARGE",
+     "trade_scope": "INTRA ASIA / AFRICA / AUSTRALIA / NEW ZEALAND",
+     "effective_from": "2026-09-02",
+     "source_url": "https://www.zim.com/api/v2/localcharges/RenderSearch?countryCode=KR&portCode=KRPUS&direction=EXP"
+    },
+    "THC_RF_20": {
+     "status": "확인",
+     "amount": 237000.0,
+     "range": [
+      237000.0,
+      249000.0
+     ],
+     "charge_name": "TERMINAL HANDLING CHARGE",
+     "trade_scope": "INTRA ASIA / AFRICA / AUSTRALIA / NEW ZEALAND",
+     "effective_from": "2026-09-02",
+     "source_url": "https://www.zim.com/api/v2/localcharges/RenderSearch?countryCode=KR&portCode=KRPUS&direction=EXP"
+    },
+    "THC_RF_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 375000.0,
+      "basis_group": "외국적",
+      "n_same": 8,
+      "n_total": 12
+     }
+    },
+    "WHARFAGE_20": {
+     "status": "확인",
+     "amount": 4429.0,
+     "range": null,
+     "charge_name": "WHAFAGE",
+     "trade_scope": "ALL TRADE",
+     "effective_from": "2026-09-02",
+     "source_url": "https://www.zim.com/api/v2/localcharges/RenderSearch?countryCode=KR&portCode=KRPUS&direction=EXP"
+    },
+    "WHARFAGE_40": {
+     "status": "확인",
+     "amount": 8858.0,
+     "range": null,
+     "charge_name": "WHAFAGE",
+     "trade_scope": "ALL TRADE",
+     "effective_from": "2026-09-02",
+     "source_url": "https://www.zim.com/api/v2/localcharges/RenderSearch?countryCode=KR&portCode=KRPUS&direction=EXP"
+    },
+    "SECURITY_20": {
+     "status": "확인",
+     "amount": 145.0,
+     "range": null,
+     "charge_name": "FACILITY CHARGE",
+     "trade_scope": "ALL TRADE",
+     "effective_from": "2026-09-02",
+     "source_url": "https://www.zim.com/api/v2/localcharges/RenderSearch?countryCode=KR&portCode=KRPUS&direction=EXP"
+    },
+    "SECURITY_40": {
+     "status": "확인",
+     "amount": 290.0,
+     "range": null,
+     "charge_name": "FACILITY CHARGE",
+     "trade_scope": "ALL TRADE",
+     "effective_from": "2026-09-02",
+     "source_url": "https://www.zim.com/api/v2/localcharges/RenderSearch?countryCode=KR&portCode=KRPUS&direction=EXP"
+    },
+    "PORT_SAFETY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 259.0,
+      "basis_group": "외국적",
+      "n_same": 5,
+      "n_total": 5
+     }
+    },
+    "PORT_SAFETY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 518.0,
+      "basis_group": "전체",
+      "n_same": 17,
+      "n_total": 17
+     }
+    },
+    "SEAL": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       8000.0,
+       15000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "DOC_FEE": {
+     "status": "확인",
+     "amount": 55000.0,
+     "range": null,
+     "charge_name": "DOCUMENTATION FEE",
+     "trade_scope": "ALL TRADE",
+     "effective_from": "2026-09-02",
+     "source_url": "https://www.zim.com/api/v2/localcharges/RenderSearch?countryCode=KR&portCode=KRPUS&direction=EXP"
+    },
+    "DOC_FEE_DG": {
+     "status": "확인",
+     "amount": 65000.0,
+     "range": null,
+     "charge_name": "DOCUMENTATION FEE",
+     "trade_scope": "ALL TRADE",
+     "effective_from": "2026-09-02",
+     "source_url": "https://www.zim.com/api/v2/localcharges/RenderSearch?countryCode=KR&portCode=KRPUS&direction=EXP"
+    },
+    "DG_SURCHARGE": {
+     "status": "해당 없음"
+    }
+   }
+  },
+  {
+   "carrier_id": "goldstar",
+   "name_ko": "골드스타라인",
+   "name_en": "Gold Star Line (GSL)",
+   "nationality": "외국적",
+   "status": "PUBLISHED",
+   "page_url": "https://www.goldstarline.com/local-info",
+   "values": {
+    "THC_DRY_20": {
+     "status": "확인",
+     "amount": 135000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Charge",
+     "trade_scope": "ALL",
+     "effective_from": "",
+     "source_url": "https://www.goldstarline.com/tariff/Korea%20-%20Local%20charge%20FPF%20(Export)1782361498.pdf"
+    },
+    "THC_DRY_40": {
+     "status": "확인",
+     "amount": 190000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Charge",
+     "trade_scope": "ALL",
+     "effective_from": "",
+     "source_url": "https://www.goldstarline.com/tariff/Korea%20-%20Local%20charge%20FPF%20(Export)1782361498.pdf"
+    },
+    "THC_DG_20": {
+     "status": "확인",
+     "amount": 135000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Charge",
+     "trade_scope": "ALL",
+     "effective_from": "",
+     "source_url": "https://www.goldstarline.com/tariff/Korea%20-%20Local%20charge%20FPF%20(Export)1782361498.pdf"
+    },
+    "THC_DG_40": {
+     "status": "확인",
+     "amount": 190000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Charge",
+     "trade_scope": "ALL",
+     "effective_from": "",
+     "source_url": "https://www.goldstarline.com/tariff/Korea%20-%20Local%20charge%20FPF%20(Export)1782361498.pdf"
+    },
+    "THC_OOG_20": {
+     "status": "확인",
+     "amount": 165000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Charge",
+     "trade_scope": "ALL",
+     "effective_from": "",
+     "source_url": "https://www.goldstarline.com/tariff/Korea%20-%20Local%20charge%20FPF%20(Export)1782361498.pdf"
+    },
+    "THC_OOG_40": {
+     "status": "확인",
+     "amount": 230000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Charge",
+     "trade_scope": "ALL",
+     "effective_from": "",
+     "source_url": "https://www.goldstarline.com/tariff/Korea%20-%20Local%20charge%20FPF%20(Export)1782361498.pdf"
+    },
+    "THC_RF_20": {
+     "status": "확인",
+     "amount": 237000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Charge",
+     "trade_scope": "ALL",
+     "effective_from": "",
+     "source_url": "https://www.goldstarline.com/tariff/Korea%20-%20Local%20charge%20FPF%20(Export)1782361498.pdf"
+    },
+    "THC_RF_40": {
+     "status": "확인",
+     "amount": 355000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Charge",
+     "trade_scope": "ALL",
+     "effective_from": "",
+     "source_url": "https://www.goldstarline.com/tariff/Korea%20-%20Local%20charge%20FPF%20(Export)1782361498.pdf"
+    },
+    "WHARFAGE_20": {
+     "status": "확인",
+     "amount": 4420.0,
+     "range": null,
+     "charge_name": "Wharfage",
+     "trade_scope": "ALL",
+     "effective_from": "",
+     "source_url": "https://www.goldstarline.com/tariff/Korea%20-%20Local%20charge%20FPF%20(Export)1782361498.pdf"
+    },
+    "WHARFAGE_40": {
+     "status": "확인",
+     "amount": 8840.0,
+     "range": null,
+     "charge_name": "Wharfage",
+     "trade_scope": "ALL",
+     "effective_from": "",
+     "source_url": "https://www.goldstarline.com/tariff/Korea%20-%20Local%20charge%20FPF%20(Export)1782361498.pdf"
+    },
+    "SECURITY_20": {
+     "status": "확인",
+     "amount": 145.0,
+     "range": null,
+     "charge_name": "FPF(PORT FACILITY CHARGE)",
+     "trade_scope": "ALL",
+     "effective_from": "",
+     "source_url": "https://www.goldstarline.com/tariff/Korea%20-%20Local%20charge%20FPF%20(Export)1782361498.pdf"
+    },
+    "SECURITY_40": {
+     "status": "확인",
+     "amount": 290.0,
+     "range": null,
+     "charge_name": "FPF(PORT FACILITY CHARGE)",
+     "trade_scope": "ALL",
+     "effective_from": "",
+     "source_url": "https://www.goldstarline.com/tariff/Korea%20-%20Local%20charge%20FPF%20(Export)1782361498.pdf"
+    },
+    "PORT_SAFETY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 259.0,
+      "basis_group": "외국적",
+      "n_same": 5,
+      "n_total": 5
+     }
+    },
+    "PORT_SAFETY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 518.0,
+      "basis_group": "전체",
+      "n_same": 17,
+      "n_total": 17
+     }
+    },
+    "SEAL": {
+     "status": "확인",
+     "amount": 10000.0,
+     "range": null,
+     "charge_name": "Seal Fee",
+     "trade_scope": "ALL",
+     "effective_from": "",
+     "source_url": "https://www.goldstarline.com/tariff/Korea%20-%20Local%20charge%20FPF%20(Export)1782361498.pdf"
+    },
+    "DOC_FEE": {
+     "status": "확인",
+     "amount": 55000.0,
+     "range": null,
+     "charge_name": "Documentation Fee",
+     "trade_scope": "ALL",
+     "effective_from": "",
+     "source_url": "https://www.goldstarline.com/tariff/Korea%20-%20Local%20charge%20FPF%20(Export)1782361498.pdf"
+    },
+    "DOC_FEE_DG": {
+     "status": "확인",
+     "amount": 65000.0,
+     "range": null,
+     "charge_name": "Documentation Fee (DG)",
+     "trade_scope": "ALL",
+     "effective_from": "",
+     "source_url": "https://www.goldstarline.com/tariff/Korea%20-%20Local%20charge%20FPF%20(Export)1782361498.pdf"
+    },
+    "DG_SURCHARGE": {
+     "status": "해당 없음"
+    }
+   }
+  },
+  {
+   "carrier_id": "cosco",
+   "name_ko": "코스코쉬핑라인즈코리아",
+   "name_en": "COSCO SHIPPING Lines",
+   "nationality": "외국적",
+   "status": "PARTIAL",
+   "page_url": "https://kr.lines.coscoshipping.com/col/col24856/index.html",
+   "values": {
+    "THC_DRY_20": {
+     "status": "확인",
+     "amount": 150000.0,
+     "range": null,
+     "charge_name": "THC (Terminal Handling Charge)",
+     "trade_scope": "ALL",
+     "effective_from": "2025-07-15",
+     "source_url": "https://kr.lines.coscoshipping.com/col/col25483/art/2025/art_4bd57e42a58c4c36af9ca015eb7f1e8f.html"
+    },
+    "THC_DRY_40": {
+     "status": "확인",
+     "amount": 210000.0,
+     "range": null,
+     "charge_name": "THC (Terminal Handling Charge)",
+     "trade_scope": "ALL",
+     "effective_from": "2025-07-15",
+     "source_url": "https://kr.lines.coscoshipping.com/col/col25483/art/2025/art_4bd57e42a58c4c36af9ca015eb7f1e8f.html"
+    },
+    "THC_DG_20": {
+     "status": "확인",
+     "amount": 155800.0,
+     "range": null,
+     "charge_name": "THC/THD (DG container)",
+     "trade_scope": "W-bound (Asia Pacific / Latin America / Gulf / Red Sea / Pakistan & India / Intra Asia / China / Australia / New Zealand)",
+     "effective_from": "2025-09-01",
+     "source_url": "https://kr.lines.coscoshipping.com/col/col25483/art/2025/art_ebcf0d5ff3de49e3a13ee8dd5d6d3181.html"
+    },
+    "THC_DG_40": {
+     "status": "확인",
+     "amount": 211500.0,
+     "range": null,
+     "charge_name": "THC/THD (DG container)",
+     "trade_scope": "W-bound (Asia Pacific / Latin America / Gulf / Red Sea / Pakistan & India / Intra Asia / China / Australia / New Zealand)",
+     "effective_from": "2025-09-01",
+     "source_url": "https://kr.lines.coscoshipping.com/col/col25483/art/2025/art_ebcf0d5ff3de49e3a13ee8dd5d6d3181.html"
+    },
+    "THC_OOG_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       150000.0,
+       255000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_OOG_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       210000.0,
+       385000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_RF_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 250000.0,
+      "basis_group": "외국적",
+      "n_same": 8,
+      "n_total": 13
+     }
+    },
+    "THC_RF_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 375000.0,
+      "basis_group": "외국적",
+      "n_same": 8,
+      "n_total": 12
+     }
+    },
+    "WHARFAGE_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 4429.0,
+      "basis_group": "외국적",
+      "n_same": 7,
+      "n_total": 12
+     }
+    },
+    "WHARFAGE_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 8858.0,
+      "basis_group": "외국적",
+      "n_same": 7,
+      "n_total": 12
+     }
+    },
+    "SECURITY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 145.0,
+      "basis_group": "외국적",
+      "n_same": 7,
+      "n_total": 8
+     }
+    },
+    "SECURITY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 290.0,
+      "basis_group": "외국적",
+      "n_same": 6,
+      "n_total": 7
+     }
+    },
+    "PORT_SAFETY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 259.0,
+      "basis_group": "외국적",
+      "n_same": 5,
+      "n_total": 5
+     }
+    },
+    "PORT_SAFETY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 518.0,
+      "basis_group": "전체",
+      "n_same": 17,
+      "n_total": 17
+     }
+    },
+    "SEAL": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       8000.0,
+       15000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "DOC_FEE": {
+     "status": "확인",
+     "amount": 50000.0,
+     "range": null,
+     "charge_name": "서류 발급비용 (DOC)",
+     "trade_scope": "Trans-Pacific",
+     "effective_from": "2025-07-15",
+     "source_url": "https://kr.lines.coscoshipping.com/col/col25483/art/2025/art_4bd57e42a58c4c36af9ca015eb7f1e8f.html"
+    },
+    "DOC_FEE_DG": {
+     "status": "일반 서류비 적용"
+    },
+    "DG_SURCHARGE": {
+     "status": "해당 없음"
+    }
+   }
+  },
+  {
+   "carrier_id": "oocl",
+   "name_ko": "오오씨엘",
+   "name_en": "OOCL (Orient Overseas Container Line)",
+   "nationality": "외국적",
+   "status": "PUBLISHED",
+   "page_url": "https://www.oocl.com/korea/eng/localinformation/localsurcharges/Pages/default.aspx",
+   "values": {
+    "THC_DRY_20": {
+     "status": "확인",
+     "amount": 135000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Charge (OB)",
+     "trade_scope": "ALL",
+     "effective_from": "2022-09-01",
+     "source_url": "https://www.oocl.com/korea/eng/localinformation/localsurcharges/Pages/default.aspx"
+    },
+    "THC_DRY_40": {
+     "status": "확인",
+     "amount": 190000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Charge (OB)",
+     "trade_scope": "ALL",
+     "effective_from": "2022-09-01",
+     "source_url": "https://www.oocl.com/korea/eng/localinformation/localsurcharges/Pages/default.aspx"
+    },
+    "THC_DG_20": {
+     "status": "확인",
+     "amount": 150000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Charge (OB) - Dangerous cargo (all Trades)",
+     "trade_scope": "ALL",
+     "effective_from": "2025-04-02",
+     "source_url": "https://www.oocl.com/korea/eng/localinformation/localsurcharges/Pages/default.aspx"
+    },
+    "THC_DG_40": {
+     "status": "확인",
+     "amount": 210000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Charge (OB) - Dangerous cargo (all Trades)",
+     "trade_scope": "ALL",
+     "effective_from": "2025-04-02",
+     "source_url": "https://www.oocl.com/korea/eng/localinformation/localsurcharges/Pages/default.aspx"
+    },
+    "THC_OOG_20": {
+     "status": "확인",
+     "amount": 150000.0,
+     "range": [
+      145000.0,
+      150000.0
+     ],
+     "charge_name": "Terminal Handling Charge (OB) - Dangerous cargo (all Trades)",
+     "trade_scope": "ALL",
+     "effective_from": "2025-04-02",
+     "source_url": "https://www.oocl.com/korea/eng/localinformation/localsurcharges/Pages/default.aspx"
+    },
+    "THC_OOG_40": {
+     "status": "확인",
+     "amount": 210000.0,
+     "range": [
+      195000.0,
+      210000.0
+     ],
+     "charge_name": "Terminal Handling Charge (OB) - Dangerous cargo (all Trades)",
+     "trade_scope": "ALL",
+     "effective_from": "2025-04-02",
+     "source_url": "https://www.oocl.com/korea/eng/localinformation/localsurcharges/Pages/default.aspx"
+    },
+    "THC_RF_20": {
+     "status": "확인",
+     "amount": 240000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Charge (OB)",
+     "trade_scope": "ALL",
+     "effective_from": "2022-09-01",
+     "source_url": "https://www.oocl.com/korea/eng/localinformation/localsurcharges/Pages/default.aspx"
+    },
+    "THC_RF_40": {
+     "status": "확인",
+     "amount": 360000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Charge (OB)",
+     "trade_scope": "ALL",
+     "effective_from": "2022-09-01",
+     "source_url": "https://www.oocl.com/korea/eng/localinformation/localsurcharges/Pages/default.aspx"
+    },
+    "WHARFAGE_20": {
+     "status": "확인",
+     "amount": 4429.0,
+     "range": null,
+     "charge_name": "Wharfage",
+     "trade_scope": "ALL",
+     "effective_from": "2022-03-01",
+     "source_url": "https://www.oocl.com/korea/eng/localinformation/localsurcharges/Pages/default.aspx"
+    },
+    "WHARFAGE_40": {
+     "status": "확인",
+     "amount": 8858.0,
+     "range": null,
+     "charge_name": "Wharfage",
+     "trade_scope": "ALL",
+     "effective_from": "2022-03-01",
+     "source_url": "https://www.oocl.com/korea/eng/localinformation/localsurcharges/Pages/default.aspx"
+    },
+    "SECURITY_20": {
+     "status": "확인",
+     "amount": 145.0,
+     "range": [
+      86.0,
+      145.0
+     ],
+     "charge_name": "Port Facility Security Charge",
+     "trade_scope": "ALL",
+     "effective_from": "2026-08-15",
+     "source_url": "https://www.oocl.com/korea/eng/localinformation/localsurcharges/Pages/default.aspx"
+    },
+    "SECURITY_40": {
+     "status": "확인",
+     "amount": 290.0,
+     "range": [
+      172.0,
+      290.0
+     ],
+     "charge_name": "Port Facility Security Charge",
+     "trade_scope": "ALL",
+     "effective_from": "2026-08-15",
+     "source_url": "https://www.oocl.com/korea/eng/localinformation/localsurcharges/Pages/default.aspx"
+    },
+    "PORT_SAFETY_20": {
+     "status": "확인",
+     "amount": 259.0,
+     "range": null,
+     "charge_name": "Port Safety Management Charge",
+     "trade_scope": "ALL",
+     "effective_from": "2026-05-01",
+     "source_url": "https://www.oocl.com/korea/eng/localinformation/localsurcharges/Pages/default.aspx"
+    },
+    "PORT_SAFETY_40": {
+     "status": "확인",
+     "amount": 518.0,
+     "range": null,
+     "charge_name": "Port Safety Management Charge",
+     "trade_scope": "ALL",
+     "effective_from": "2026-05-01",
+     "source_url": "https://www.oocl.com/korea/eng/localinformation/localsurcharges/Pages/default.aspx"
+    },
+    "SEAL": {
+     "status": "확인",
+     "amount": 8000.0,
+     "range": null,
+     "charge_name": "High Security Seal Charge",
+     "trade_scope": "TPT/AET/AUT OB",
+     "effective_from": "2018-10-01",
+     "source_url": "https://www.oocl.com/korea/eng/localinformation/localsurcharges/Pages/default.aspx"
+    },
+    "DOC_FEE": {
+     "status": "확인",
+     "amount": 50000.0,
+     "range": null,
+     "charge_name": "Documentation Fee",
+     "trade_scope": "ALL",
+     "effective_from": "2024-04-01",
+     "source_url": "https://www.oocl.com/korea/eng/localinformation/localsurcharges/Pages/default.aspx"
+    },
+    "DOC_FEE_DG": {
+     "status": "일반 서류비 적용"
+    },
+    "DG_SURCHARGE": {
+     "status": "해당 없음"
+    }
+   }
+  },
+  {
+   "carrier_id": "sitc",
+   "name_ko": "에스아이티씨 컨테이너라인스 코리아",
+   "name_en": "SITC Container Lines",
+   "nationality": "외국적",
+   "status": "NOT_FOUND",
+   "page_url": "https://blog.naver.com/sitcline",
+   "values": {
+    "THC_DRY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 150000.0,
+      "basis_group": "외국적",
+      "n_same": 10,
+      "n_total": 14
+     }
+    },
+    "THC_DRY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 210000.0,
+      "basis_group": "외국적",
+      "n_same": 9,
+      "n_total": 14
+     }
+    },
+    "THC_DG_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       135000.0,
+       255000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_DG_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       190000.0,
+       385000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_OOG_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       150000.0,
+       255000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_OOG_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       210000.0,
+       385000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_RF_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 250000.0,
+      "basis_group": "외국적",
+      "n_same": 8,
+      "n_total": 13
+     }
+    },
+    "THC_RF_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 375000.0,
+      "basis_group": "외국적",
+      "n_same": 8,
+      "n_total": 12
+     }
+    },
+    "WHARFAGE_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 4429.0,
+      "basis_group": "외국적",
+      "n_same": 7,
+      "n_total": 12
+     }
+    },
+    "WHARFAGE_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 8858.0,
+      "basis_group": "외국적",
+      "n_same": 7,
+      "n_total": 12
+     }
+    },
+    "SECURITY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 145.0,
+      "basis_group": "외국적",
+      "n_same": 7,
+      "n_total": 8
+     }
+    },
+    "SECURITY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 290.0,
+      "basis_group": "외국적",
+      "n_same": 6,
+      "n_total": 7
+     }
+    },
+    "PORT_SAFETY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 259.0,
+      "basis_group": "외국적",
+      "n_same": 5,
+      "n_total": 5
+     }
+    },
+    "PORT_SAFETY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 518.0,
+      "basis_group": "전체",
+      "n_same": 17,
+      "n_total": 17
+     }
+    },
+    "SEAL": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       8000.0,
+       15000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "DOC_FEE": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       40000.0,
+       55000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 14
+     }
+    },
+    "DOC_FEE_DG": {
+     "status": "일반 서류비 적용"
+    },
+    "DG_SURCHARGE": {
+     "status": "해당 없음"
+    }
+   }
+  },
+  {
+   "carrier_id": "tslines",
+   "name_ko": "TS라인",
+   "name_en": "T.S. LINES",
+   "nationality": "외국적",
+   "status": "PUBLISHED",
+   "page_url": "https://www.tslines.com/en/surchargeinquiry",
+   "values": {
+    "THC_DRY_20": {
+     "status": "확인",
+     "amount": 150000.0,
+     "range": null,
+     "charge_name": "LTHC",
+     "trade_scope": "Korea-China (sample KRPUS/KRINC<->CNSHA)",
+     "effective_from": "",
+     "source_url": "https://www.tslines.com/en/surchargeinquiry"
+    },
+    "THC_DRY_40": {
+     "status": "확인",
+     "amount": 210000.0,
+     "range": [
+      210000.0,
+      360000.0
+     ],
+     "charge_name": "LTHC",
+     "trade_scope": "Korea-China (sample KRPUS/KRINC<->CNSHA)",
+     "effective_from": "",
+     "source_url": "https://www.tslines.com/en/surchargeinquiry"
+    },
+    "THC_DG_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       135000.0,
+       255000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_DG_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       190000.0,
+       385000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_OOG_20": {
+     "status": "확인",
+     "amount": 180000.0,
+     "range": null,
+     "charge_name": "LTHC",
+     "trade_scope": "Korea-China (sample KRPUS/KRINC<->CNSHA)",
+     "effective_from": "",
+     "source_url": "https://www.tslines.com/en/surchargeinquiry"
+    },
+    "THC_OOG_40": {
+     "status": "확인",
+     "amount": 250000.0,
+     "range": null,
+     "charge_name": "LTHC",
+     "trade_scope": "Korea-China (sample KRPUS/KRINC<->CNSHA)",
+     "effective_from": "",
+     "source_url": "https://www.tslines.com/en/surchargeinquiry"
+    },
+    "THC_RF_20": {
+     "status": "확인",
+     "amount": 250000.0,
+     "range": null,
+     "charge_name": "LTHC",
+     "trade_scope": "Korea-China (sample KRPUS/KRINC<->CNSHA)",
+     "effective_from": "",
+     "source_url": "https://www.tslines.com/en/surchargeinquiry"
+    },
+    "THC_RF_40": {
+     "status": "확인",
+     "amount": 375000.0,
+     "range": [
+      375000.0,
+      625000.0
+     ],
+     "charge_name": "LTHC",
+     "trade_scope": "Korea-China (sample KRPUS/KRINC<->CNSHA)",
+     "effective_from": "",
+     "source_url": "https://www.tslines.com/en/surchargeinquiry"
+    },
+    "WHARFAGE_20": {
+     "status": "확인",
+     "amount": 4430.0,
+     "range": null,
+     "charge_name": "WFG",
+     "trade_scope": "Korea-China (sample KRPUS/KRINC<->CNSHA)",
+     "effective_from": "",
+     "source_url": "https://www.tslines.com/en/surchargeinquiry"
+    },
+    "WHARFAGE_40": {
+     "status": "확인",
+     "amount": 8860.0,
+     "range": [
+      8860.0,
+      13290.0
+     ],
+     "charge_name": "WFG",
+     "trade_scope": "Korea-China (sample KRPUS/KRINC<->CNSHA)",
+     "effective_from": "",
+     "source_url": "https://www.tslines.com/en/surchargeinquiry"
+    },
+    "SECURITY_20": {
+     "status": "확인",
+     "amount": 145.0,
+     "range": null,
+     "charge_name": "LISP",
+     "trade_scope": "Korea-China (sample KRPUS/KRINC<->CNSHA)",
+     "effective_from": "",
+     "source_url": "https://www.tslines.com/en/surchargeinquiry"
+    },
+    "SECURITY_40": {
+     "status": "확인",
+     "amount": 290.0,
+     "range": [
+      290.0,
+      435.0
+     ],
+     "charge_name": "LISP",
+     "trade_scope": "Korea-China (sample KRPUS/KRINC<->CNSHA)",
+     "effective_from": "",
+     "source_url": "https://www.tslines.com/en/surchargeinquiry"
+    },
+    "PORT_SAFETY_20": {
+     "status": "확인",
+     "amount": 259.0,
+     "range": null,
+     "charge_name": "PSC",
+     "trade_scope": "Korea-China (sample KRPUS/KRINC<->CNSHA)",
+     "effective_from": "",
+     "source_url": "https://www.tslines.com/en/surchargeinquiry"
+    },
+    "PORT_SAFETY_40": {
+     "status": "확인",
+     "amount": 518.0,
+     "range": [
+      518.0,
+      777.0
+     ],
+     "charge_name": "PSC",
+     "trade_scope": "Korea-China (sample KRPUS/KRINC<->CNSHA)",
+     "effective_from": "",
+     "source_url": "https://www.tslines.com/en/surchargeinquiry"
+    },
+    "SEAL": {
+     "status": "확인",
+     "amount": 10000.0,
+     "range": null,
+     "charge_name": "SLC",
+     "trade_scope": "Korea-China (sample KRPUS/KRINC<->CNSHA)",
+     "effective_from": "",
+     "source_url": "https://www.tslines.com/en/surchargeinquiry"
+    },
+    "DOC_FEE": {
+     "status": "확인",
+     "amount": 40000.0,
+     "range": null,
+     "charge_name": "LDOC",
+     "trade_scope": "Korea-China (sample KRPUS/KRINC<->CNSHA)",
+     "effective_from": "",
+     "source_url": "https://www.tslines.com/en/surchargeinquiry"
+    },
+    "DOC_FEE_DG": {
+     "status": "일반 서류비 적용"
+    },
+    "DG_SURCHARGE": {
+     "status": "해당 없음"
+    }
+   }
+  },
+  {
+   "carrier_id": "culines",
+   "name_ko": "CU라인즈(중연해운)",
+   "name_en": "CU LINES (China United Lines)",
+   "nationality": "외국적",
+   "status": "PUBLISHED",
+   "page_url": "https://eservice.culines.com/gnoss/CUP_HOM_3116.do",
+   "values": {
+    "THC_DRY_20": {
+     "status": "확인",
+     "amount": 150000.0,
+     "range": null,
+     "charge_name": "TERMINAL HANDLING CHARGE AT ORIGIN",
+     "trade_scope": "Korea-China (EXA scope sample KRPUS/KRINC<->CNSHA)",
+     "effective_from": "2024-07-01",
+     "source_url": "https://eservice.culines.com/gnoss/CUP_HOM_3116.do"
+    },
+    "THC_DRY_40": {
+     "status": "확인",
+     "amount": 210000.0,
+     "range": null,
+     "charge_name": "TERMINAL HANDLING CHARGE AT ORIGIN",
+     "trade_scope": "Korea-China (EXA scope sample KRPUS/KRINC<->CNSHA)",
+     "effective_from": "2024-07-01",
+     "source_url": "https://eservice.culines.com/gnoss/CUP_HOM_3116.do"
+    },
+    "THC_DG_20": {
+     "status": "확인",
+     "amount": 250000.0,
+     "range": null,
+     "charge_name": "TERMINAL HANDLING CHARGE AT ORIGIN",
+     "trade_scope": "Korea-China (EXA scope sample KRPUS/KRINC<->CNSHA)",
+     "effective_from": "2024-07-01",
+     "source_url": "https://eservice.culines.com/gnoss/CUP_HOM_3116.do"
+    },
+    "THC_DG_40": {
+     "status": "확인",
+     "amount": 375000.0,
+     "range": null,
+     "charge_name": "TERMINAL HANDLING CHARGE AT ORIGIN",
+     "trade_scope": "Korea-China (EXA scope sample KRPUS/KRINC<->CNSHA)",
+     "effective_from": "2024-07-01",
+     "source_url": "https://eservice.culines.com/gnoss/CUP_HOM_3116.do"
+    },
+    "THC_OOG_20": {
+     "status": "확인",
+     "amount": 180000.0,
+     "range": null,
+     "charge_name": "TERMINAL HANDLING CHARGE AT ORIGIN",
+     "trade_scope": "Korea-China (EXA scope sample KRPUS/KRINC<->CNSHA)",
+     "effective_from": "2024-07-01",
+     "source_url": "https://eservice.culines.com/gnoss/CUP_HOM_3116.do"
+    },
+    "THC_OOG_40": {
+     "status": "확인",
+     "amount": 250000.0,
+     "range": null,
+     "charge_name": "TERMINAL HANDLING CHARGE AT ORIGIN",
+     "trade_scope": "Korea-China (EXA scope sample KRPUS/KRINC<->CNSHA)",
+     "effective_from": "2024-07-01",
+     "source_url": "https://eservice.culines.com/gnoss/CUP_HOM_3116.do"
+    },
+    "THC_RF_20": {
+     "status": "확인",
+     "amount": 250000.0,
+     "range": null,
+     "charge_name": "TERMINAL HANDLING CHARGE AT ORIGIN",
+     "trade_scope": "Korea-China (EXA scope sample KRPUS/KRINC<->CNSHA)",
+     "effective_from": "2024-07-01",
+     "source_url": "https://eservice.culines.com/gnoss/CUP_HOM_3116.do"
+    },
+    "THC_RF_40": {
+     "status": "확인",
+     "amount": 375000.0,
+     "range": null,
+     "charge_name": "TERMINAL HANDLING CHARGE AT ORIGIN",
+     "trade_scope": "Korea-China (EXA scope sample KRPUS/KRINC<->CNSHA)",
+     "effective_from": "2024-07-01",
+     "source_url": "https://eservice.culines.com/gnoss/CUP_HOM_3116.do"
+    },
+    "WHARFAGE_20": {
+     "status": "확인",
+     "amount": 4429.0,
+     "range": null,
+     "charge_name": "WHARFAGE",
+     "trade_scope": "Korea-China (EXA scope sample KRPUS/KRINC<->CNSHA)",
+     "effective_from": "2022-03-01",
+     "source_url": "https://eservice.culines.com/gnoss/CUP_HOM_3116.do"
+    },
+    "WHARFAGE_40": {
+     "status": "확인",
+     "amount": 8858.0,
+     "range": null,
+     "charge_name": "WHARFAGE",
+     "trade_scope": "Korea-China (EXA scope sample KRPUS/KRINC<->CNSHA)",
+     "effective_from": "2022-03-01",
+     "source_url": "https://eservice.culines.com/gnoss/CUP_HOM_3116.do"
+    },
+    "SECURITY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 145.0,
+      "basis_group": "외국적",
+      "n_same": 7,
+      "n_total": 8
+     }
+    },
+    "SECURITY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 290.0,
+      "basis_group": "외국적",
+      "n_same": 6,
+      "n_total": 7
+     }
+    },
+    "PORT_SAFETY_20": {
+     "status": "확인",
+     "amount": 259.0,
+     "range": null,
+     "charge_name": "SAFETY MAINTENANCE FEE-KR",
+     "trade_scope": "Korea-China (EXA scope sample KRPUS/KRINC<->CNSHA)",
+     "effective_from": "2026-04-01",
+     "source_url": "https://eservice.culines.com/gnoss/CUP_HOM_3116.do"
+    },
+    "PORT_SAFETY_40": {
+     "status": "확인",
+     "amount": 518.0,
+     "range": null,
+     "charge_name": "SAFETY MAINTENANCE FEE-KR",
+     "trade_scope": "Korea-China (EXA scope sample KRPUS/KRINC<->CNSHA)",
+     "effective_from": "2026-04-01",
+     "source_url": "https://eservice.culines.com/gnoss/CUP_HOM_3116.do"
+    },
+    "SEAL": {
+     "status": "확인",
+     "amount": 8000.0,
+     "range": null,
+     "charge_name": "SEAL FEE",
+     "trade_scope": "Korea-China (EXA scope sample KRPUS/KRINC<->CNSHA)",
+     "effective_from": "2019-01-01",
+     "source_url": "https://eservice.culines.com/gnoss/CUP_HOM_3116.do"
+    },
+    "DOC_FEE": {
+     "status": "확인",
+     "amount": 40000.0,
+     "range": null,
+     "charge_name": "DOCUMENT CHARGE AT ORIGIN",
+     "trade_scope": "Korea-China (EXA scope sample KRPUS/KRINC<->CNSHA)",
+     "effective_from": "2019-01-01",
+     "source_url": "https://eservice.culines.com/gnoss/CUP_HOM_3116.do"
+    },
+    "DOC_FEE_DG": {
+     "status": "확인",
+     "amount": 40000.0,
+     "range": null,
+     "charge_name": "DOCUMENT CHARGE AT ORIGIN",
+     "trade_scope": "Korea-China (EXA scope sample KRPUS/KRINC<->CNSHA)",
+     "effective_from": "2019-01-01",
+     "source_url": "https://eservice.culines.com/gnoss/CUP_HOM_3116.do"
+    },
+    "DG_SURCHARGE": {
+     "status": "해당 없음"
+    }
+   }
+  },
+  {
+   "carrier_id": "eas",
+   "name_ko": "이에이에스(EAS) 해운",
+   "name_en": "EAS INTERNATIONAL SHIPPING (EAS LINE)",
+   "nationality": "외국적",
+   "status": "PUBLISHED",
+   "page_url": "http://easline.co.kr/information/surcharge.aspx",
+   "values": {
+    "THC_DRY_20": {
+     "status": "확인",
+     "amount": 150000.0,
+     "range": null,
+     "charge_name": "KOREA THC",
+     "trade_scope": "Korea-China",
+     "effective_from": "2024-06-15",
+     "source_url": "http://easline.co.kr/information/surcharge.aspx"
+    },
+    "THC_DRY_40": {
+     "status": "확인",
+     "amount": 210000.0,
+     "range": null,
+     "charge_name": "KOREA THC",
+     "trade_scope": "Korea-China",
+     "effective_from": "2024-06-15",
+     "source_url": "http://easline.co.kr/information/surcharge.aspx"
+    },
+    "THC_DG_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       135000.0,
+       255000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_DG_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       190000.0,
+       385000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_OOG_20": {
+     "status": "확인",
+     "amount": 180000.0,
+     "range": null,
+     "charge_name": "KOREA THC",
+     "trade_scope": "Korea-China",
+     "effective_from": "2024-06-15",
+     "source_url": "http://easline.co.kr/information/surcharge.aspx"
+    },
+    "THC_OOG_40": {
+     "status": "확인",
+     "amount": 250000.0,
+     "range": null,
+     "charge_name": "KOREA THC",
+     "trade_scope": "Korea-China",
+     "effective_from": "2024-06-15",
+     "source_url": "http://easline.co.kr/information/surcharge.aspx"
+    },
+    "THC_RF_20": {
+     "status": "확인",
+     "amount": 250000.0,
+     "range": null,
+     "charge_name": "KOREA THC",
+     "trade_scope": "Korea-China",
+     "effective_from": "2024-06-15",
+     "source_url": "http://easline.co.kr/information/surcharge.aspx"
+    },
+    "THC_RF_40": {
+     "status": "확인",
+     "amount": 375000.0,
+     "range": null,
+     "charge_name": "KOREA THC",
+     "trade_scope": "Korea-China",
+     "effective_from": "2024-06-15",
+     "source_url": "http://easline.co.kr/information/surcharge.aspx"
+    },
+    "WHARFAGE_20": {
+     "status": "확인",
+     "amount": 4429.0,
+     "range": null,
+     "charge_name": "Wharfage",
+     "trade_scope": "Korea-China",
+     "effective_from": "2022-03-01",
+     "source_url": "http://easline.co.kr/information/surcharge.aspx"
+    },
+    "WHARFAGE_40": {
+     "status": "확인",
+     "amount": 8858.0,
+     "range": null,
+     "charge_name": "Wharfage",
+     "trade_scope": "Korea-China",
+     "effective_from": "2022-03-01",
+     "source_url": "http://easline.co.kr/information/surcharge.aspx"
+    },
+    "SECURITY_20": {
+     "status": "확인",
+     "amount": 145.0,
+     "range": null,
+     "charge_name": "Port Facility Security Charge",
+     "trade_scope": "Korea-China",
+     "effective_from": "2026-07-01",
+     "source_url": "http://easline.co.kr/information/surcharge.aspx"
+    },
+    "SECURITY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 290.0,
+      "basis_group": "외국적",
+      "n_same": 6,
+      "n_total": 7
+     }
+    },
+    "PORT_SAFETY_20": {
+     "status": "확인",
+     "amount": 259.0,
+     "range": null,
+     "charge_name": "Port Safety Management Fee",
+     "trade_scope": "Korea-China",
+     "effective_from": "2026-04-01",
+     "source_url": "http://easline.co.kr/information/surcharge.aspx"
+    },
+    "PORT_SAFETY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 518.0,
+      "basis_group": "전체",
+      "n_same": 17,
+      "n_total": 17
+     }
+    },
+    "SEAL": {
+     "status": "확인",
+     "amount": 8000.0,
+     "range": null,
+     "charge_name": "Seal charge",
+     "trade_scope": "Korea-China",
+     "effective_from": "2015-02-28",
+     "source_url": "http://easline.co.kr/information/surcharge.aspx"
+    },
+    "DOC_FEE": {
+     "status": "확인",
+     "amount": 40000.0,
+     "range": null,
+     "charge_name": "Documentation fee",
+     "trade_scope": "Korea-China",
+     "effective_from": "2015-11-07",
+     "source_url": "http://easline.co.kr/information/surcharge.aspx"
+    },
+    "DOC_FEE_DG": {
+     "status": "일반 서류비 적용"
+    },
+    "DG_SURCHARGE": {
+     "status": "해당 없음"
+    }
+   }
+  },
+  {
+   "carrier_id": "sinotrans",
+   "name_ko": "시노트란스 컨테이너라인",
+   "name_en": "Sinotrans Container Lines",
+   "nationality": "외국적",
+   "status": "NOT_FOUND",
+   "page_url": "",
+   "values": {
+    "THC_DRY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 150000.0,
+      "basis_group": "외국적",
+      "n_same": 10,
+      "n_total": 14
+     }
+    },
+    "THC_DRY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 210000.0,
+      "basis_group": "외국적",
+      "n_same": 9,
+      "n_total": 14
+     }
+    },
+    "THC_DG_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       135000.0,
+       255000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_DG_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       190000.0,
+       385000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_OOG_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       150000.0,
+       255000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_OOG_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       210000.0,
+       385000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_RF_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 250000.0,
+      "basis_group": "외국적",
+      "n_same": 8,
+      "n_total": 13
+     }
+    },
+    "THC_RF_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 375000.0,
+      "basis_group": "외국적",
+      "n_same": 8,
+      "n_total": 12
+     }
+    },
+    "WHARFAGE_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 4429.0,
+      "basis_group": "외국적",
+      "n_same": 7,
+      "n_total": 12
+     }
+    },
+    "WHARFAGE_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 8858.0,
+      "basis_group": "외국적",
+      "n_same": 7,
+      "n_total": 12
+     }
+    },
+    "SECURITY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 145.0,
+      "basis_group": "외국적",
+      "n_same": 7,
+      "n_total": 8
+     }
+    },
+    "SECURITY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 290.0,
+      "basis_group": "외국적",
+      "n_same": 6,
+      "n_total": 7
+     }
+    },
+    "PORT_SAFETY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 259.0,
+      "basis_group": "외국적",
+      "n_same": 5,
+      "n_total": 5
+     }
+    },
+    "PORT_SAFETY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 518.0,
+      "basis_group": "전체",
+      "n_same": 17,
+      "n_total": 17
+     }
+    },
+    "SEAL": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       8000.0,
+       15000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "DOC_FEE": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       40000.0,
+       55000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 14
+     }
+    },
+    "DOC_FEE_DG": {
+     "status": "일반 서류비 적용"
+    },
+    "DG_SURCHARGE": {
+     "status": "해당 없음"
+    }
+   }
+  },
+  {
+   "carrier_id": "pil",
+   "name_ko": "피아이엘(퍼시픽 인터내셔널 라인)",
+   "name_en": "Pacific International Lines (PIL)",
+   "nationality": "외국적",
+   "status": "NOT_FOUND",
+   "page_url": "https://www.pilship.com/tariffs-charges",
+   "values": {
+    "THC_DRY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 150000.0,
+      "basis_group": "외국적",
+      "n_same": 10,
+      "n_total": 14
+     }
+    },
+    "THC_DRY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 210000.0,
+      "basis_group": "외국적",
+      "n_same": 9,
+      "n_total": 14
+     }
+    },
+    "THC_DG_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       135000.0,
+       255000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_DG_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       190000.0,
+       385000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_OOG_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       150000.0,
+       255000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_OOG_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       210000.0,
+       385000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_RF_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 250000.0,
+      "basis_group": "외국적",
+      "n_same": 8,
+      "n_total": 13
+     }
+    },
+    "THC_RF_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 375000.0,
+      "basis_group": "외국적",
+      "n_same": 8,
+      "n_total": 12
+     }
+    },
+    "WHARFAGE_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 4429.0,
+      "basis_group": "외국적",
+      "n_same": 7,
+      "n_total": 12
+     }
+    },
+    "WHARFAGE_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 8858.0,
+      "basis_group": "외국적",
+      "n_same": 7,
+      "n_total": 12
+     }
+    },
+    "SECURITY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 145.0,
+      "basis_group": "외국적",
+      "n_same": 7,
+      "n_total": 8
+     }
+    },
+    "SECURITY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 290.0,
+      "basis_group": "외국적",
+      "n_same": 6,
+      "n_total": 7
+     }
+    },
+    "PORT_SAFETY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 259.0,
+      "basis_group": "외국적",
+      "n_same": 5,
+      "n_total": 5
+     }
+    },
+    "PORT_SAFETY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 518.0,
+      "basis_group": "전체",
+      "n_same": 17,
+      "n_total": 17
+     }
+    },
+    "SEAL": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       8000.0,
+       15000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "DOC_FEE": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       40000.0,
+       55000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 14
+     }
+    },
+    "DOC_FEE_DG": {
+     "status": "일반 서류비 적용"
+    },
+    "DG_SURCHARGE": {
+     "status": "해당 없음"
+    }
+   }
+  },
+  {
+   "carrier_id": "wanhai",
+   "name_ko": "완하이라인",
+   "name_en": "Wan Hai Lines",
+   "nationality": "외국적",
+   "status": "NOT_FOUND",
+   "page_url": "https://www.wanhai.com/views/content/ContentList.xhtml?web_code=whl_www&file_num=76546&parent_id=76544&top_file_num=67336",
+   "values": {
+    "THC_DRY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 150000.0,
+      "basis_group": "외국적",
+      "n_same": 10,
+      "n_total": 14
+     }
+    },
+    "THC_DRY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 210000.0,
+      "basis_group": "외국적",
+      "n_same": 9,
+      "n_total": 14
+     }
+    },
+    "THC_DG_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       135000.0,
+       255000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_DG_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       190000.0,
+       385000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_OOG_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       150000.0,
+       255000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_OOG_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       210000.0,
+       385000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_RF_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 250000.0,
+      "basis_group": "외국적",
+      "n_same": 8,
+      "n_total": 13
+     }
+    },
+    "THC_RF_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 375000.0,
+      "basis_group": "외국적",
+      "n_same": 8,
+      "n_total": 12
+     }
+    },
+    "WHARFAGE_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 4429.0,
+      "basis_group": "외국적",
+      "n_same": 7,
+      "n_total": 12
+     }
+    },
+    "WHARFAGE_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 8858.0,
+      "basis_group": "외국적",
+      "n_same": 7,
+      "n_total": 12
+     }
+    },
+    "SECURITY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 145.0,
+      "basis_group": "외국적",
+      "n_same": 7,
+      "n_total": 8
+     }
+    },
+    "SECURITY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 290.0,
+      "basis_group": "외국적",
+      "n_same": 6,
+      "n_total": 7
+     }
+    },
+    "PORT_SAFETY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 259.0,
+      "basis_group": "외국적",
+      "n_same": 5,
+      "n_total": 5
+     }
+    },
+    "PORT_SAFETY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 518.0,
+      "basis_group": "전체",
+      "n_same": 17,
+      "n_total": 17
+     }
+    },
+    "SEAL": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       8000.0,
+       15000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "DOC_FEE": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       40000.0,
+       55000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 14
+     }
+    },
+    "DOC_FEE_DG": {
+     "status": "일반 서류비 적용"
+    },
+    "DG_SURCHARGE": {
+     "status": "해당 없음"
+    }
+   }
+  },
+  {
+   "carrier_id": "interasia",
+   "name_ko": "인터아시아 라인",
+   "name_en": "Interasia Lines",
+   "nationality": "외국적",
+   "status": "NOT_FOUND",
+   "page_url": "https://www.interasia.cc/Resource/Price",
+   "values": {
+    "THC_DRY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 150000.0,
+      "basis_group": "외국적",
+      "n_same": 10,
+      "n_total": 14
+     }
+    },
+    "THC_DRY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 210000.0,
+      "basis_group": "외국적",
+      "n_same": 9,
+      "n_total": 14
+     }
+    },
+    "THC_DG_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       135000.0,
+       255000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_DG_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       190000.0,
+       385000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_OOG_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       150000.0,
+       255000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_OOG_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       210000.0,
+       385000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_RF_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 250000.0,
+      "basis_group": "외국적",
+      "n_same": 8,
+      "n_total": 13
+     }
+    },
+    "THC_RF_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 375000.0,
+      "basis_group": "외국적",
+      "n_same": 8,
+      "n_total": 12
+     }
+    },
+    "WHARFAGE_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 4429.0,
+      "basis_group": "외국적",
+      "n_same": 7,
+      "n_total": 12
+     }
+    },
+    "WHARFAGE_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 8858.0,
+      "basis_group": "외국적",
+      "n_same": 7,
+      "n_total": 12
+     }
+    },
+    "SECURITY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 145.0,
+      "basis_group": "외국적",
+      "n_same": 7,
+      "n_total": 8
+     }
+    },
+    "SECURITY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 290.0,
+      "basis_group": "외국적",
+      "n_same": 6,
+      "n_total": 7
+     }
+    },
+    "PORT_SAFETY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 259.0,
+      "basis_group": "외국적",
+      "n_same": 5,
+      "n_total": 5
+     }
+    },
+    "PORT_SAFETY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 518.0,
+      "basis_group": "전체",
+      "n_same": 17,
+      "n_total": 17
+     }
+    },
+    "SEAL": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       8000.0,
+       15000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "DOC_FEE": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       40000.0,
+       55000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 14
+     }
+    },
+    "DOC_FEE_DG": {
+     "status": "일반 서류비 적용"
+    },
+    "DG_SURCHARGE": {
+     "status": "해당 없음"
+    }
+   }
+  },
+  {
+   "carrier_id": "rcl",
+   "name_ko": "알씨엘(리저널 컨테이너 라인)",
+   "name_en": "Regional Container Lines (RCL)",
+   "nationality": "외국적",
+   "status": "PUBLISHED",
+   "page_url": "https://www.rclgroup.com/LocalInfo-Surcharge/South-Korea",
+   "values": {
+    "THC_DRY_20": {
+     "status": "확인",
+     "amount": 150000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Charge (GP,HC,DG)",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://www-imedia.rclgroup.com/CorpWEB/PDF/Surcharge/LocalSurcharge-KR-20260701-Export.pdf"
+    },
+    "THC_DRY_40": {
+     "status": "확인",
+     "amount": 210000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Charge (GP,HC,DG)",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://www-imedia.rclgroup.com/CorpWEB/PDF/Surcharge/LocalSurcharge-KR-20260701-Export.pdf"
+    },
+    "THC_DG_20": {
+     "status": "확인",
+     "amount": 150000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Charge (GP,HC,DG)",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://www-imedia.rclgroup.com/CorpWEB/PDF/Surcharge/LocalSurcharge-KR-20260701-Export.pdf"
+    },
+    "THC_DG_40": {
+     "status": "확인",
+     "amount": 210000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Charge (GP,HC,DG)",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://www-imedia.rclgroup.com/CorpWEB/PDF/Surcharge/LocalSurcharge-KR-20260701-Export.pdf"
+    },
+    "THC_OOG_20": {
+     "status": "확인",
+     "amount": 180000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Charge (UT,PC)",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://www-imedia.rclgroup.com/CorpWEB/PDF/Surcharge/LocalSurcharge-KR-20260701-Export.pdf"
+    },
+    "THC_OOG_40": {
+     "status": "확인",
+     "amount": 250000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Charge (UT,PC)",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://www-imedia.rclgroup.com/CorpWEB/PDF/Surcharge/LocalSurcharge-KR-20260701-Export.pdf"
+    },
+    "THC_RF_20": {
+     "status": "확인",
+     "amount": 250000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Charge (Reefer)",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://www-imedia.rclgroup.com/CorpWEB/PDF/Surcharge/LocalSurcharge-KR-20260701-Export.pdf"
+    },
+    "THC_RF_40": {
+     "status": "확인",
+     "amount": 375000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Charge (Reefer)",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://www-imedia.rclgroup.com/CorpWEB/PDF/Surcharge/LocalSurcharge-KR-20260701-Export.pdf"
+    },
+    "WHARFAGE_20": {
+     "status": "확인",
+     "amount": 4429.0,
+     "range": null,
+     "charge_name": "Wharfage",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://www-imedia.rclgroup.com/CorpWEB/PDF/Surcharge/LocalSurcharge-KR-20260701-Export.pdf"
+    },
+    "WHARFAGE_40": {
+     "status": "확인",
+     "amount": 8858.0,
+     "range": null,
+     "charge_name": "Wharfage",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://www-imedia.rclgroup.com/CorpWEB/PDF/Surcharge/LocalSurcharge-KR-20260701-Export.pdf"
+    },
+    "SECURITY_20": {
+     "status": "확인",
+     "amount": 145.0,
+     "range": null,
+     "charge_name": "Port Facility Security Charge",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://www-imedia.rclgroup.com/CorpWEB/PDF/Surcharge/LocalSurcharge-KR-20260701-Export.pdf"
+    },
+    "SECURITY_40": {
+     "status": "확인",
+     "amount": 290.0,
+     "range": null,
+     "charge_name": "Port Facility Security Charge",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://www-imedia.rclgroup.com/CorpWEB/PDF/Surcharge/LocalSurcharge-KR-20260701-Export.pdf"
+    },
+    "PORT_SAFETY_20": {
+     "status": "확인",
+     "amount": 259.0,
+     "range": null,
+     "charge_name": "Port Safety Recovery Fee",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://www-imedia.rclgroup.com/CorpWEB/PDF/Surcharge/LocalSurcharge-KR-20260701-Export.pdf"
+    },
+    "PORT_SAFETY_40": {
+     "status": "확인",
+     "amount": 518.0,
+     "range": null,
+     "charge_name": "Port Safety Recovery Fee",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://www-imedia.rclgroup.com/CorpWEB/PDF/Surcharge/LocalSurcharge-KR-20260701-Export.pdf"
+    },
+    "SEAL": {
+     "status": "확인",
+     "amount": 8000.0,
+     "range": null,
+     "charge_name": "Seal Charge",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://www-imedia.rclgroup.com/CorpWEB/PDF/Surcharge/LocalSurcharge-KR-20260701-Export.pdf"
+    },
+    "DOC_FEE": {
+     "status": "확인",
+     "amount": 40000.0,
+     "range": null,
+     "charge_name": "Bill Of Lading Fee (B/L Fee)",
+     "trade_scope": "ALL",
+     "effective_from": "2026-07-01",
+     "source_url": "https://www-imedia.rclgroup.com/CorpWEB/PDF/Surcharge/LocalSurcharge-KR-20260701-Export.pdf"
+    },
+    "DOC_FEE_DG": {
+     "status": "일반 서류비 적용"
+    },
+    "DG_SURCHARGE": {
+     "status": "해당 없음"
+    }
+   }
+  },
+  {
+   "carrier_id": "xpress",
+   "name_ko": "엑스프레스 피더스",
+   "name_en": "X-Press Feeders",
+   "nationality": "외국적",
+   "status": "NOT_FOUND",
+   "page_url": "https://www.x-pressfeeders.com/our-agents",
+   "values": {
+    "THC_DRY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 150000.0,
+      "basis_group": "외국적",
+      "n_same": 10,
+      "n_total": 14
+     }
+    },
+    "THC_DRY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 210000.0,
+      "basis_group": "외국적",
+      "n_same": 9,
+      "n_total": 14
+     }
+    },
+    "THC_DG_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       135000.0,
+       255000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_DG_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       190000.0,
+       385000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_OOG_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       150000.0,
+       255000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_OOG_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       210000.0,
+       385000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_RF_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 250000.0,
+      "basis_group": "외국적",
+      "n_same": 8,
+      "n_total": 13
+     }
+    },
+    "THC_RF_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 375000.0,
+      "basis_group": "외국적",
+      "n_same": 8,
+      "n_total": 12
+     }
+    },
+    "WHARFAGE_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 4429.0,
+      "basis_group": "외국적",
+      "n_same": 7,
+      "n_total": 12
+     }
+    },
+    "WHARFAGE_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 8858.0,
+      "basis_group": "외국적",
+      "n_same": 7,
+      "n_total": 12
+     }
+    },
+    "SECURITY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 145.0,
+      "basis_group": "외국적",
+      "n_same": 7,
+      "n_total": 8
+     }
+    },
+    "SECURITY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 290.0,
+      "basis_group": "외국적",
+      "n_same": 6,
+      "n_total": 7
+     }
+    },
+    "PORT_SAFETY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 259.0,
+      "basis_group": "외국적",
+      "n_same": 5,
+      "n_total": 5
+     }
+    },
+    "PORT_SAFETY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 518.0,
+      "basis_group": "전체",
+      "n_same": 17,
+      "n_total": 17
+     }
+    },
+    "SEAL": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       8000.0,
+       15000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "DOC_FEE": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       40000.0,
+       55000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 14
+     }
+    },
+    "DOC_FEE_DG": {
+     "status": "일반 서류비 적용"
+    },
+    "DG_SURCHARGE": {
+     "status": "해당 없음"
+    }
+   }
+  },
+  {
+   "carrier_id": "unifeeder",
+   "name_ko": "유니피더 (DP World 쉬핑 솔루션)",
+   "name_en": "Unifeeder / DP World Shipping Solutions",
+   "nationality": "외국적",
+   "status": "PUBLISHED",
+   "page_url": "https://www.dpworld.com/en/supply-chain-solutions/marine-services/shipping-solutions/recovery-charges",
+   "values": {
+    "THC_DRY_20": {
+     "status": "확인",
+     "amount": 150000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Charge",
+     "trade_scope": "ALL",
+     "effective_from": "2026-06-01",
+     "source_url": "https://dpw-p-001.sitecorecontenthub.cloud/api/public/content/7c8f25cd7b11450190cc43e2b6047668?v=50f67af3"
+    },
+    "THC_DRY_40": {
+     "status": "확인",
+     "amount": 210000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Charge",
+     "trade_scope": "ALL",
+     "effective_from": "2026-06-01",
+     "source_url": "https://dpw-p-001.sitecorecontenthub.cloud/api/public/content/7c8f25cd7b11450190cc43e2b6047668?v=50f67af3"
+    },
+    "THC_DG_20": {
+     "status": "확인",
+     "amount": 160000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Charge",
+     "trade_scope": "ALL",
+     "effective_from": "2026-06-01",
+     "source_url": "https://dpw-p-001.sitecorecontenthub.cloud/api/public/content/7c8f25cd7b11450190cc43e2b6047668?v=50f67af3"
+    },
+    "THC_DG_40": {
+     "status": "확인",
+     "amount": 220000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Charge",
+     "trade_scope": "ALL",
+     "effective_from": "2026-06-01",
+     "source_url": "https://dpw-p-001.sitecorecontenthub.cloud/api/public/content/7c8f25cd7b11450190cc43e2b6047668?v=50f67af3"
+    },
+    "THC_OOG_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       150000.0,
+       255000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_OOG_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       210000.0,
+       385000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_RF_20": {
+     "status": "확인",
+     "amount": 250000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Charge",
+     "trade_scope": "ALL",
+     "effective_from": "2026-06-01",
+     "source_url": "https://dpw-p-001.sitecorecontenthub.cloud/api/public/content/7c8f25cd7b11450190cc43e2b6047668?v=50f67af3"
+    },
+    "THC_RF_40": {
+     "status": "확인",
+     "amount": 375000.0,
+     "range": null,
+     "charge_name": "Terminal Handling Charge",
+     "trade_scope": "ALL",
+     "effective_from": "2026-06-01",
+     "source_url": "https://dpw-p-001.sitecorecontenthub.cloud/api/public/content/7c8f25cd7b11450190cc43e2b6047668?v=50f67af3"
+    },
+    "WHARFAGE_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 4429.0,
+      "basis_group": "외국적",
+      "n_same": 7,
+      "n_total": 12
+     }
+    },
+    "WHARFAGE_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 8858.0,
+      "basis_group": "외국적",
+      "n_same": 7,
+      "n_total": 12
+     }
+    },
+    "SECURITY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 145.0,
+      "basis_group": "외국적",
+      "n_same": 7,
+      "n_total": 8
+     }
+    },
+    "SECURITY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 290.0,
+      "basis_group": "외국적",
+      "n_same": 6,
+      "n_total": 7
+     }
+    },
+    "PORT_SAFETY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 259.0,
+      "basis_group": "외국적",
+      "n_same": 5,
+      "n_total": 5
+     }
+    },
+    "PORT_SAFETY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 518.0,
+      "basis_group": "전체",
+      "n_same": 17,
+      "n_total": 17
+     }
+    },
+    "SEAL": {
+     "status": "확인",
+     "amount": 8000.0,
+     "range": null,
+     "charge_name": "Seal Charges",
+     "trade_scope": "ALL",
+     "effective_from": "2026-06-01",
+     "source_url": "https://dpw-p-001.sitecorecontenthub.cloud/api/public/content/7c8f25cd7b11450190cc43e2b6047668?v=50f67af3"
+    },
+    "DOC_FEE": {
+     "status": "확인",
+     "amount": 40000.0,
+     "range": null,
+     "charge_name": "Bill of Lading",
+     "trade_scope": "ALL",
+     "effective_from": "2026-06-01",
+     "source_url": "https://dpw-p-001.sitecorecontenthub.cloud/api/public/content/7c8f25cd7b11450190cc43e2b6047668?v=50f67af3"
+    },
+    "DOC_FEE_DG": {
+     "status": "일반 서류비 적용"
+    },
+    "DG_SURCHARGE": {
+     "status": "해당 없음"
+    }
+   }
+  },
+  {
+   "carrier_id": "matson",
+   "name_ko": "맛슨",
+   "name_en": "Matson Navigation",
+   "nationality": "외국적",
+   "status": "NOT_FOUND",
+   "page_url": "https://www.matson.com/matnav/services/agent_details/asia/korea.html",
+   "values": {
+    "THC_DRY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 150000.0,
+      "basis_group": "외국적",
+      "n_same": 10,
+      "n_total": 14
+     }
+    },
+    "THC_DRY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 210000.0,
+      "basis_group": "외국적",
+      "n_same": 9,
+      "n_total": 14
+     }
+    },
+    "THC_DG_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       135000.0,
+       255000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_DG_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       190000.0,
+       385000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_OOG_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       150000.0,
+       255000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_OOG_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       210000.0,
+       385000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_RF_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 250000.0,
+      "basis_group": "외국적",
+      "n_same": 8,
+      "n_total": 13
+     }
+    },
+    "THC_RF_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 375000.0,
+      "basis_group": "외국적",
+      "n_same": 8,
+      "n_total": 12
+     }
+    },
+    "WHARFAGE_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 4429.0,
+      "basis_group": "외국적",
+      "n_same": 7,
+      "n_total": 12
+     }
+    },
+    "WHARFAGE_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 8858.0,
+      "basis_group": "외국적",
+      "n_same": 7,
+      "n_total": 12
+     }
+    },
+    "SECURITY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 145.0,
+      "basis_group": "외국적",
+      "n_same": 7,
+      "n_total": 8
+     }
+    },
+    "SECURITY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 290.0,
+      "basis_group": "외국적",
+      "n_same": 6,
+      "n_total": 7
+     }
+    },
+    "PORT_SAFETY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 259.0,
+      "basis_group": "외국적",
+      "n_same": 5,
+      "n_total": 5
+     }
+    },
+    "PORT_SAFETY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 518.0,
+      "basis_group": "전체",
+      "n_same": 17,
+      "n_total": 17
+     }
+    },
+    "SEAL": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       8000.0,
+       15000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "DOC_FEE": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       40000.0,
+       55000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 14
+     }
+    },
+    "DOC_FEE_DG": {
+     "status": "일반 서류비 적용"
+    },
+    "DG_SURCHARGE": {
+     "status": "해당 없음"
+    }
+   }
+  },
+  {
+   "carrier_id": "esl",
+   "name_ko": "ESL(Emirates Shipping Line)",
+   "name_en": "ESL",
+   "nationality": "외국적",
+   "status": "NOT_COLLECTED",
+   "page_url": "",
+   "values": {
+    "THC_DRY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 150000.0,
+      "basis_group": "외국적",
+      "n_same": 10,
+      "n_total": 14
+     }
+    },
+    "THC_DRY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 210000.0,
+      "basis_group": "외국적",
+      "n_same": 9,
+      "n_total": 14
+     }
+    },
+    "THC_DG_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       135000.0,
+       255000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_DG_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       190000.0,
+       385000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_OOG_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       150000.0,
+       255000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_OOG_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       210000.0,
+       385000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "THC_RF_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 250000.0,
+      "basis_group": "외국적",
+      "n_same": 8,
+      "n_total": 13
+     }
+    },
+    "THC_RF_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 375000.0,
+      "basis_group": "외국적",
+      "n_same": 8,
+      "n_total": 12
+     }
+    },
+    "WHARFAGE_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 4429.0,
+      "basis_group": "외국적",
+      "n_same": 7,
+      "n_total": 12
+     }
+    },
+    "WHARFAGE_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 8858.0,
+      "basis_group": "외국적",
+      "n_same": 7,
+      "n_total": 12
+     }
+    },
+    "SECURITY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 145.0,
+      "basis_group": "외국적",
+      "n_same": 7,
+      "n_total": 8
+     }
+    },
+    "SECURITY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 290.0,
+      "basis_group": "외국적",
+      "n_same": 6,
+      "n_total": 7
+     }
+    },
+    "PORT_SAFETY_20": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 259.0,
+      "basis_group": "외국적",
+      "n_same": 5,
+      "n_total": 5
+     }
+    },
+    "PORT_SAFETY_40": {
+     "status": "미확인",
+     "estimate": {
+      "type": "mode",
+      "amount": 518.0,
+      "basis_group": "전체",
+      "n_same": 17,
+      "n_total": 17
+     }
+    },
+    "SEAL": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       8000.0,
+       15000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 12
+     }
+    },
+    "DOC_FEE": {
+     "status": "미확인",
+     "estimate": {
+      "type": "range",
+      "range": [
+       40000.0,
+       55000.0
+      ],
+      "basis_group": "외국적",
+      "n_total": 14
+     }
+    },
+    "DOC_FEE_DG": {
+     "status": "일반 서류비 적용"
+    },
+    "DG_SURCHARGE": {
+     "status": "해당 없음"
+    }
+   }
+  }
+ ]
+}
