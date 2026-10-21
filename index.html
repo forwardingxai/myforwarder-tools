@@ -43,7 +43,8 @@
   @media (max-width: 768px) {
     .hero .display-xl { font-size: 48px; }
     .stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); padding: var(--space-3) 0; }
-    .stat:nth-child(3) { border-left: 0; }
+    .stat:first-child { grid-column: 1 / -1; }
+    .stat:nth-child(2) { border-left: 0; }
     .landing-section { margin-top: var(--space-16); }
     #tools { margin-top: var(--space-4); }
   }
@@ -75,7 +76,6 @@
       <h2 class="heading-2">도구</h2>
       <div class="stats" aria-label="현황">
         <div class="stat"><b id="n-tools">0</b><span>지금 쓸 수 있는 도구</span></div>
-        <div class="stat"><b id="n-day">D+0</b><span>하루에 하나씩</span></div>
         <div class="stat" title="통관·선적·서류 확인을 더 빠르게"><span class="tag tag-area" data-area="ops">운영</span><b id="n-ops">0</b></div>
         <div class="stat" title="견적·운임 계산과 고객 응대를 더 빠르게"><span class="tag tag-area" data-area="sales">영업</span><b id="n-sales">0</b></div>
       </div>
@@ -98,7 +98,7 @@
 </main>
 <footer class="site-footer">
   <span>마이포워더 도구 · 포워딩 실무의 반복 업무를 AI로 덜어 내요</span>
-  <span>하루에 하나씩</span>
+  <span>로그인 없이 바로 써요</span>
 </footer>
 <script src="shared/page.js" defer></script>
 <script>
@@ -114,7 +114,6 @@
     .then((all) => {
       const live = all.filter((t) => t.status === 'live').sort((a, b) => b.date.localeCompare(a.date));
       document.getElementById('n-tools').textContent = live.length;
-      document.getElementById('n-day').textContent = `D+${all.length ? Math.max(...all.map((t) => t.day)) : 0}`;
       document.getElementById('n-sales').textContent = live.filter((t) => areasOf(t).includes('sales')).length;
       document.getElementById('n-ops').textContent = live.filter((t) => areasOf(t).includes('ops')).length;
       document.getElementById('grid').innerHTML = live.length
