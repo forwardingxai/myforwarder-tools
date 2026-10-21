@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>국내 부대비용 조회기 — 마이포워더 도구</title>
+<meta name="description" content="부산항 수출 로컬차지를 39개 선사 한 번에 비교하고, 고른 선사의 견적서 표를 엑셀에 그대로 붙여넣어요. 로그인 없이 쓰는 포워딩 실무 도구.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%230a0a0d'/%3E%3Cpath d='M9 22V11l7 7 7-7v11' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="canonical" href="https://myforwarder-tools.vercel.app/tools/local-charge.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="마이포워더 도구">
+<meta property="og:title" content="국내 부대비용 조회기 — 마이포워더 도구">
+<meta property="og:description" content="부산항 수출 로컬차지를 39개 선사 한 번에 비교하고, 견적서 표로 복사해요. 로그인 없이 바로 써요.">
+<meta property="og:url" content="https://myforwarder-tools.vercel.app/tools/local-charge.html">
+<link rel="stylesheet" href="../design-tokens.css">
+<link rel="stylesheet" href="../shared/layout.css">
+<link rel="stylesheet" href="../shared/components.css">
+<style>
+  /* ── 머리: 영역 태그 2개(영업 라임 · 운영 코발트). 태그마다 data-area로 제 색을 쓴다 ── */
+  .scope-line { color: var(--ink-2); font-variant-numeric: tabular-nums; }
+
+  /* ── 실행 영역: PRD 4-2 순서대로 위에서 아래로(입력 바 → 비교표 → 견적서 표 → 데이터 안내).
+     비교표 열이 많아 입력 좌/결과 우 대신 한 줄로 쌓는다 ── */
+  .lc-run { grid-template-columns: minmax(0, 1fr); gap: var(--space-6); }
+
+  /* ① 입력 바 */
+  .lc-bar { display: grid; gap: var(--space-4); padding: var(--space-4) var(--space-6); }
+  .lc-bar__row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3) var(--space-8); }
+  .lc-group { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-3); }
+  .lc-group > .label { color: var(--ink-2); min-width: 2.5em; }
+  .lc-group--grow { flex: 1 1 240px; }
+  .lc-group--grow .input { max-width: 360px; }
+  .lc-num { width: 76px; padding: 6px 10px; font-size: 15px; text-align: right; font-variant-numeric: tabular-nums; }
+  .lc-search { padding: 8px 14px; font-size: 15px; }
+  .lc-dg-note { color: var(--ink-2); }
+
+  /* ② 선사 비교표 — 선사명 열 고정 + 가로 스크롤 */
+  .lc-result-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--space-2) var(--space-4); margin-bottom: var(--space-3); }
+  .lc-count strong { font-size: 22px; font-weight: 500; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+  .lc-table-wrap {
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+    background: var(--card-raised); border-radius: var(--radius-md); box-shadow: var(--card-rest);
+  }
+  .lc-table { width: 100%; min-width: 880px; border-collapse: separate; border-spacing: 0; font-variant-numeric: tabular-nums; }
+  .lc-table th, .lc-table td { padding: 12px 14px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; vertical-align: middle; }
+  .lc-table thead th { font-size: 13px; font-weight: 500; color: var(--ink-2); background: var(--card-raised); }
+  .lc-table tbody tr:last-child td { border-bottom: 0; }
+  .lc-table th:first-child, .lc-table td:first-child {
+    position: sticky; left: 0; z-index: 1; text-align: left; min-width: 152px;
+    background: var(--card-raised); box-shadow: inset -1px 0 0 var(--line);
+  }
+  .lc-table tbody tr.lc-row:hover td { background: var(--card); }
+  .lc-name { display: grid; gap: 2px; white-space: normal; }
+  .lc-name__ko { font-weight: 500; }
+  .lc-name__sub { color: var(--ink-3); font-size: 12px; }
+  .lc-st { margin-left: 4px; vertical-align: 1px; }           /* 상태 태그: 무채색 텍스트 태그(.tag-mini) */
+  .lc-muted { color: var(--ink-3); }
+  .lc-total { font-weight: 500; }
+  .lc-divider td { background: var(--card) !important; padding: 10px 14px; text-align: left; }
+  .lc-divider__text { position: sticky; left: 14px; color: var(--ink-2); font-size: 13px; font-weight: 500; }
+  .lc-empty td { text-align: left; color: var(--ink-2); white-space: normal; }
+  .lc-table-note { color: var(--ink-3); }
+
+  /* ④ 데이터 안내 */
+  .lc-data { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-6) var(--space-12); padding: var(--space-6); }
+  .lc-data dl { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--space-2) var(--space-4); margin: var(--space-3) 0 0; font-size: 14px; }
+  .lc-data dt { color: var(--ink-3); }
+  .lc-data dd { margin: 0; }
+  .lc-legend { list-style: none; margin: var(--space-3) 0 0; padding: 0; display: grid; gap: var(--space-2); font-size: 14px; color: var(--ink-2); }
+  .lc-legend li { display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: var(--space-3); align-items: baseline; }
+  .lc-legend__mark { color: var(--ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .lc-data__foot { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3); padding-top: var(--space-4); border-top: 1px solid var(--line); }
+  .lc-state { padding: var(--space-12) var(--space-6); text-align: center; color: var(--ink-2); background: var(--card); border-radius: var(--radius-md); }
+
+  @media (max-width: 768px) {
+    .lc-bar { padding: var(--space-4); }
+    .lc-bar__row { gap: var(--space-3) var(--space-4); }
+    .lc-group--grow { flex-basis: 100%; }
+    .lc-group--grow .input { max-width: none; }
+    .lc-table th, .lc-table td { padding: 10px 10px; font-size: 14px; }
+    .lc-table th:first-child, .lc-table td:first-child { min-width: 112px; max-width: 128px; }
+    .lc-divider__text { left: 10px; }
+    .lc-data { grid-template-columns: minmax(0, 1fr); padding: var(--space-4); }
+  }
+</style>
+</head>
+<body data-area="sales">
+<header class="site-nav">
+  <div class="site-nav__inner">
+    <a class="brand" href="../index.html">
+      <span class="brand__mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 17V7l7 7 7-7v10"/></svg></span>
+      <span class="label">마이포워더 도구</span>
+    </a>
+    <span class="caption ink-3" data-tool-meta></span>
+  </div>
+</header>
+<main class="page">
+  <header class="tool-header">
+    <a class="back-link body" href="../index.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+      도구 목록
+    </a>
+    <div class="tool-header__tags"><span class="tag tag-area" data-area="sales">영업</span><span class="tag tag-area" data-area="ops">운영</span></div>
+    <h1 class="heading-1 tool-title" data-reveal-words>국내 부대비용 조회기</h1>
+    <p class="body-l ink-2 tool-header__summary">견적 작성(영업)과 청구 금액 확인(운영)에 함께 쓰는 선사별 부대비용 조회기</p>
+    <p class="body scope-line" id="scope-line">부산항 수출</p>
+    <div class="share-actions" data-share aria-label="이 도구 공유하기"></div>
+  </header>
+
+  <section class="tool-run lc-run" aria-label="국내 부대비용 조회" data-toc-label="부대비용 조회">
+    <!-- ① 입력 바 -->
+    <div class="card lc-bar" role="group" aria-label="조회 조건">
+      <div class="lc-bar__row">
+        <div class="lc-group"><span class="label" id="l-type">컨테이너</span><div class="pill-group" id="f-type" role="group" aria-labelledby="l-type"></div></div>
+        <div class="lc-group"><span class="label" id="l-size">규격</span><div class="pill-group" id="f-size" role="group" aria-labelledby="l-size"></div></div>
+        <div class="lc-group"><label class="label" for="qty">수량</label><input class="input lc-num" id="qty" type="number" inputmode="numeric" min="1" max="99" step="1" value="1"></div>
+        <div class="lc-group"><label class="label" for="bl">B/L</label><input class="input lc-num" id="bl" type="number" inputmode="numeric" min="1" max="99" step="1" value="1"></div>
+      </div>
+      <div class="lc-bar__row">
+        <div class="lc-group"><span class="label" id="l-scope">선사</span><div class="pill-group" id="f-scope" role="group" aria-labelledby="l-scope"></div></div>
+        <div class="lc-group lc-group--grow"><label class="visually-hidden" for="q">선사 검색</label><input class="input lc-search" id="q" type="search" autocomplete="off" spellcheck="false" placeholder="선사 검색 (예: 머스크, HMM)"></div>
+      </div>
+      <p class="caption lc-dg-note" id="dg-note" hidden></p>
+    </div>
+
+    <!-- ② 선사 비교표 · ③ 견적서용 표(선사 행을 누르면 그 아래에 펼침, 5단계) -->
+    <div class="lc-result">
+      <div class="lc-result-head">
+        <p class="lc-count" aria-live="polite"><strong id="count">0</strong><span class="ink-2"> 곳</span></p>
+        <p class="caption lc-table-note">단위 원(KRW) · THC~SEAL은 컨테이너당, DOCS FEE는 B/L당 단가</p>
+      </div>
+      <div id="table-host">
+        <div class="lc-state"><p class="body">선사별 부대비용 데이터를 불러오고 있어요.</p></div>
+      </div>
+    </div>
+
+    <!-- ④ 데이터 안내 -->
+    <div class="card-flat lc-data" id="data-panel">
+      <div>
+        <span class="label">데이터 안내</span>
+        <dl id="data-info"><dt>상태</dt><dd>불러오는 중</dd></dl>
+      </div>
+      <div>
+        <span class="label">표시 읽는 법</span>
+        <ul class="lc-legend">
+          <li><span class="lc-legend__mark">210,000</span><span>선사 공식 Tariff에서 확인한 금액</span></li>
+          <li><span class="lc-legend__mark">130,000 <span class="tag tag-mini">2018</span></span><span>오래된 공지에서 확인한 금액이라 청구 전에 다시 확인이 필요해요</span></li>
+          <li><span class="lc-legend__mark"><span class="tag tag-mini">THC 포함</span></span><span>다른 항목 금액에 이미 들어 있어 따로 받지 않아요</span></li>
+          <li><span class="lc-legend__mark lc-muted">210,000 <span class="tag tag-mini">추정</span></span><span>공식 값이 없어 같은 국적구분 선사들이 가장 많이 받는 금액(또는 범위)으로 채웠어요</span></li>
+          <li><span class="lc-legend__mark"><span class="tag tag-mini">미확인</span></span><span>근거가 부족해 비워 둔 칸이에요</span></li>
+        </ul>
+      </div>
+      <div class="lc-data__foot">
+        <p class="caption ink-2">부가세 별도 여부와 실제 청구액은 선사에 꼭 확인하세요. 부가세·외화 항목·해상 할증료(BAF·LSS)는 넣지 않았어요.</p>
+        <a class="btn btn-sm" id="report-link" href="../index.html#contact" target="_blank" rel="noopener">틀린 값 제보하기</a>
+      </div>
+    </div>
+  </section>
+
+  <div data-tool-sections data-slug="local-charge"></div>
+</main>
+<footer class="site-footer">
+  <span>마이포워더 도구 · 포워딩 실무의 반복 업무를 AI로 덜어 내요</span>
+  <span>데이터 출처: 각 선사 공식 Tariff</span>
+</footer>
+
+<script src="../shared/page.js" defer></script>
+<script>
+(() => {
+  'use strict';
+  const DATA_URL = '../data/local-charge-busan-export.json';
+  const SITE_URL = '../site.json';
+
+  const TYPES = [['DRY', 'DRY'], ['DG', 'DG'], ['OOG', 'OT·FR'], ['RF', 'RF']];
+  const SIZES = [['20', "20'"], ['40', "40'"]];
+  const SCOPES = [['all', '전체'], ['국적', '국적'], ['외국적', '외국적']];
+  const DG_NOTE = 'DG 기준: 드라이 컨테이너 위험물, 한중·아시아 항로, IMO 3~9급';
+  const UNPUBLISHED_LABEL = '공식 Tariff 미공개 선사 (추정값)';
+  // 화면에 쓰는 짧은 선사명(실무에서 부르는 이름). 정식 이름은 마우스를 올리면 보인다
+  const SHORT = {
+    hmm: 'HMM', kmtc: '고려해운', sinokor: '장금상선', heunga: '흥아라인', panocean: '팬오션', namsung: '남성해운',
+    dongyoung: '동영해운', ckline: '천경해운', taiyoung: '태영상선', doowoo: '두우해운', dongjin: '동진상선', smline: 'SM상선',
+    pancon: '범주해운', hansung: '한성라인', panstar: '팬스타', maersk: '머스크', msc: 'MSC', cmacgm: 'CMA CGM',
+    hapag: '하파그로이드', one: 'ONE', evergreen: '에버그린', yangming: '양밍', zim: '짐라인', goldstar: '골드스타라인',
+    cosco: 'COSCO', oocl: 'OOCL', sitc: 'SITC', tslines: 'TS라인', culines: 'CU라인즈', eas: 'EAS', sinotrans: '시노트란스',
+    pil: 'PIL', wanhai: '완하이', interasia: '인터아시아', rcl: 'RCL', xpress: 'X-Press Feeders', unifeeder: '유니피더',
+    matson: '맛슨', esl: 'ESL',
+  };
+
+  const state = { type: 'DRY', size: '20', qty: 1, bl: 1, scope: 'all', q: '' };
+  let DATA = null;
+
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+  const fmt = (n) => Math.round(n).toLocaleString('ko-KR');
+  const shortName = (c) => SHORT[c.carrier_id] || c.name_ko;
+  const isConfirmed = (v) => !!v && v.status.startsWith('확인');
+  const isUnpublished = (c) => !Object.values(c.values).some(isConfirmed);
+
+  // 비교표 열: 컨테이너 종류·규격에 맞는 항목 키
+  function columns() {
+    const s = state.size;
+    const cols = [
+      { label: 'THC', key: `THC_${state.type}_${s}` },
+      { label: 'W/FAG', key: `WHARFAGE_${s}` },
+      { label: 'PFS', key: `SECURITY_${s}` },
+      { label: 'PSC', key: `PORT_SAFETY_${s}` },
+      { label: 'SEAL', key: 'SEAL' },
+      { label: 'DOCS FEE', key: 'DOC_FEE' },
+    ];
+    if (state.type === 'DG') cols.push({ label: 'DG 할증', key: 'DG_SURCHARGE' });
+    return cols;
+  }
+
+  // 칸 하나 표시(3단계: 상태별 기본 표시. 추정값·합계는 4단계에서)
+  function cellHtml(v) {
+    if (!v) return '<span class="lc-muted">—</span>';
+    switch (v.status) {
+      case '확인':
+        return fmt(v.amount);
+      case '확인(오래된 공지)': {
+        const y = (v.effective_from || '').slice(0, 4);
+        return `${fmt(v.amount)}<span class="tag tag-mini lc-st">${esc(y || '오래된 공지')}</span>`;
+      }
+      case 'THC에 포함':
+        return '<span class="tag tag-mini">THC 포함</span>';
+      case 'W/FAG에 포함(추정)':
+        return '<span class="tag tag-mini">W/FAG 포함</span>';
+      case '일반 서류비 적용':
+      case '해당 없음':
+        return '<span class="lc-muted">—</span>';
+      default:
+        return '<span class="tag tag-mini">미확인</span>';
+    }
+  }
+
+  function rowHtml(c, cols) {
+    const title = c.name_ko === shortName(c) ? c.name_en : `${c.name_ko} · ${c.name_en}`;
+    return `<tr class="lc-row" data-id="${esc(c.carrier_id)}">
+      <td><span class="lc-name" title="${esc(title)}"><span class="lc-name__ko">${esc(shortName(c))}</span><span class="lc-name__sub">${esc(c.nationality)}</span></span></td>
+      ${cols.map((col) => `<td>${cellHtml(c.values[col.key])}</td>`).join('')}
+      <td class="lc-total"><span class="lc-muted">—</span></td>
+    </tr>`;
+  }
+
+  function matches(c) {
+    if (state.scope !== 'all' && c.nationality !== state.scope) return false;
+    const q = state.q.trim().toLowerCase().replace(/\s+/g, '');
+    if (!q) return true;
+    return [shortName(c), c.name_ko, c.name_en, c.carrier_id].some((s) => String(s).toLowerCase().replace(/\s+/g, '').includes(q));
+  }
+
+  function renderTable() {
+    const cols = columns();
+    const list = DATA.carriers.filter(matches);
+    const published = list.filter((c) => !isUnpublished(c));
+    const unpublished = list.filter(isUnpublished);
+    const span = cols.length + 2;
+    $('count').textContent = list.length;
+    let body = published.map((c) => rowHtml(c, cols)).join('');
+    if (unpublished.length) {
+      body += `<tr class="lc-divider"><td colspan="${span}"><span class="lc-divider__text">${esc(UNPUBLISHED_LABEL)}</span></td></tr>`;
+      body += unpublished.map((c) => rowHtml(c, cols)).join('');
+    }
+    if (!list.length) body = `<tr class="lc-empty"><td colspan="${span}">찾는 선사가 없어요. 이름을 다시 확인하거나 선사 범위를 "전체"로 바꿔 보세요.</td></tr>`;
+    $('table-host').innerHTML = `<div class="lc-table-wrap"><table class="lc-table">
+      <thead><tr><th scope="col">선사</th>${cols.map((c) => `<th scope="col">${esc(c.label)}</th>`).join('')}<th scope="col">합계</th></tr></thead>
+      <tbody>${body}</tbody></table></div>`;
+  }
+
+  function render() {
+    const dg = $('dg-note');
+    dg.hidden = state.type !== 'DG';
+    dg.textContent = DG_NOTE;
+    if (DATA) renderTable();
+  }
+
+  // 입력 pill
+  function pills(host, options, key) {
+    host.innerHTML = options.map(([v, label]) => `<button class="pill" type="button" data-v="${esc(v)}" aria-pressed="${state[key] === v}">${esc(label)}</button>`).join('');
+    host.addEventListener('click', (e) => {
+      const b = e.target.closest('button[data-v]');
+      if (!b) return;
+      state[key] = b.dataset.v;
+      host.querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      render();
+    });
+  }
+  pills($('f-type'), TYPES, 'type');
+  pills($('f-size'), SIZES, 'size');
+  pills($('f-scope'), SCOPES, 'scope');
+
+  const clamp = (n) => Math.min(99, Math.max(1, Math.floor(Number(n)) || 1));
+  for (const id of ['qty', 'bl']) {
+    const el = $(id);
+    el.addEventListener('input', () => { if (el.value !== '') { state[id] = clamp(el.value); render(); } });
+    el.addEventListener('change', () => { state[id] = clamp(el.value); el.value = state[id]; render(); });
+  }
+  $('q').addEventListener('input', (e) => { state.q = e.target.value; render(); });
+
+  function renderInfo() {
+    const m = DATA.meta;
+    const total = DATA.carriers.length;
+    const unpub = DATA.carriers.filter(isUnpublished).length;
+    $('scope-line').textContent = `부산항 수출 · ${total}개 선사 · 기준일 ${m.checked_at}`;
+    $('data-info').innerHTML = [
+      ['출처', m.source],
+      ['기준일', m.checked_at],
+      ['범위', '부산항 수출 · 컨테이너 FCL · 현재 유효 요율 · 원화(KRW) 항목'],
+      ['선사', `${total}곳 — 공식 Tariff 확인 ${total - unpub}곳, 미공개 ${unpub}곳`],
+      ['위험물', DG_NOTE.replace('DG 기준: ', '')],
+    ].map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join('');
+  }
+
+  fetch(DATA_URL, { cache: 'no-cache' })
+    .then((r) => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
+    .then((d) => { DATA = d; renderInfo(); render(); })
+    .catch(() => { $('table-host').innerHTML = '<div class="lc-state"><p class="body">데이터를 불러오지 못했어요. 잠시 뒤 새로고침해 주세요.</p></div>'; });
+
+  // 제보 창구는 site.json(연락)에서 — 카카오톡 링크가 있으면 그쪽으로
+  fetch(SITE_URL, { cache: 'no-cache' }).then((r) => (r.ok ? r.json() : {})).then((s) => {
+    const k = (s.contact?.links || []).find((l) => /open\.kakao\.com/.test(l.href || ''));
+    if (k) { $('report-link').href = k.href; $('report-link').textContent = '카카오톡으로 틀린 값 제보하기'; }
+  }).catch(() => {});
+
+  render();
+})();
+</script>
+</body>
+</html>
