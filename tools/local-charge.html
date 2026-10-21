@@ -33,6 +33,19 @@
   .lc-num { width: 76px; padding: 6px 10px; font-size: 15px; text-align: right; font-variant-numeric: tabular-nums; }
   .lc-search { padding: 8px 14px; font-size: 15px; }
   .lc-dg-note { color: var(--ink-2); }
+  /* 선택 표시: 입력 바는 "하나를 고르는" 칸이라 검정 채움 + 흰 글자로 또렷하게.
+     새 색을 들이지 않고 명도로 강조(색 네 곳 규칙 유지, 라임은 견적서 표 복사 버튼 하나).
+     여러 개를 거르는 필터 pill(D01)은 연한 강조면 그대로 둔다 */
+  .lc-bar .pill { min-height: 36px; padding: 0 var(--space-4); font-size: 14px; }
+  .lc-bar .pill[aria-pressed="true"],
+  .lc-bar .pill[aria-pressed="true"]:hover { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+
+  /* 비교표 가져가기: 선사 체크 → 표 복사 · 엑셀(CSV) 내려받기(무채색 버튼) */
+  .lc-tools { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
+  .lc-sel { color: var(--ink-2); font-size: 13px; margin-right: var(--space-1); }
+  .lc-check { width: 16px; height: 16px; margin: 3px 0 0; accent-color: var(--ink); cursor: pointer; flex: none; }
+  .lc-namecell { display: flex; align-items: flex-start; gap: var(--space-3); }
+  .lc-table tbody tr.is-selected td { background: var(--card); }
 
   /* ② 선사 비교표 — 선사명 열 고정 + 가로 스크롤 */
   .lc-result-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--space-2) var(--space-4); margin-bottom: var(--space-3); }
@@ -81,6 +94,9 @@
     .lc-table th:first-child, .lc-table td:first-child { min-width: 112px; max-width: 128px; }
     .lc-divider__text { left: 10px; }
     .lc-data { grid-template-columns: minmax(0, 1fr); padding: var(--space-4); }
+    .lc-tools { width: 100%; }
+    .lc-sel { flex: 1 1 calc(100% - 120px); } /* 첫 줄: 가져갈 선사 + 선택 해제, 둘째 줄: 복사·내려받기 */
+    .lc-tools .btn-outline { flex: 1 1 40%; min-height: 40px; }
   }
 </style>
 </head>
@@ -127,8 +143,14 @@
     <div class="lc-result">
       <div class="lc-result-head">
         <p class="lc-count" aria-live="polite"><strong id="count">0</strong><span class="ink-2"> 곳</span></p>
-        <p class="caption lc-table-note">단위 원(KRW) · THC~SEAL은 컨테이너당, DOCS FEE는 B/L당 단가</p>
+        <div class="lc-tools">
+          <span class="lc-sel" id="sel-info" aria-live="polite"></span>
+          <button class="btn btn-sm" type="button" id="sel-clear" hidden>선택 해제</button>
+          <button class="btn btn-sm btn-outline" type="button" id="copy-table"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg><span>표 복사</span></button>
+          <button class="btn btn-sm btn-outline" type="button" id="download-csv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5"/><path d="M5 19h14"/></svg><span>엑셀(CSV) 내려받기</span></button>
+        </div>
       </div>
+      <p class="caption lc-table-note" style="margin-bottom: 12px">단위 원(KRW) · THC~SEAL은 컨테이너당, DOCS FEE는 B/L당 단가 · 선사를 체크하면 그 선사만, 체크가 없으면 화면에 보이는 선사를 모두 가져가요</p>
       <div id="table-host">
         <div class="lc-state"><p class="body">선사별 부대비용 데이터를 불러오고 있어요.</p></div>
       </div>
@@ -188,6 +210,7 @@
   };
 
   const state = { type: 'DRY', size: '20', qty: 1, bl: 1, scope: 'all', q: '' };
+  const selected = new Set(); // 체크한 선사(carrier_id). 체크가 없으면 화면에 보이는 선사를 모두 가져간다
   let DATA = null;
 
   const $ = (id) => document.getElementById(id);
@@ -236,8 +259,9 @@
 
   function rowHtml(c, cols) {
     const title = c.name_ko === shortName(c) ? c.name_en : `${c.name_ko} · ${c.name_en}`;
-    return `<tr class="lc-row" data-id="${esc(c.carrier_id)}">
-      <td><span class="lc-name" title="${esc(title)}"><span class="lc-name__ko">${esc(shortName(c))}</span><span class="lc-name__sub">${esc(c.nationality)}</span></span></td>
+    const on = selected.has(c.carrier_id);
+    return `<tr class="lc-row${on ? ' is-selected' : ''}" data-id="${esc(c.carrier_id)}">
+      <td><div class="lc-namecell"><input class="lc-check" type="checkbox" data-check="${esc(c.carrier_id)}" aria-label="${esc(shortName(c))} 선택"${on ? ' checked' : ''}><span class="lc-name" title="${esc(title)}"><span class="lc-name__ko">${esc(shortName(c))}</span><span class="lc-name__sub">${esc(c.nationality)}</span></span></div></td>
       ${cols.map((col) => `<td>${cellHtml(c.values[col.key])}</td>`).join('')}
       <td class="lc-total"><span class="lc-muted">—</span></td>
     </tr>`;
@@ -250,12 +274,20 @@
     return [shortName(c), c.name_ko, c.name_en, c.carrier_id].some((s) => String(s).toLowerCase().replace(/\s+/g, '').includes(q));
   }
 
+  // 화면에 보이는 순서대로(확인 선사 → 미공개 선사)
+  function visibleList() {
+    const list = DATA.carriers.filter(matches);
+    return [...list.filter((c) => !isUnpublished(c)), ...list.filter(isUnpublished)];
+  }
+
   function renderTable() {
     const cols = columns();
-    const list = DATA.carriers.filter(matches);
+    const list = visibleList();
     const published = list.filter((c) => !isUnpublished(c));
     const unpublished = list.filter(isUnpublished);
     const span = cols.length + 2;
+    const nSel = list.filter((c) => selected.has(c.carrier_id)).length;
+    const allBox = `<input class="lc-check" type="checkbox" id="check-all" aria-label="화면의 선사 모두 선택"${list.length && nSel === list.length ? ' checked' : ''}>`;
     $('count').textContent = list.length;
     let body = published.map((c) => rowHtml(c, cols)).join('');
     if (unpublished.length) {
@@ -264,9 +296,96 @@
     }
     if (!list.length) body = `<tr class="lc-empty"><td colspan="${span}">찾는 선사가 없어요. 이름을 다시 확인하거나 선사 범위를 "전체"로 바꿔 보세요.</td></tr>`;
     $('table-host').innerHTML = `<div class="lc-table-wrap"><table class="lc-table">
-      <thead><tr><th scope="col">선사</th>${cols.map((c) => `<th scope="col">${esc(c.label)}</th>`).join('')}<th scope="col">합계</th></tr></thead>
+      <thead><tr><th scope="col"><div class="lc-namecell">${allBox}<span>선사</span></div></th>${cols.map((c) => `<th scope="col">${esc(c.label)}</th>`).join('')}<th scope="col">합계</th></tr></thead>
       <tbody>${body}</tbody></table></div>`;
+    const all = $('check-all');
+    if (all) all.indeterminate = nSel > 0 && nSel < list.length;
+    $('sel-info').textContent = nSel ? `가져갈 선사: 선택 ${nSel}곳` : `가져갈 선사: 화면의 ${list.length}곳`;
+    $('sel-clear').hidden = !nSel;
+    $('copy-table').disabled = $('download-csv').disabled = !list.length;
   }
+
+  // ── 비교표 가져가기(표 복사 · 엑셀(CSV) 내려받기) ──
+  // 금액은 쉼표 없는 숫자(엑셀이 숫자로 인식), 포함은 0, 추정·포함·오래된 공지·미확인은 비고 열에 적는다.
+  // 합계·추정값은 4단계 계산 로직에서 채운다.
+  function exportRows() {
+    const list = visibleList();
+    const sel = list.filter((c) => selected.has(c.carrier_id));
+    return sel.length ? sel : list;
+  }
+  function rowModel(c, cols) {
+    const notes = [];
+    const nums = cols.map((col) => {
+      const v = c.values[col.key];
+      if (!v) return '';
+      switch (v.status) {
+        case '확인': return v.amount;
+        case '확인(오래된 공지)': notes.push(`${col.label} ${(v.effective_from || '').slice(0, 4) || '오래된'} 공지`); return v.amount;
+        case 'THC에 포함': notes.push(`${col.label} THC 포함`); return 0;
+        case 'W/FAG에 포함(추정)': notes.push(`${col.label} W/FAG 포함(추정)`); return 0;
+        case '일반 서류비 적용':
+        case '해당 없음': return '';
+        default: notes.push(`${col.label} 미확인`); return '';
+      }
+    });
+    return { cells: [shortName(c), c.nationality, ...nums, '', ''], note: notes.join(', ') };
+  }
+  function exportTable() {
+    const cols = columns();
+    const head = ['선사', '국적구분', ...cols.map((c) => c.label), '합계(최저)', '합계(최고)', '비고'];
+    return { head, rows: exportRows().map((c) => { const m = rowModel(c, cols); return [...m.cells, m.note]; }) };
+  }
+  const typeLabel = () => TYPES.find(([v]) => v === state.type)[1];
+  const conditionText = () => `부산항 수출 · ${typeLabel()} ${state.size}' · 수량 ${state.qty}개 · B/L ${state.bl}건 · 기준일 ${DATA.meta.checked_at}`;
+
+  async function copyText(text) {
+    try { await navigator.clipboard.writeText(text); return true; } catch (e) {
+      const ta = Object.assign(document.createElement('textarea'), { value: text });
+      ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0';
+      document.body.appendChild(ta); ta.select();
+      const ok = document.execCommand('copy'); ta.remove(); return ok;
+    }
+  }
+  function flash(btn, text) {
+    const label = btn.querySelector('span');
+    if (!btn.dataset.label) btn.dataset.label = label.textContent;
+    label.textContent = text;
+    clearTimeout(btn._t);
+    btn._t = setTimeout(() => { label.textContent = btn.dataset.label; }, 2000);
+  }
+  $('copy-table').addEventListener('click', async (e) => {
+    const { head, rows } = exportTable();
+    const tsv = [head, ...rows].map((r) => r.map((x) => String(x).replace(/[\t\r\n]+/g, ' ')).join('\t')).join('\r\n');
+    flash(e.currentTarget, (await copyText(tsv)) ? '복사됨' : '복사 안 됨');
+  });
+  $('download-csv').addEventListener('click', (e) => {
+    const { head, rows } = exportTable();
+    const q = (x) => (/[",\r\n]/.test(String(x)) ? `"${String(x).replace(/"/g, '""')}"` : String(x));
+    const lines = [[`조건: ${conditionText()}`], [], head, ...rows, [], ['출처: 각 선사 공식 Tariff · 부가세 별도 여부와 실제 청구액은 선사 확인 필요']];
+    const csv = '﻿' + lines.map((r) => r.map(q).join(',')).join('\r\n');
+    const a = Object.assign(document.createElement('a'), {
+      href: URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' })),
+      download: `부대비용_부산수출_${typeLabel().replace('·', '')}-${state.size}ft_${DATA.meta.checked_at}.csv`,
+    });
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    flash(e.currentTarget, '내려받음');
+  });
+
+  // 선사 체크(행 하나 · 화면 전체)
+  $('table-host').addEventListener('change', (e) => {
+    if (e.target.id === 'check-all') {
+      visibleList().forEach((c) => (e.target.checked ? selected.add(c.carrier_id) : selected.delete(c.carrier_id)));
+    } else if (e.target.dataset.check) {
+      const id = e.target.dataset.check;
+      e.target.checked ? selected.add(id) : selected.delete(id);
+    } else return;
+    const key = e.target.id || e.target.dataset.check;
+    render();
+    // 표를 다시 그려도 키보드 포커스는 방금 누른 체크박스에 남긴다
+    (key === 'check-all' ? $('check-all') : $('table-host').querySelector(`[data-check="${CSS.escape(key)}"]`))?.focus();
+  });
+  $('sel-clear').addEventListener('click', () => { selected.clear(); render(); });
 
   function render() {
     const dg = $('dg-note');
