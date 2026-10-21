@@ -13,6 +13,8 @@
 // 7) 공유 버튼([data-share] 자리): "공유하기"(기기 공유창 → 카카오톡 등, 검정 주 버튼) + "링크 복사"(정식 주소 = canonical).
 //    공유하기는 navigator.share를 지원하는 브라우저에서만 보이고, 없으면 링크 복사가 주 버튼이 된다.
 //    (카카오 SDK 전용 버튼은 2026-10-20 시험 후 뺐다 — 공유하기로 카카오톡 전달·썸네일이 정상이라 중복)
+//    공유 문구는 두 줄: "[마이포워더-도구] {도구 이름}" + 한 줄 소개(tools.json share.message, 없으면 og:description).
+//    랜딩은 site.json share.messageName·message. 제목(title)은 넘기지 않는다 — 카카오톡이 제목을 문구 앞에 붙여 길어진다.
 // 6) 방문 분석: 배포된 사이트에서만 Vercel Web Analytics(같은 도메인 /_vercel/insights)를 붙인다. 로컬 미리보기에서는 불러오지 않는다.
 (() => {
   if (!/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) {
@@ -66,13 +68,22 @@
     }
   }
 
+  // 공유 문구(두 줄). 정해지기 전에는 og 제목·설명으로 공유한다
+  const SHARE_PREFIX = '[마이포워더-도구]';
+  let shareText = '';
+  function setShareText(name, line) {
+    const desc = document.querySelector('meta[property="og:description"]')?.content || '';
+    if (name) shareText = `${SHARE_PREFIX} ${name}
+${line || desc}`.trim();
+  }
+
   // 공유 버튼 — 정식 주소(canonical)를 쓴다. 로컬 미리보기에서도 배포 주소가 복사된다
   function renderShare() {
     const hosts = document.querySelectorAll('[data-share]');
     if (!hosts.length) return;
     const meta = (p) => document.querySelector(`meta[property="${p}"]`)?.content;
     const url = document.querySelector('link[rel="canonical"]')?.href || location.href.split('#')[0];
-    const data = { title: meta('og:title') || document.title, text: meta('og:description') || '', url };
+    const fallback = { title: meta('og:title') || document.title, text: meta('og:description') || '', url };
     const canShare = typeof navigator.share === 'function';
     hosts.forEach((host) => {
       // 주 버튼(검정)은 공유하기, 공유창이 없는 브라우저에서는 링크 복사
@@ -85,7 +96,7 @@
         if (act === 'copy') {
           toast((await copyText(url)) ? '링크를 복사했어요. 카카오톡에 붙여넣으세요' : '복사하지 못했어요. 주소창의 링크를 복사해 주세요.');
         } else if (act === 'share') {
-          try { await navigator.share(data); } catch (err) {
+          try { await navigator.share(shareText ? { text: shareText, url } : fallback); } catch (err) {
             if (err?.name !== 'AbortError') toast((await copyText(url)) ? '공유창을 열지 못해 링크를 복사했어요' : '공유하지 못했어요');
           }
         }
@@ -398,6 +409,7 @@
     const site = await loadSite();
     siteConfig = site;
     renderShare();
+    if (!host) setShareText(site.share?.messageName, site.share?.message);
     applyContact(site);
     if (funnelHost) funnelHost.innerHTML = funnelHtml(site);
     if (host) {
@@ -408,6 +420,7 @@
         const all = await res.json();
         const tool = all.find((t) => t.slug === host.dataset.slug);
         if (tool) {
+          setShareText(tool.name, tool.share?.message);
           host.innerHTML = render(tool, all, site);
           if (tool.kit) hydrateKit(host, tool.kit);
           buildToc(host);

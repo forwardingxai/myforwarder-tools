@@ -4,6 +4,13 @@
 
 ---
 
+## 2026-10-21 · VS Code · 공유하기 문구를 두 줄 형식으로
+
+- 완료한 일: 공유하기(카카오톡 등)로 보낼 때 붙는 문구를 "[마이포워더-도구] {도구 이름}" + 한 줄 소개 두 줄로 바꿈. 장치장 코드 조회기 소개는 tools.json share.message, 랜딩은 site.json share.messageName·message. message가 없는 도구(D02 포함)는 og:description을 둘째 줄로 씀. 검증 6/6, 콘솔 오류 0
+- 결정한 것: navigator.share에 제목(title)을 넘기지 않음 — 카카오톡이 "제목 - 설명"으로 이어 붙여 길어졌기 때문. 링크 복사는 주소만 그대로
+- 막힌 것: 없음
+- 다음 할 일: 실제 카카오톡에서 줄바꿈 모양 확인 → D02 이어서
+
 ## 2026-10-21 · VS Code · D02 직접 만들어 보기 키트·공유 이미지 (D01 방식, 21:10~21:13)
 
 - 완료한 일: kits/local-charge.prompt.txt(Claude 채팅용 시작 프롬프트 — 데이터 모양·상태 표시·계산·견적서 표·완성 확인 4건), kits/local-charge.md(길 A·B·C, 문제, 데이터 얻는 법·필터, 표준 항목 18개, 대표값·상태·추정·이중 계산·합계 규칙, 단계별 프롬프트 8개, 완성 확인 7건, 응용, 지킬 것, CC BY 4.0). 데이터 내려받기 JSON + CSV(data/local-charge-busan-export.csv, 선사×항목 702줄, BOM — scripts/local_charge_csv.py 표준 라이브러리로 생성, 상태별 칸 수 JSON과 같음). 응용 프롬프트 3개(회사 견적서 양식, 선사 청구서 대조, 구글 시트 합계 함수). tools.json kit·share·thumb, npm run share-image -- local-charge → thumbs/local-charge-og.png(1200×630, 라임, "영업 · 운영 · 무료 도구", 화주 "부산 로컬차지 얼마예요?" → ₩202,833 고려해운 DRY 20' 1개)·thumbs/local-charge.png(카드 썸네일). 도구 HTML에 og:image·크기·twitter:card. PRD 결과물 목록·갱신 절차에 CSV 단계 추가. 도구 페이지 키트 섹션(프롬프트·키트·데이터·응용) 표시와 파일 5개 200 확인, 콘솔 오류 0

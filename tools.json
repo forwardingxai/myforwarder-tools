@@ -47,7 +47,8 @@
       "who": "관세사",
       "question": "\"장치장 코드가 뭐예요?\"",
       "answer": "03077011",
-      "answerNote": "에이치엠엠피에스에이신항만(주) · 부산세관"
+      "answerNote": "에이치엠엠피에스에이신항만(주) · 부산세관",
+      "message": "초성, 약칭만으로 전국 장치장 코드를 찾고 관세사에게 보낼 문구까지 바로 보낼 수 있어요"
     },
     "toolsUsed": ["Claude 채팅(기획)", "Claude Code", "UNI-PASS Open API"],
     "hours": 0,
