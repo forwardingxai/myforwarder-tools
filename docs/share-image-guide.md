@@ -67,6 +67,7 @@
 2. `npm run share-image -- {slug}` (처음 한 번은 `npm install`). 경고가 나오면 문구를 줄이고 다시 실행한다.
 3. `thumbs/{slug}-og.png`를 열어 확인한다. 카카오톡 크기(가로 300px)로 줄여도 제목과 답이 읽히는지 본다.
 4. 도구 HTML의 `<head>`에 공유 정보를 넣는다(D01 `tools/bonded-area-code.html` 참고): `og:title`, `og:description`, `og:url`, `og:image`(= `https://myforwarder-tools.vercel.app/thumbs/{slug}-og.png`), `og:image:width` 1200, `og:image:height` 630, `twitter:card` summary_large_image.
+   - `og:description`(카카오톡·링크 미리보기 설명)은 도구가 하는 일 한 문장만 쓴다. "로그인 없이 바로 써요" 같은 공통 문구는 붙이지 않는다(2026-10-21 사용자 결정, D02부터).
 
 ## 6-1. 랜딩(사이트) 공유 이미지
 
