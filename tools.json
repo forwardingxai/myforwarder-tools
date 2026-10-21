@@ -74,7 +74,10 @@
     "history": [
       {"date": "2026-10-20", "step": "기획", "note": "부산항 수출 · 컨테이너 FCL · 선사 로컬차지로 범위 확정"},
       {"date": "2026-10-21", "step": "기획", "note": "선사 공식 Tariff를 기준값으로, DG 포함, 국적/외국적 그룹 추정 규칙"},
-      {"date": "2026-10-21", "step": "데이터", "note": "선사 공식 Tariff 6,161행 수집(aside), 39개 선사 · 18개 항목으로 정리"}
+      {"date": "2026-10-21", "step": "데이터", "note": "선사 공식 Tariff 6,161행 수집(aside), 39개 선사 · 18개 항목으로 정리"},
+      {"date": "2026-10-21", "step": "구현", "note": "Claude Code, 단일 HTML · PRD 계산 검증 10건 통과"},
+      {"date": "2026-10-21", "step": "수정", "note": "비교표 표 복사·CSV 내려받기, 견적서 펼침 세모 추가(검토 중 요청)"},
+      {"date": "2026-10-21", "step": "배포", "note": "myforwarder-tools.vercel.app/tools/local-charge.html"}
     ],
     "promptStructure": [
       {"title": "맥락 읽기"},
@@ -109,8 +112,8 @@
       "message": "부산항 수출 로컬차지를 39개 선사 한 번에 비교하고, 견적서 표로 복사해요."
     },
     "toolsUsed": ["Claude 채팅(기획)", "Claude Code", "aside(선사 Tariff 수집)"],
-    "hours": 0,
-    "status": "draft",
+    "hours": 0.6,
+    "status": "live",
     "thumb": "thumbs/local-charge.png",
     "related": ["bonded-area-code"]
   }
