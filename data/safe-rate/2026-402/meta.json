@@ -1,0 +1,159 @@
+{
+  "source": "국토교통부고시 제2026-402호 본문(거리별 운임표)·별첨(기점별 운임 왕복·편도)",
+  "updatedAt": "2026-10-22",
+  "count": 3480,
+  "noticeNo": "제2026-402호",
+  "title": "2026년 적용 화물자동차 안전운임 고시 일부개정고시",
+  "effectiveDate": "2026-08-01",
+  "periods": [
+    {
+      "from": "2026-08-01",
+      "to": "2026-12-31"
+    }
+  ],
+  "sourceUrl": "https://www.molit.go.kr/USR/I0204/m_45/dtl.jsp?idx=18923",
+  "vat": "별도",
+  "destinationCount": 3480,
+  "onewayDestinationCount": 1213,
+  "builtAt": "2026-10-22 21:48",
+  "fareOrder": [
+    "w40",
+    "b40",
+    "s40",
+    "w20",
+    "b20",
+    "s20"
+  ],
+  "fareLabels": {
+    "w40": "40FT 안전위탁운임",
+    "b40": "40FT 운수사업자 간 운임",
+    "s40": "40FT 안전운송운임",
+    "w20": "20FT 안전위탁운임",
+    "b20": "20FT 운수사업자 간 운임",
+    "s20": "20FT 안전운송운임"
+  },
+  "fareKinds": {
+    "w": "안전위탁운임",
+    "b": "운수사업자 간 운임",
+    "s": "안전운송운임"
+  },
+  "kmTables": {
+    "general": {
+      "source": "고시 본문 1) 거리(km)별 운임(왕복)",
+      "count": 550
+    },
+    "incheon": {
+      "source": "별첨 왕복 인천신항·인천항·인천국제여객터미널 시트",
+      "count": 436
+    },
+    "pyeongtaek": {
+      "source": "별첨 왕복 평택항 시트",
+      "count": 353
+    }
+  },
+  "files": {
+    "destinations": "[시도, 시군구, 행정동, km × 14 (origins 순서)]",
+    "kmTables": "{ 표 이름: { km: [fareOrder 6종] } }",
+    "oneway": "{ 기점 코드: [[시도, 시군구, 행정동, 구간거리, 적컨거리, 공컨거리, fareOrder 6종]] }"
+  },
+  "origins": [
+    {
+      "code": "BNP",
+      "name": "부산신항",
+      "kmTable": "general",
+      "hasOneway": true,
+      "terminalKm": 3.3
+    },
+    {
+      "code": "BSP",
+      "name": "부산북항",
+      "kmTable": "general",
+      "hasOneway": true,
+      "terminalKm": 3.3
+    },
+    {
+      "code": "ICN",
+      "name": "인천신항",
+      "kmTable": "incheon",
+      "hasOneway": false,
+      "terminalKm": 2
+    },
+    {
+      "code": "ICO",
+      "name": "인천항",
+      "kmTable": "incheon",
+      "hasOneway": false,
+      "terminalKm": 1
+    },
+    {
+      "code": "ICF",
+      "name": "인천국제여객터미널",
+      "kmTable": "incheon",
+      "hasOneway": false,
+      "terminalKm": 2
+    },
+    {
+      "code": "GWY",
+      "name": "광양항",
+      "kmTable": "general",
+      "hasOneway": true,
+      "terminalKm": 4
+    },
+    {
+      "code": "PTK",
+      "name": "평택항",
+      "kmTable": "pyeongtaek",
+      "hasOneway": false,
+      "terminalKm": 2
+    },
+    {
+      "code": "USN",
+      "name": "울산신항",
+      "kmTable": "general",
+      "hasOneway": false,
+      "terminalKm": 2
+    },
+    {
+      "code": "USO",
+      "name": "울산항",
+      "kmTable": "general",
+      "hasOneway": false,
+      "terminalKm": 1
+    },
+    {
+      "code": "PHK",
+      "name": "포항항",
+      "kmTable": "general",
+      "hasOneway": false,
+      "terminalKm": 1.5
+    },
+    {
+      "code": "GSN",
+      "name": "군산항",
+      "kmTable": "general",
+      "hasOneway": false,
+      "terminalKm": 2
+    },
+    {
+      "code": "MSN",
+      "name": "마산항",
+      "kmTable": "general",
+      "hasOneway": false,
+      "terminalKm": 1.2
+    },
+    {
+      "code": "DSN",
+      "name": "대산항",
+      "kmTable": "general",
+      "hasOneway": false,
+      "terminalKm": 1
+    },
+    {
+      "code": "UWI",
+      "name": "의왕ICD",
+      "kmTable": "general",
+      "hasOneway": false,
+      "terminalKm": 2
+    }
+  ]
+}

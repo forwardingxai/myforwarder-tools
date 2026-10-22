@@ -7,6 +7,8 @@
     "share-image": "node scripts/make-share-image.mjs"
   },
   "devDependencies": {
-    "playwright-core": "1.49.1"
+    "pdfjs-dist": "6.4.299",
+    "playwright-core": "1.49.1",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
   }
 }

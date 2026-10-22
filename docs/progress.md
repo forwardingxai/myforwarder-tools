@@ -4,6 +4,13 @@
 
 ---
 
+## 2026-10-22 · VS Code · D03 safe-rate 1단계: 고시 데이터 빌드·전수 검증 (21:42~21:50)
+
+- 완료한 일: scripts/build-safe-rate.mjs(node scripts/build-safe-rate.mjs 2026-402) 작성 → data/safe-rate/2026-402/ meta.json(3.6KB)·destinations.json(334.9KB, 3,480행 × km 14개)·km-tables.json(75.5KB, general 550km·incheon 436km·pyeongtaek 353km)·oneway.json(363.7KB, BNP·BSP·GWY 각 1,213행), docs/safe-rate/build-report-2026-402.md. 검증 23/23 통과: 왕복 14시트 3,480행·결측 0·키 중복 0·키 순서 동일, 시트 안 km→운임 충돌 0, 고시 본문 거리표 1~550km 연속·감소 0, V16 508km 불일치 0, 인천 3시트 충돌 0, 편도 1,213행·왕복 키에 모두 있음·지역(서울 427·인천 149·경기 602·춘천 25·홍천 10) 일치, V15 292,320셀 불일치 0, 대표값 V1·V3·V4·V9·V10·V11·파주 편도 모두 기대값과 같음. PDF 표 km 1·3·463·474·550 원문 줄과 직접 대조
+- 결정한 것: PDF는 한 장에 좌우 두 쪽이라 같은 높이 행이 섞임(한 줄 숫자 16개) → 장 가운데(x=420)에서 좌우를 먼저 나눈 뒤 (a)~(d) 조건 적용. 엑셀은 npm xlsx 0.18.5 대신 SheetJS 공식 배포 0.20.3(알려진 취약점 회피), pdfjs-dist 6.4.299 — 둘 다 devDependencies 고정. 출력 폴더·리포트가 이미 있으면 덮어쓰지 않고 멈춤(버전 쌓기). JSON은 한 줄에 한 행(다음 고시와 비교하기 쉽게). destinations.json은 요청대로 배열이라 source·updatedAt·count는 meta.json에 둠
+- 막힌 것: 원본 폴더가 raw/safe-rate2026-402/(슬래시 빠짐)로 들어와 있어 raw/safe-rate/2026-402/로 옮김(다운로드 원본과 체크섬 같음, raw/는 .gitignore에 이미 있음)
+- 다음 할 일: 2단계 — 주소(법정동 코드) → 고시 행정동 변환표(dong-map.json), 행정동명 매칭률 리포트·alias 보정
+
 ## 2026-10-22 · VS Code · 랜딩 공유 이미지 C안("AI로 이게 된다고요?")·새 파일 이름
 
 - 완료한 일: 랜딩 링크 미리보기가 카카오톡에서 옛 밝은 화면으로 나와, 같은 검정 틀로 샘플 3개(A 무료 도구 / B 도구 결과 03077011·₩202,833 / C "AI로 이게 된다고요?" → "써 보세요")를 만들어 비교. 사용자가 C 선택 → site.json share 문구 교체, thumbs/site-og-2026-10-22.png 생성, index.html og:image 교체. make-share-image.mjs가 site.json share.file 이름으로 저장하게 바꿈
