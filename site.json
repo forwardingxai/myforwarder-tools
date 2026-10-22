@@ -20,16 +20,17 @@
     ]
   },
   "share": {
-    "_note": "랜딩 공유 이미지(thumbs/site-og.png) 문구. npm run share-image -- site. 도구 개수·날짜처럼 낡는 값은 넣지 않는다",
+    "_note": "랜딩 공유 이미지 문구. npm run share-image -- site → thumbs/{file}. 카카오톡 등은 이미지 주소로 캐시하므로 이미지를 바꿀 때 file 이름(날짜)을 새로 하고 index.html og:image도 바꾼다. 도구 개수·날짜처럼 낡는 값은 넣지 않는다",
+    "file": "site-og-2026-10-22.png",
     "area": "sales",
-    "tag": "포워딩 × AI · 무료",
+    "tag": "AI로 만든 실무 도구 · 무료",
     "title": ["마이포워더", "도구"],
     "sub": ["포워딩 실무의 반복 업무를", "AI로 하나씩 덜어 내요"],
     "who": "포워딩 실무자",
-    "question": "\"이거 매일 손으로 해요\"",
-    "answer": "무료 도구",
+    "question": "\"AI로 이게 된다고요?\"",
+    "answer": "써 보세요",
     "answerStyle": "text",
-    "answerNote": "로그인 없이 바로 쓰고, 만드는 법까지 가져가요",
+    "answerNote": "로그인 없이 바로, 만드는 법까지 공개해요",
     "messageName": "포워딩 실무 무료 도구 모음",
     "message": "로그인 없이 바로 쓰고, 만드는 법까지 가져가요"
   },
