@@ -16,6 +16,7 @@
 //    공유 문구는 두 줄: "[마이포워더-도구] {도구 이름}" + 한 줄 소개(tools.json share.message, 없으면 og:description).
 //    랜딩은 site.json share.messageName·message. 제목(title)은 넘기지 않는다 — 카카오톡이 제목을 문구 앞에 붙여 길어진다.
 // 6) 방문 분석: 배포된 사이트에서만 Vercel Web Analytics(같은 도메인 /_vercel/insights)를 붙인다. 로컬 미리보기에서는 불러오지 않는다.
+// 8) 업데이트 소식(updates.html) 링크: 상단 바 오른쪽 "업데이트", 푸터 첫 줄 끝 "업데이트", 도구 페이지 "만든 과정" 끝 "이 도구만 보기".
 (() => {
   if (!/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) {
     window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
@@ -376,7 +377,7 @@ ${line || desc}`.trim();
     if (tool.history?.length) {
       parts.push(section('만든 과정', `<ol class="timeline">${tool.history
         .map((h) => `<li><span class="timeline__date">${esc(h.date)}</span><span class="label">${esc(h.step)}</span><span class="body ink-2 timeline__note">${esc(h.note)}</span></li>`)
-        .join('')}</ol>`));
+        .join('')}</ol><p class="timeline-more"><a class="btn btn-sm" href="${esc(new URL(`updates.html?tool=${encodeURIComponent(tool.slug)}`, ROOT))}">업데이트 소식에서 이 도구만 보기</a></p>`));
     }
     if (tool.promptStructure?.length) {
       const n = tool.promptStructure.length;
@@ -402,7 +403,27 @@ ${line || desc}`.trim();
   const loadSite = () =>
     fetch(new URL('site.json', ROOT), { cache: 'no-cache' }).then((r) => (r.ok ? r.json() : {})).catch(() => ({}));
 
+  // 상단 바·푸터의 "업데이트" 링크 — 모든 페이지에 같은 자리로 붙인다(업데이트 페이지에서는 진하게)
+  function addSiteLinks() {
+    const href = new URL('updates.html', ROOT).href;
+    const here = /\/updates\.html$/.test(location.pathname);
+    const inner = document.querySelector('.site-nav__inner');
+    if (inner && !inner.querySelector('[data-nav-updates]')) {
+      const right = document.createElement('div');
+      right.className = 'site-nav__right';
+      const last = inner.children.length > 1 ? inner.lastElementChild : null;
+      right.innerHTML = `<a class="nav-link" href="${esc(href)}" data-nav-updates${here ? ' aria-current="page"' : ''}>업데이트</a>`;
+      if (last) right.appendChild(last);
+      inner.appendChild(right);
+    }
+    const foot = document.querySelector('.site-footer > span');
+    if (foot && !foot.querySelector('[data-foot-updates]')) {
+      foot.insertAdjacentHTML('beforeend', ` · <a class="foot-link" href="${esc(href)}" data-foot-updates>업데이트</a>`);
+    }
+  }
+
   async function init() {
+    addSiteLinks();
     const host = document.querySelector('[data-tool-sections]');
     const meta = document.querySelector('[data-tool-meta]');
     const funnelHost = document.querySelector('[data-site-funnel]');
