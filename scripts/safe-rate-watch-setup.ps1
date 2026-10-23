@@ -1,4 +1,4 @@
-# D03 안전운임 게시판 감시 — 자동화 전용 클론 만들기 + Windows 작업 스케줄러 등록
+﻿# D03 안전운임 게시판 감시 — 자동화 전용 클론 만들기 + Windows 작업 스케줄러 등록
 #
 # 사용(PowerShell): powershell -ExecutionPolicy Bypass -File scripts\safe-rate-watch-setup.ps1
 #   - 작업하는 저장소와 따로, 옆 폴더에 자동화 전용 클론을 만든다(같은 폴더를 두 곳에서 열지 않는 원칙).
@@ -42,7 +42,8 @@ $triggers = @(
   (New-ScheduledTaskTrigger -Weekly -DaysOfWeek $days -At '09:30'),
   (New-ScheduledTaskTrigger -Weekly -DaysOfWeek $days -At '16:30')
 )
-$settings = New-ScheduledTaskSettingsSet -StartWhenAvailable -ExecutionTimeLimit (New-TimeSpan -Minutes 30)
+# 노트북이 배터리로 돌 때도 실행(기본값은 배터리면 시작하지 않고 "대기 중"으로 남는다)
+$settings = New-ScheduledTaskSettingsSet -StartWhenAvailable -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -ExecutionTimeLimit (New-TimeSpan -Minutes 30)
 $principal = New-ScheduledTaskPrincipal -UserId $env:USERNAME -LogonType Interactive
 Register-ScheduledTask -TaskName 'myforwarder-safe-rate-watch' -Description 'D03 안전운임 고시 게시판 감시(myforwarder-tools)' `
   -Action $action -Trigger $triggers -Settings $settings -Principal $principal -Force | Out-Null

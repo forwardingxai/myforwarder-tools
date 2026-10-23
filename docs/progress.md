@@ -4,6 +4,13 @@
 
 ---
 
+## 2026-10-23 · VS Code · push·배포 확인·고시 감시 자동화 켜기 (16:20~16:26)
+
+- 완료한 일: origin과 비교(로컬에만 이 세션 커밋 6개, origin에만 있는 커밋 0) 후 push(준헌 요청) → 배포 사이트 확인: updates.html(거르기 전체 14·D03 블록), 랜딩·도구 2개 상단 바·푸터 "업데이트" 링크, 도구 페이지 "이 도구만 보기", 375px 가로 넘침 없음, 콘솔 오류 0. scripts/safe-rate-watch-setup.ps1 실행 → 자동화 전용 클론 C:\Users\JJ Dad\Documents\projects\myforwarder-tools-bot(npm ci, 게시판 글 17개 기준 기록), 작업 스케줄러 "myforwarder-safe-rate-watch"(평일 09:30·16:30, PC가 꺼져 있었으면 켜진 뒤) 등록, 손으로 한 번 돌려 확인(결과 0, 기록 "게시판 글 17개 · 새 글 0개")
+- 결정한 것: 배터리로 돌 때도 실행(설정 바꿈). 설치 스크립트는 UTF-8 BOM으로 저장(Windows PowerShell 5.1이 한글을 깨뜨리지 않게)
+- 막힌 것: 처음 실행이 "대기 중"에서 멈춤 — 노트북이 배터리(68%)라 Windows 기본값(배터리면 시작 안 함)에 걸림 → AllowStartIfOnBatteries로 해결. 작업 설명 한글이 깨져 다시 넣음
+- 다음 할 일: 11월 확정 고시가 올라오면 자동 반영되는지 기록(raw/safe-rate/watch/log.txt·inbox) 확인 → 3단계 계산 엔진
+
 ## 2026-10-23 · VS Code · 업데이트 소식 페이지 열기 (B안)
 
 - 완료한 일: 시안 3개(raw/preview/updates-page.html, 커밋 안 함 — A 한 줄 타임라인 · B 날짜별 카드 · C 도구별 보드) → 준헌 "섞어서, 디자이너 추천으로" → A 목록 + C "요즘 만드는 것" 검정 블록으로 updates.html 공개. prd/updates.md, site.json `updates`(now·notes 2·changes 5), page.js가 모든 페이지 상단 바 오른쪽·푸터에 "업데이트" 링크, 도구 페이지 "만든 과정" 끝 "업데이트 소식에서 이 도구만 보기"(?tool=slug). 목록은 tools.json history에서 자동(마지막 배포 = 새 도구, 첫 배포 뒤 수정·데이터 = 기능·데이터). 검증 U1~U7 통과(Edge 1280·375): 전체 14줄(새 도구 2 — D01 10-20·D02 10-21, 기능 5, 사이트 5, 메모 2), ?tool=local-charge → D02 줄+메모만, 메모 거르기 2줄, D03 단계 2/5, 상단 바 한 줄·가로 넘침 없음, 콘솔 오류 0
