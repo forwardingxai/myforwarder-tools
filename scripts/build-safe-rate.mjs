@@ -1,14 +1,17 @@
-// D03 안전운임 조회기 — 고시 원본(PDF·엑셀)에서 조회용 JSON 만들기
-//   raw/safe-rate/{고시번호}/notice.pdf · roundtrip.xlsx · oneway.xlsx
-//   → data/safe-rate/{고시번호}/meta.json · destinations.json · km-tables.json · oneway.json
-//   → docs/safe-rate/build-report-{고시번호}.md
+// D03 안전운임 조회기 — 고시 원본(PDF·hwpx·엑셀)에서 조회용 JSON 만들기
+//   raw/safe-rate/{버전}/ 본문(PDF 또는 hwpx) · 왕복 엑셀 · 편도 엑셀 — 파일 이름은 data/safe-rate/versions.json의 files
+//   → data/safe-rate/{버전}/meta.json · destinations.json · km-tables.json · oneway.json
+//   → docs/safe-rate/build-report-{버전}.md
 //
 // 사용: node scripts/build-safe-rate.mjs 2026-402
+//       node scripts/build-safe-rate.mjs 2026-578-draft --dry-run   (검증만, 파일 안 씀)
 //
+// - 버전 정보(고시번호·시행일·상태·원본 파일 이름)는 data/safe-rate/versions.json에서 읽는다. 새 버전은 거기에 한 줄 추가.
 // - 왕복 운임은 "행정동별 거리(km) + 거리별 운임표 3종"으로 나눠 저장하고, 빌드할 때 원본 292,320셀을 전부 다시 만들어 대조한다.
 // - 일반 거리표(1~550km)는 고시 본문 표에서 읽는다. 엑셀에는 508개 km만 있어서 엑셀은 대조용.
 // - 검증이 하나라도 실패하면 파일을 쓰지 않고 멈춘다. 값을 보정하지 않는다.
 // - 이미 만든 버전 폴더가 있으면 덮어쓰지 않고 멈춘다(버전을 쌓는다).
+// - 대표값(V1 등 PRD 8장 기대값)은 그 값을 확인한 버전에서만 본다. 다른 버전은 scripts/safe-rate-diff.mjs로 이전 버전과 비교한다.
 // - 규칙 전문: prd/safe-rate.md 1장·5장
 
 import { readFileSync, writeFileSync, existsSync, mkdirSync, statSync } from 'node:fs';
@@ -19,24 +22,31 @@ import * as XLSX from 'xlsx';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const version = process.argv[2];
-if (!version) { console.error('사용: node scripts/build-safe-rate.mjs {고시번호, 예: 2026-402}'); process.exit(1); }
+const DRY = process.argv.includes('--dry-run');
+if (!version) { console.error('사용: node scripts/build-safe-rate.mjs {버전, 예: 2026-402} [--dry-run]'); process.exit(1); }
 
 const RAW = join(ROOT, 'raw', 'safe-rate', version);
 const OUT = join(ROOT, 'data', 'safe-rate', version);
 const REPORT = join(ROOT, 'docs', 'safe-rate', `build-report-${version}.md`);
 
-// 고시별 정보 — 새 고시를 넣을 때 여기에 한 벌 추가
-const NOTICES = {
+// 2026-402는 처음 빌드한 값을 그대로 둔다(meta.json에 이미 기록됨). 그 뒤 버전은 versions.json에서 읽는다
+const LEGACY = {
   '2026-402': {
-    noticeNo: '제2026-402호',
-    title: '2026년 적용 화물자동차 안전운임 고시 일부개정고시',
-    effectiveDate: '2026-08-01',
-    periods: [{ from: '2026-08-01', to: '2026-12-31' }],
+    noticeNo: '제2026-402호', title: '2026년 적용 화물자동차 안전운임 고시 일부개정고시', status: 'final',
+    effectiveDate: '2026-08-01', periods: [{ from: '2026-08-01', to: '2026-12-31' }],
     sourceUrl: 'https://www.molit.go.kr/USR/I0204/m_45/dtl.jsp?idx=18923',
+    files: { notice: 'notice.pdf', roundtrip: 'roundtrip.xlsx', oneway: 'oneway.xlsx' },
   },
 };
-const notice = NOTICES[version];
-if (!notice) { console.error(`고시 정보가 없어요: ${version} — 스크립트의 NOTICES에 추가하세요`); process.exit(1); }
+const entry = JSON.parse(readFileSync(join(ROOT, 'data', 'safe-rate', 'versions.json'), 'utf8')).versions.find((v) => v.id === version);
+if (!entry) { console.error(`버전 정보가 없어요: ${version} — data/safe-rate/versions.json에 추가하세요`); process.exit(1); }
+const from = entry.effectiveFrom || entry.plannedFrom;
+const notice = LEGACY[version] || {
+  noticeNo: entry.noticeNo, title: entry.title, status: entry.status,
+  effectiveDate: from, periods: [{ from, to: entry.effectiveTo || null }],
+  sourceUrl: entry.sourceUrl, files: entry.files,
+  ...(entry.status === 'draft' ? { announcedAt: entry.announcedAt, commentUntil: entry.commentUntil } : {}),
+};
 
 // 기점 14곳 — 왕복 엑셀 시트 순서 그대로. terminalKm은 별표1 35조 터미널 내 거리
 const ORIGINS = [
@@ -80,11 +90,11 @@ const keyOf = (r) => `${r[0]}|${r[1]}|${r[2]}`;
 const sameFares = (a, b) => a.length === b.length && a.every((v, i) => v === b[i]);
 const fail = (msg) => { console.error(`\n빌드 중단: ${msg}\n파일을 쓰지 않았어요.`); process.exit(1); };
 
-for (const f of ['notice.pdf', 'roundtrip.xlsx', 'oneway.xlsx']) {
+for (const f of Object.values(notice.files)) {
   if (!existsSync(join(RAW, f))) fail(`원본이 없어요 — raw/safe-rate/${version}/${f}`);
 }
 for (const f of ['meta.json', 'destinations.json', 'km-tables.json', 'oneway.json'].map((f) => join(OUT, f)).concat(REPORT)) {
-  if (existsSync(f)) fail(`이미 있는 파일이에요 — ${f.slice(ROOT.length + 1)}. 덮어쓰지 않아요(버전을 쌓는 원칙). 필요하면 직접 확인 뒤 옮겨 주세요.`);
+  if (!DRY && existsSync(f)) fail(`이미 있는 파일이에요 — ${f.slice(ROOT.length + 1)}. 덮어쓰지 않아요(버전을 쌓는 원칙). 필요하면 직접 확인 뒤 옮겨 주세요.`);
 }
 
 // ---------- 엑셀 읽기 ----------
@@ -107,8 +117,8 @@ function readSheet(wb, name, cols, textCols) {
   return { rows: out, missing };
 }
 
-const rtBook = XLSX.read(readFileSync(join(RAW, 'roundtrip.xlsx')));
-const owBook = XLSX.read(readFileSync(join(RAW, 'oneway.xlsx')));
+const rtBook = XLSX.read(readFileSync(join(RAW, notice.files.roundtrip)));
+const owBook = XLSX.read(readFileSync(join(RAW, notice.files.oneway)));
 
 const expectedSheets = ORIGINS.map((o) => o.name);
 check('S0', '왕복 시트 이름·순서', JSON.stringify(rtBook.SheetNames) === JSON.stringify(expectedSheets),
@@ -157,37 +167,61 @@ const sheetKm = {};
 }
 
 // ---------- 고시 본문 거리별 운임표(일반, 1~550km) ----------
-// 한 장에 좌우 두 쪽이 놓여 있어 같은 높이의 두 쪽 행이 섞이지 않게 장 가운데에서 먼저 나눈다.
+// 본문에서 숫자 행을 문서 순서대로 꺼낸다.
+// - PDF: 한 장에 좌우 두 쪽이 놓여 있어 같은 높이의 두 쪽 행이 섞이지 않게 장 가운데에서 먼저 나눈 뒤 줄 단위로 숫자를 모은다.
+// - hwpx(예고안 등): 표 칸(hp:tc)을 순서대로 읽어 숫자 칸 8개가 이어지는 곳을 한 행으로 본다.
+const isNum = (t) => /^\d{1,3}(,\d{3})*$|^\d+$/.test(t);
+const toNum = (t) => Number(t.replace(/,/g, ''));
+async function noticeNumberRows(file) {
+  const rows = [];
+  if (file.toLowerCase().endsWith('.pdf')) {
+    const pdfjs = await import(pathToFileURL(join(ROOT, 'node_modules', 'pdfjs-dist', 'legacy', 'build', 'pdf.mjs')).href);
+    const doc = await pdfjs.getDocument({ data: new Uint8Array(readFileSync(file)), verbosity: 0 }).promise;
+    for (let p = 1; p <= doc.numPages; p++) {
+      const page = await doc.getPage(p);
+      const mid = page.getViewport({ scale: 1 }).width / 2;
+      const items = (await page.getTextContent()).items.filter((it) => it.str && it.str.trim());
+      for (const half of [0, 1]) {
+        const own = items.filter((it) => (it.transform[4] < mid ? 0 : 1) === half)
+          .map((it) => ({ x: it.transform[4], y: it.transform[5], s: it.str.trim() }))
+          .sort((a, b) => b.y - a.y || a.x - b.x);
+        const lines = [];
+        for (const it of own) {
+          const line = lines.at(-1);
+          if (line && Math.abs(line.y - it.y) <= 2) line.items.push(it); else lines.push({ y: it.y, items: [it] });
+        }
+        for (const line of lines) {
+          const tokens = line.items.sort((a, b) => a.x - b.x).flatMap((it) => it.s.split(/\s+/));
+          rows.push(tokens.filter(isNum).map(toNum));
+        }
+      }
+    }
+  } else if (file.toLowerCase().endsWith('.hwpx')) {
+    const zip = XLSX.CFB.read(readFileSync(file), { type: 'buffer' });
+    const sections = zip.FullPaths.filter((p) => /Contents\/section\d+\.xml$/i.test(p)).sort((a, b) => a.localeCompare(b, 'en', { numeric: true }));
+    for (const s of sections) {
+      const xml = Buffer.from(XLSX.CFB.find(zip, s).content).toString('utf8');
+      // 표 한 줄(hp:tr)이 한 행. 칸 수가 다른 시멘트 표가 섞여 읽히지 않게 줄 단위로 끊는다
+      for (const tr of xml.matchAll(/<hp:tr\b[\s\S]*?<\/hp:tr>/g)) {
+        const cells = [...tr[0].matchAll(/<hp:tc\b[\s\S]*?<\/hp:tc>/g)].map((m) => m[0].replace(/<[^>]*>/g, '').trim());
+        rows.push(cells.filter(isNum).map(toNum));
+      }
+    }
+  } else fail(`본문 형식을 모르겠어요 — ${file}`);
+  return rows;
+}
+
 // 채택 조건: (a) 숫자 8개 (b) 운송거리 = 구간거리 × 2 (c) 구간거리 1~550 (d) 같은 구간거리는 처음 나온 행만
 const general = {};
 {
-  const pdfjs = await import(pathToFileURL(join(ROOT, 'node_modules', 'pdfjs-dist', 'legacy', 'build', 'pdf.mjs')).href);
-  const doc = await pdfjs.getDocument({ data: new Uint8Array(readFileSync(join(RAW, 'notice.pdf'))), verbosity: 0 }).promise;
   let candidates = 0, duplicates = 0;
-  for (let p = 1; p <= doc.numPages; p++) {
-    const page = await doc.getPage(p);
-    const mid = page.getViewport({ scale: 1 }).width / 2;
-    const items = (await page.getTextContent()).items.filter((it) => it.str && it.str.trim());
-    for (const half of [0, 1]) {
-      const own = items.filter((it) => (it.transform[4] < mid ? 0 : 1) === half)
-        .map((it) => ({ x: it.transform[4], y: it.transform[5], s: it.str.trim() }))
-        .sort((a, b) => b.y - a.y || a.x - b.x);
-      const lines = [];
-      for (const it of own) {
-        const line = lines.at(-1);
-        if (line && Math.abs(line.y - it.y) <= 2) line.items.push(it); else lines.push({ y: it.y, items: [it] });
-      }
-      for (const line of lines) {
-        const tokens = line.items.sort((a, b) => a.x - b.x).flatMap((it) => it.s.split(/\s+/));
-        const nums = tokens.filter((t) => /^\d{1,3}(,\d{3})*$|^\d+$/.test(t)).map((t) => Number(t.replace(/,/g, '')));
-        if (nums.length !== 8) continue;
-        const [km, tripKm, ...fares] = nums;
-        if (tripKm !== km * 2 || km < 1 || km > GENERAL_MAX_KM) continue;
-        candidates++;
-        if (general[km]) { duplicates++; continue; }
-        general[km] = fares;
-      }
-    }
+  for (const nums of await noticeNumberRows(join(RAW, notice.files.notice))) {
+    if (nums.length !== 8) continue;
+    const [km, tripKm, ...fares] = nums;
+    if (tripKm !== km * 2 || km < 1 || km > GENERAL_MAX_KM) continue;
+    candidates++;
+    if (general[km]) { duplicates++; continue; }
+    general[km] = fares;
   }
   const kms = Object.keys(general).map(Number).sort((a, b) => a - b);
   const missingKm = [];
@@ -313,8 +347,8 @@ const OW = JSON.parse(files['oneway.json']);
     `${fmt(cells)}셀 · 불일치 ${mismatches}건${examples.length ? ` (${examples.join(', ')})` : ''}`);
 }
 
-// ---------- 대표값 (안전운송운임, 저장할 JSON에서 조회) ----------
-{
+// ---------- 대표값 (안전운송운임, 저장할 JSON에서 조회) — PRD 8장 기대값은 2026-402 기준 ----------
+if (version === '2026-402') {
   const oi = Object.fromEntries(ORIGINS.map((o, i) => [o.code, i]));
   const find = (sido, sigungu, dong) => D.find((d) => d[0] === sido && d[1] === sigungu && d[2] === dong);
   const fareOf = (code, d) => T[ORIGINS[oi[code]].kmTable][d[3 + oi[code]]];
@@ -358,7 +392,8 @@ function report(ok) {
     `# 안전운임 고시 데이터 빌드 리포트 — ${notice.noticeNo}`,
     '',
     `- 빌드 일시: ${kst} (KST)`,
-    `- 원본: raw/safe-rate/${version}/ (notice.pdf · roundtrip.xlsx · oneway.xlsx — 저장소에 넣지 않음)`,
+    `- 원본: raw/safe-rate/${version}/ (${Object.values(notice.files).join(' · ')} — 저장소에 넣지 않음)`,
+    ...(notice.status === 'draft' ? [`- 상태: 행정예고안(확정 전) · 예고 ${notice.announcedAt} · 의견 기한 ${notice.commentUntil} · 시행 예정 ${notice.effectiveDate}`] : []),
     `- 명령: node scripts/build-safe-rate.mjs ${version}`,
     `- 결과: ${ok ? '전부 통과' : '실패 — 파일을 쓰지 않음'} (${checks.filter((c) => c.pass).length}/${checks.length})`,
     '',
@@ -372,13 +407,16 @@ function report(ok) {
     console.log(lines.join('\n'));
     fail('검증 실패 — 위 표의 실패 항목을 확인하세요. 값을 보정하지 않았어요.');
   }
+  if (DRY) { console.log(lines.join('\n')); console.log('\n--dry-run: 검증만 했어요. 파일은 쓰지 않았어요.'); return; }
 
   const meta = {
-    source: `국토교통부고시 ${notice.noticeNo} 본문(거리별 운임표)·별첨(기점별 운임 왕복·편도)`,
+    source: `${notice.noticeNo.startsWith('국토교통부') ? '' : '국토교통부고시 '}${notice.noticeNo} 본문(거리별 운임표)·별첨(기점별 운임 왕복·편도)`,
     updatedAt: kst.slice(0, 10),
     count: destinations.length,
     noticeNo: notice.noticeNo,
     title: notice.title,
+    ...(LEGACY[version] ? {} : { status: notice.status }),
+    ...(notice.announcedAt ? { announcedAt: notice.announcedAt, commentUntil: notice.commentUntil } : {}),
     effectiveDate: notice.effectiveDate,
     periods: notice.periods,
     sourceUrl: notice.sourceUrl,

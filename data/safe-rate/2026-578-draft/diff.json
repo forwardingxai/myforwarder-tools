@@ -1,0 +1,281 @@
+{
+  "source": "제2026-402호 ↔ 국토교통부공고 제2026-578호(행정예고) 운임 칸별 비교",
+  "updatedAt": "2026-10-23",
+  "count": 314154,
+  "from": "2026-402",
+  "to": "2026-578-draft",
+  "summary": "11월 1일부터 화주 운임이 평균 1.6% 내려요(구간별 0.1%~1.9%) · 부산신항→의왕 부곡동 40FT ₩1,182,400 → ₩1,165,100",
+  "direction": "down",
+  "basis": "화주 운임(안전운송운임) 20FT·40FT, 왕복 14기점 × 3,480곳",
+  "shipper": {
+    "cells": 97440,
+    "same": 0,
+    "up": 0,
+    "down": 97440,
+    "meanPct": -1.6,
+    "minPct": -1.86,
+    "maxPct": -0.15,
+    "minWon": -21800,
+    "maxWon": -200
+  },
+  "example": {
+    "origin": "BNP",
+    "destination": [
+      "경기도",
+      "의왕시",
+      "부곡동"
+    ],
+    "fare": "s40",
+    "from": 1182400,
+    "to": 1165100,
+    "diff": -17300
+  },
+  "roundtrip": {
+    "cells": 292320,
+    "same": 0,
+    "up": 0,
+    "down": 292320,
+    "meanPct": -1.64,
+    "minPct": -1.92,
+    "maxPct": -0.15,
+    "minWon": -21800,
+    "maxWon": -200
+  },
+  "byFare": {
+    "w40": {
+      "cells": 48720,
+      "same": 0,
+      "up": 0,
+      "down": 48720,
+      "meanPct": -1.69,
+      "minPct": -1.92,
+      "maxPct": -0.23,
+      "minWon": -20300,
+      "maxWon": -300
+    },
+    "b40": {
+      "cells": 48720,
+      "same": 0,
+      "up": 0,
+      "down": 48720,
+      "meanPct": -1.65,
+      "minPct": -1.9,
+      "maxPct": -0.22,
+      "minWon": -21100,
+      "maxWon": -300
+    },
+    "s40": {
+      "cells": 48720,
+      "same": 0,
+      "up": 0,
+      "down": 48720,
+      "meanPct": -1.61,
+      "minPct": -1.86,
+      "maxPct": -0.2,
+      "minWon": -21800,
+      "maxWon": -300
+    },
+    "w20": {
+      "cells": 48720,
+      "same": 0,
+      "up": 0,
+      "down": 48720,
+      "meanPct": -1.68,
+      "minPct": -1.92,
+      "maxPct": -0.18,
+      "minWon": -17900,
+      "maxWon": -200
+    },
+    "b20": {
+      "cells": 48720,
+      "same": 0,
+      "up": 0,
+      "down": 48720,
+      "meanPct": -1.64,
+      "minPct": -1.89,
+      "maxPct": -0.17,
+      "minWon": -18600,
+      "maxWon": -200
+    },
+    "s20": {
+      "cells": 48720,
+      "same": 0,
+      "up": 0,
+      "down": 48720,
+      "meanPct": -1.59,
+      "minPct": -1.85,
+      "maxPct": -0.15,
+      "minWon": -19100,
+      "maxWon": -200
+    }
+  },
+  "byOrigin": {
+    "BNP": {
+      "cells": 20880,
+      "same": 0,
+      "up": 0,
+      "down": 20880,
+      "meanPct": -1.6,
+      "minPct": -1.92,
+      "maxPct": -0.35,
+      "minWon": -18800,
+      "maxWon": -500
+    },
+    "BSP": {
+      "cells": 20880,
+      "same": 0,
+      "up": 0,
+      "down": 20880,
+      "meanPct": -1.57,
+      "minPct": -1.92,
+      "maxPct": -0.35,
+      "minWon": -18800,
+      "maxWon": -500
+    },
+    "ICN": {
+      "cells": 20880,
+      "same": 0,
+      "up": 0,
+      "down": 20880,
+      "meanPct": -1.63,
+      "minPct": -1.92,
+      "maxPct": -0.5,
+      "minWon": -21700,
+      "maxWon": -900
+    },
+    "ICO": {
+      "cells": 20880,
+      "same": 0,
+      "up": 0,
+      "down": 20880,
+      "meanPct": -1.61,
+      "minPct": -1.92,
+      "maxPct": -0.22,
+      "minWon": -21800,
+      "maxWon": -400
+    },
+    "ICF": {
+      "cells": 20880,
+      "same": 0,
+      "up": 0,
+      "down": 20880,
+      "meanPct": -1.61,
+      "minPct": -1.92,
+      "maxPct": -0.5,
+      "minWon": -21800,
+      "maxWon": -900
+    },
+    "GWY": {
+      "cells": 20880,
+      "same": 0,
+      "up": 0,
+      "down": 20880,
+      "meanPct": -1.67,
+      "minPct": -1.92,
+      "maxPct": -0.58,
+      "minWon": -19400,
+      "maxWon": -900
+    },
+    "PTK": {
+      "cells": 20880,
+      "same": 0,
+      "up": 0,
+      "down": 20880,
+      "meanPct": -1.73,
+      "minPct": -1.92,
+      "maxPct": -0.57,
+      "minWon": -20200,
+      "maxWon": -1000
+    },
+    "USN": {
+      "cells": 20880,
+      "same": 0,
+      "up": 0,
+      "down": 20880,
+      "meanPct": -1.61,
+      "minPct": -1.92,
+      "maxPct": -0.63,
+      "minWon": -18600,
+      "maxWon": -1000
+    },
+    "USO": {
+      "cells": 20880,
+      "same": 0,
+      "up": 0,
+      "down": 20880,
+      "meanPct": -1.61,
+      "minPct": -1.92,
+      "maxPct": -0.35,
+      "minWon": -18600,
+      "maxWon": -500
+    },
+    "PHK": {
+      "cells": 20880,
+      "same": 0,
+      "up": 0,
+      "down": 20880,
+      "meanPct": -1.66,
+      "minPct": -1.92,
+      "maxPct": -0.63,
+      "minWon": -18100,
+      "maxWon": -1000
+    },
+    "GSN": {
+      "cells": 20880,
+      "same": 0,
+      "up": 0,
+      "down": 20880,
+      "meanPct": -1.72,
+      "minPct": -1.92,
+      "maxPct": -0.78,
+      "minWon": -18400,
+      "maxWon": -1300
+    },
+    "MSN": {
+      "cells": 20880,
+      "same": 0,
+      "up": 0,
+      "down": 20880,
+      "meanPct": -1.64,
+      "minPct": -1.92,
+      "maxPct": -0.15,
+      "minWon": -19200,
+      "maxWon": -200
+    },
+    "DSN": {
+      "cells": 20880,
+      "same": 0,
+      "up": 0,
+      "down": 20880,
+      "meanPct": -1.73,
+      "minPct": -1.92,
+      "maxPct": -0.73,
+      "minWon": -17800,
+      "maxWon": -1100
+    },
+    "UWI": {
+      "cells": 20880,
+      "same": 0,
+      "up": 0,
+      "down": 20880,
+      "meanPct": -1.59,
+      "minPct": -1.92,
+      "maxPct": -0.25,
+      "minWon": -17700,
+      "maxWon": -400
+    }
+  },
+  "oneway": {
+    "cells": 21834,
+    "same": 0,
+    "up": 0,
+    "down": 21834,
+    "meanPct": -1.43,
+    "minPct": -1.73,
+    "maxPct": -1.18,
+    "minWon": -16200,
+    "maxWon": -7000
+  },
+  "sameDestinations": true,
+  "sameOnewayDistances": true
+}

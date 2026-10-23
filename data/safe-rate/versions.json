@@ -1,0 +1,39 @@
+{
+  "source": "국토교통부 행정규칙 게시판(화물자동차 안전운임) — 버전 목록. 화면 탭과 빌드·감시 스크립트가 함께 읽음",
+  "updatedAt": "2026-10-23",
+  "count": 2,
+  "note": "status: final(확정 고시) · draft(행정예고안, 확정 전) · superseded(확정 고시로 대체된 예고안). 적용기간은 이 목록이 기준(각 버전 meta.json의 periods는 빌드 당시 기록). effectiveTo가 null이면 다음 확정 고시 전날까지",
+  "versions": [
+    {
+      "id": "2026-402",
+      "status": "final",
+      "noticeNo": "제2026-402호",
+      "title": "2026년 적용 화물자동차 안전운임 일부개정고시",
+      "effectiveFrom": "2026-08-01",
+      "effectiveTo": null,
+      "sourceUrl": "https://www.molit.go.kr/USR/I0204/m_45/dtl.jsp?idx=18923",
+      "boardIdx": 18923,
+      "files": { "notice": "notice.pdf", "roundtrip": "roundtrip.xlsx", "oneway": "oneway.xlsx" },
+      "dongMap": "2026-402"
+    },
+    {
+      "id": "2026-578-draft",
+      "status": "draft",
+      "noticeNo": "국토교통부공고 제2026-578호(행정예고)",
+      "title": "2026년 적용 화물자동차 안전운임 고시 일부개정고시안",
+      "announcedAt": "2026-10-20",
+      "commentUntil": "2026-10-26",
+      "plannedFrom": "2026-11-01",
+      "reason": "고시 뒤 3개월 평균 유가가 50원 넘게 움직여 유가를 운임에 반영(유가 연동), 전배운송 운임 수정",
+      "sourceUrl": "https://www.molit.go.kr/USR/I0204/m_45/dtl.jsp?idx=18996",
+      "boardIdx": 18996,
+      "files": {
+        "notice": "2._(개정안)_2026년_적용_화물자동차_안전운임_고시_일부개정.hwpx",
+        "roundtrip": "5._(별첨)_수출입_컨테이너_품목_기점별_운임(왕복).xlsx",
+        "oneway": "4._(별첨)_수출입_컨테이너_품목_기점별_운임(편도).xlsx"
+      },
+      "compareTo": "2026-402",
+      "dongMap": "2026-402"
+    }
+  ]
+}
